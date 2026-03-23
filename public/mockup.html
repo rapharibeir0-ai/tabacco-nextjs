@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitrine — Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #f4f2ef;
+    --white:     #ffffff;
+    --border:    #e5e1db;
+    --ink:       #1e1b18;
+    --dim:       #7a7268;
+    --muted:     #b0aba3;
+    --brand-red: #9b3a2a;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding: 2.5rem 1.5rem 6rem;
+  }
+
+  .catalog {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* ── BRAND HEADER ── */
+  .brand-block { display: flex; flex-direction: column; gap: 0; }
+
+  .brand-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .6rem 0 1rem;
+  }
+
+  .brand-monogram {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: .95rem; font-weight: 600;
+    color: var(--ink);
+    flex-shrink: 0;
+    letter-spacing: -.01em;
+  }
+
+  .brand-info { display: flex; flex-direction: column; gap: .15rem; }
+  .brand-name { font-family: var(--sans); font-size: .95rem; font-weight: 600; color: var(--ink); }
+  .brand-desc { font-size: .78rem; color: var(--dim); line-height: 1.4; }
+
+  .brand-divider { height: 1px; background: var(--border); margin-bottom: .85rem; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 200px 1fr 260px 200px;
+  }
+
+  .card.no-variants {
+    grid-template-columns: 200px 1fr 200px;
+  }
+
+  /* Col 1 — Imagem */
+  .card-img {
+    background: #ede9e3;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-img-ph {
+    opacity: .18;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: .85rem; left: .85rem;
+    font-size: .58rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .3rem .65rem;
+    border-radius: 4px;
+    line-height: 1;
+  }
+
+  .badge-exclusivo { background: #7a2a1a; color: #fff; }
+  .badge-limitado  { background: #7a4a1a; color: #fff; }
+  .badge-bestbuy   { background: #1a5a2a; color: #fff; }
+  .badge-novidade  { background: #1a3a7a; color: #fff; }
+  .badge-sameday   { background: #111; color: #fff; }
+  .badge-promocao  { background: #c0392b; color: #fff; }
+
+  /* Col 2 — Info */
+  .card-info {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .card-brand-label {
+    font-size: .6rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--brand-red);
+  }
+
+  .card-name {
+    font-family: var(--serif);
+    font-size: 1.6rem; font-weight: 600;
+    color: var(--ink); line-height: 1.1;
+    margin-top: -.1rem;
+  }
+
+  .card-vitola {
+    font-size: .78rem; color: var(--dim); font-weight: 300;
+    margin-top: -.1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+    font-size: .78rem;
+    color: var(--dim);
+    margin-top: .2rem;
+  }
+
+  .meta-sep { color: var(--border); font-size: .9rem; }
+
+  .intensity-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ibar {
+    width: 28px; height: 7px;
+    border-radius: 100px;
+  }
+
+  /* cada posição tem sua cor */
+  .ibar-1        { background: #c8edd4; }
+  .ibar-1.active { background: #2a9a4a; }
+  .ibar-2        { background: #fde8c8; }
+  .ibar-2.active { background: #e07820; }
+  .ibar-3        { background: #fdd8d4; }
+  .ibar-3.active { background: #d03020; }
+
+  /* label colorido conforme intensidade */
+  .intensity-label.suave { color: #2a9a4a; }
+  .intensity-label.medio { color: #e07820; }
+  .intensity-label.forte { color: #d03020; }
+
+  .card-pairing {
+    font-size: .76rem;
+    color: var(--dim);
+    line-height: 1.5;
+    margin-top: .1rem;
+  }
+
+  .card-shipping {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: #e8f5ec;
+    color: #2a7a4a;
+    font-size: .7rem; font-weight: 600;
+    padding: .3rem .75rem;
+    border-radius: 100px;
+    margin-top: .15rem;
+    width: fit-content;
+  }
+
+  .card-shipping svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  /* Col 3 — Variantes */
+  .card-variants {
+    padding: 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .variants-label {
+    font-size: .6rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .2rem;
+  }
+
+  .variant-card {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: .7rem .9rem;
+    cursor: pointer;
+    transition: border-color .13s;
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    align-items: center;
+    gap: .6rem;
+  }
+
+  .variant-card:hover { border-color: var(--muted); }
+  .variant-card.active { border: 2px solid var(--ink); }
+
+  .variant-icon {
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+  }
+
+  .variant-icon svg { width: 16px; height: 16px; stroke-width: 1.4; }
+
+  .variant-text { display: flex; flex-direction: column; gap: .1rem; }
+  .variant-name { font-size: .82rem; font-weight: 600; color: var(--ink); }
+  .variant-unit { font-size: .68rem; color: var(--muted); }
+
+  .variant-price { text-align: right; }
+  .variant-price-val {
+    font-family: var(--serif);
+    font-size: .95rem; font-weight: 700;
+    color: var(--ink); line-height: 1;
+    display: block;
+  }
+  .variant-price-per { font-size: .63rem; color: var(--muted); display: block; margin-top: .1rem; }
+
+  .variant-discount {
+    font-size: .6rem; font-weight: 700;
+    color: #2a7a4a;
+    background: #e8f5ec;
+    padding: .15rem .4rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: .25rem;
+  }
+
+  /* Col 4 — Preço e ação */
+  .card-action {
+    padding: 1.5rem 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .price-block { text-align: right; }
+
+  .price-val {
+    font-family: var(--serif);
+    font-size: 2.6rem; font-weight: 600;
+    color: var(--ink); line-height: 1;
+    display: block;
+  }
+
+  .price-unit {
+    font-size: .72rem; color: var(--muted); font-weight: 300;
+    margin-top: .2rem; display: block;
+  }
+
+  .stock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-size: .7rem; font-weight: 600;
+    padding: .3rem .75rem;
+    border-radius: 100px;
+    margin-top: .75rem;
+  }
+
+  .stock-pill.in-stock  { background: #e8f5ec; color: #2a7a4a; }
+  .stock-pill.low-stock { background: #fef3e2; color: #a06020; }
+  .stock-pill.out       { background: var(--bg); color: var(--muted); }
+
+  .add-btn {
+    margin-top: auto;
+    width: 100%;
+    background: var(--ink);
+    border: none;
+    color: #fff;
+    font-family: var(--sans);
+    font-size: .78rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .9rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    gap: .5rem;
+    transition: opacity .14s;
+  }
+
+  .add-btn:hover { opacity: .8; }
+  .add-btn:disabled { opacity: .3; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div class="catalog">
+
+  <!-- ══ COHIBA — com variantes ══ -->
+  <div class="brand-block">
+    <div class="brand-header">
+      <div class="brand-monogram">CO</div>
+      <div class="brand-info">
+        <span class="brand-name">Cohiba</span>
+        <span class="brand-desc">Cuba · Est. 1966 · Criada para Fidel Castro, símbolo máximo do charuto cubano.</span>
+      </div>
+    </div>
+    <div class="brand-divider"></div>
+
+    <div class="card">
+
+      <!-- Col 1: Imagem -->
+      <div class="card-img">
+        <span class="card-badge badge-exclusivo">Exclusivo</span>
+        <div class="card-img-ph">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Col 2: Info -->
+      <div class="card-info">
+        <span class="card-brand-label">Cohiba</span>
+        <span class="card-name">Siglo VI</span>
+        <span class="card-vitola">Corona Grande · 52×150mm</span>
+
+        <div class="card-meta">
+          <span class="intensity-bar">
+            <span class="ibar ibar-1"></span>
+            <span class="ibar ibar-2 active"></span>
+            <span class="ibar ibar-3"></span>
+          </span>
+          <span class="intensity-label medio">Médio</span>
+          <span class="meta-sep">·</span>
+          <span>Long-filler</span>
+          <span class="meta-sep">·</span>
+          <span>90–120 min</span>
+        </div>
+
+        <div class="card-pairing">
+          🍷 Whisky · Rum Envelhecido · Conhaque
+        </div>
+
+        <div class="card-shipping">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          Receba ainda hoje
+        </div>
+      </div>
+
+      <!-- Col 3: Variantes -->
+      <div class="card-variants">
+        <div class="variants-label">Quantidade</div>
+
+        <div class="variant-card active">
+          <span class="variant-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </span>
+          <div class="variant-text">
+            <span class="variant-name">Unitário</span>
+            <span class="variant-unit">1 charuto</span>
+          </div>
+          <div class="variant-price">
+            <span class="variant-price-val">R$ 280</span>
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </span>
+          <div class="variant-text">
+            <span class="variant-name">Petaca (3)</span>
+            <span class="variant-unit">R$ 266 / un.</span>
+          </div>
+          <div class="variant-price">
+            <span class="variant-price-val">R$ 798</span>
+            <span class="variant-discount">−5%</span>
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </span>
+          <div class="variant-text">
+            <span class="variant-name">Caixa (25)</span>
+            <span class="variant-unit">R$ 252 / un.</span>
+          </div>
+          <div class="variant-price">
+            <span class="variant-price-val">R$ 6.300</span>
+            <span class="variant-discount">−10%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 4: Preço e ação -->
+      <div class="card-action">
+        <div class="price-block">
+          <span class="price-val">R$ 280</span>
+          <span class="price-unit">unidade</span>
+          <span class="stock-pill in-stock">Em estoque</span>
+        </div>
+        <button class="add-btn">+ Adicionar</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══ BOLÍVAR — sem variantes, pouco estoque ══ -->
+  <div class="brand-block">
+    <div class="brand-header">
+      <div class="brand-monogram">BO</div>
+      <div class="brand-info">
+        <span class="brand-name">Bolívar</span>
+        <span class="brand-desc">Cuba · Est. 1902 · Intensidade e complexidade ímpares.</span>
+      </div>
+    </div>
+    <div class="brand-divider"></div>
+
+    <div class="card no-variants">
+
+      <!-- Col 1: Imagem -->
+      <div class="card-img">
+        <span class="card-badge badge-limitado">Estoque Lim.</span>
+        <div class="card-img-ph">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Col 2: Info -->
+      <div class="card-info">
+        <span class="card-brand-label">Bolívar</span>
+        <span class="card-name">Royal Corona</span>
+        <span class="card-vitola">Petit Corona · 42×124mm</span>
+
+        <div class="card-meta">
+          <span class="intensity-bar">
+            <span class="ibar ibar-1"></span>
+            <span class="ibar ibar-2"></span>
+            <span class="ibar ibar-3 active"></span>
+          </span>
+          <span class="intensity-label forte">Forte</span>
+          <span class="meta-sep">·</span>
+          <span>Long-filler</span>
+          <span class="meta-sep">·</span>
+          <span>30–45 min</span>
+        </div>
+
+        <div class="card-pairing">
+          🍷 Rum Escuro · Espresso · Bourbon
+        </div>
+      </div>
+
+      <!-- Col 3: Preço e ação (sem variantes) -->
+      <div class="card-action">
+        <div class="price-block">
+          <span class="price-val">R$ 145</span>
+          <span class="price-unit">unidade</span>
+          <span class="stock-pill low-stock">Pouco estoque</span>
+        </div>
+        <button class="add-btn">+ Adicionar</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

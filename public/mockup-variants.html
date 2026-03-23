@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variantes — Conceitos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:        #f4f2ef;
+    --white:     #ffffff;
+    --border:    #e5e1db;
+    --ink:       #1e1b18;
+    --dim:       #7a7268;
+    --muted:     #b0aba3;
+    --brand-red: #9b3a2a;
+    --green:     #2a9a4a;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'DM Sans', sans-serif;
+  }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding: 2rem 1.25rem 6rem;
+  }
+  .page { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 3rem; }
+
+  .concept-title {
+    font-size: .6rem; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .concept-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .card-shell {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* ─────────────────────────────────────────
+     CONCEITO 1 — CHIPS HORIZONTAIS
+     Pastilhas em linha. Toque fácil, wrap no mobile.
+     Preço aparece abaixo da seleção.
+  ───────────────────────────────────────── */
+  .c1-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+  }
+  .c1-label {
+    font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .c1-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+  }
+  .c1-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .15rem;
+    padding: .55rem .9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .13s;
+    min-width: 72px;
+    background: var(--white);
+  }
+  .c1-chip:hover { border-color: var(--muted); }
+  .c1-chip.active {
+    border-color: var(--ink);
+    border-width: 2px;
+    background: var(--ink);
+  }
+  .c1-chip-name {
+    font-size: .75rem; font-weight: 600; color: var(--ink); line-height: 1;
+  }
+  .c1-chip.active .c1-chip-name { color: #fff; }
+  .c1-chip-price {
+    font-size: .65rem; color: var(--muted); line-height: 1;
+  }
+  .c1-chip.active .c1-chip-price { color: rgba(255,255,255,.65); }
+  .c1-chip-discount {
+    font-size: .58rem; font-weight: 700;
+    background: #e8f5ec; color: var(--green);
+    padding: .1rem .35rem; border-radius: 4px;
+    line-height: 1.2;
+  }
+  .c1-chip.active .c1-chip-discount {
+    background: rgba(255,255,255,.15); color: #7fe8a0;
+  }
+  .c1-selected-price {
+    display: flex; align-items: baseline; gap: .5rem;
+    padding-top: .5rem;
+    border-top: 1px solid var(--border);
+  }
+  .c1-price-big {
+    font-family: var(--serif);
+    font-size: 1.9rem; font-weight: 600; color: var(--ink);
+  }
+  .c1-price-unit { font-size: .72rem; color: var(--muted); }
+  .c1-add {
+    width: 100%;
+    background: var(--ink); border: none; color: #fff;
+    font-family: var(--sans); font-size: .75rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .85rem; border-radius: 6px;
+    cursor: pointer; transition: opacity .14s;
+  }
+  .c1-add:hover { opacity: .8; }
+
+
+  /* ─────────────────────────────────────────
+     CONCEITO 2 — SEGMENTED CONTROL
+     Uma barra unificada tipo iOS.
+     Muito limpo, ocupa pouco espaço.
+  ───────────────────────────────────────── */
+  .c2-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  .c2-label {
+    font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .c2-segment {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #ede9e3;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 3px;
+  }
+  .c2-seg {
+    display: flex; flex-direction: column; align-items: center;
+    padding: .6rem .5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .15s;
+    gap: .12rem;
+  }
+  .c2-seg.active {
+    background: var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,.1);
+  }
+  .c2-seg-name {
+    font-size: .75rem; font-weight: 600; color: var(--dim);
+  }
+  .c2-seg.active .c2-seg-name { color: var(--ink); }
+  .c2-seg-price {
+    font-family: var(--serif);
+    font-size: .85rem; font-weight: 600; color: var(--muted);
+  }
+  .c2-seg.active .c2-seg-price { color: var(--ink); }
+  .c2-seg-discount {
+    font-size: .58rem; font-weight: 700; color: var(--green);
+  }
+  .c2-detail {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .c2-unit { font-size: .72rem; color: var(--muted); }
+  .c2-add {
+    background: var(--ink); border: none; color: #fff;
+    font-family: var(--sans); font-size: .72rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .7rem 1.5rem; border-radius: 6px;
+    cursor: pointer; transition: opacity .14s; flex-shrink: 0;
+  }
+  .c2-add:hover { opacity: .8; }
+
+
+  /* ─────────────────────────────────────────
+     CONCEITO 3 — LINHAS MINIMALISTAS
+     Cada opção é uma linha limpa com radio.
+     Elegante, fácil de ler, muito mobile-friendly.
+  ───────────────────────────────────────── */
+  .c3-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+  }
+  .c3-label {
+    font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .c3-options { display: flex; flex-direction: column; }
+  .c3-option {
+    display: flex; align-items: center; gap: .85rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity .13s;
+  }
+  .c3-option:last-child { border-bottom: none; }
+  .c3-radio {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .13s;
+  }
+  .c3-option.active .c3-radio {
+    border-color: var(--ink);
+    background: var(--ink);
+  }
+  .c3-radio-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    transition: opacity .13s;
+  }
+  .c3-option.active .c3-radio-dot { opacity: 1; }
+  .c3-name {
+    font-size: .83rem; font-weight: 500; color: var(--dim); flex: 1;
+  }
+  .c3-option.active .c3-name { color: var(--ink); font-weight: 600; }
+  .c3-right { display: flex; align-items: center; gap: .5rem; margin-left: auto; }
+  .c3-price {
+    font-family: var(--serif);
+    font-size: 1rem; font-weight: 600; color: var(--muted); text-align: right;
+  }
+  .c3-option.active .c3-price { color: var(--ink); }
+  .c3-discount {
+    font-size: .6rem; font-weight: 700; color: var(--green);
+    background: #e8f5ec; padding: .15rem .4rem;
+    border-radius: 4px;
+  }
+  .c3-add {
+    width: 100%;
+    background: var(--ink); border: none; color: #fff;
+    font-family: var(--sans); font-size: .75rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .85rem; border-radius: 6px;
+    cursor: pointer; transition: opacity .14s;
+    margin-top: .25rem;
+  }
+  .c3-add:hover { opacity: .8; }
+
+
+  /* ── NOTA MOBILE ── */
+  .mobile-note {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .85rem 1.1rem;
+    font-size: .73rem; color: var(--dim); line-height: 1.55;
+  }
+  .mobile-note strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div style="padding-bottom:.5rem; border-bottom:1px solid var(--border);">
+    <p style="font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--ink);">Variantes — 3 Conceitos</p>
+    <p style="font-size:.78rem;color:var(--dim);margin-top:.35rem;">Cohiba Siglo VI · Unitário selecionado em todos</p>
+  </div>
+
+
+  <!-- ══ CONCEITO 1 ══ -->
+  <div>
+    <div class="concept-title">Conceito 1 — Chips com preço</div>
+    <div class="card-shell">
+      <div class="c1-body">
+        <div class="c1-label">Quantidade</div>
+        <div class="c1-chips">
+          <div class="c1-chip active">
+            <span class="c1-chip-name">Unitário</span>
+            <span class="c1-chip-price">R$ 280</span>
+          </div>
+          <div class="c1-chip">
+            <span class="c1-chip-name">Petaca (3)</span>
+            <span class="c1-chip-price">R$ 798</span>
+            <span class="c1-chip-discount">−5%</span>
+          </div>
+          <div class="c1-chip">
+            <span class="c1-chip-name">Caixa (25)</span>
+            <span class="c1-chip-price">R$ 6.300</span>
+            <span class="c1-chip-discount">−10%</span>
+          </div>
+        </div>
+        <div class="c1-selected-price">
+          <span class="c1-price-big">R$ 280</span>
+          <span class="c1-price-unit">por unidade</span>
+        </div>
+        <button class="c1-add">+ Adicionar ao carrinho</button>
+      </div>
+    </div>
+    <div class="mobile-note" style="margin-top:.65rem;">
+      ✓ Chips se adaptam em 2 colunas no mobile · Toque fácil · Desconto visível antes de selecionar
+    </div>
+  </div>
+
+
+  <!-- ══ CONCEITO 2 ══ -->
+  <div>
+    <div class="concept-title">Conceito 2 — Segmented control</div>
+    <div class="card-shell">
+      <div class="c2-body">
+        <div class="c2-label">Quantidade</div>
+        <div class="c2-segment">
+          <div class="c2-seg active">
+            <span class="c2-seg-name">Unitário</span>
+            <span class="c2-seg-price">R$ 280</span>
+          </div>
+          <div class="c2-seg">
+            <span class="c2-seg-name">Petaca (3)</span>
+            <span class="c2-seg-price">R$ 798</span>
+            <span class="c2-seg-discount">−5%</span>
+          </div>
+          <div class="c2-seg">
+            <span class="c2-seg-name">Caixa (25)</span>
+            <span class="c2-seg-price">R$ 6.300</span>
+            <span class="c2-seg-discount">−10%</span>
+          </div>
+        </div>
+        <div class="c2-detail">
+          <span class="c2-unit">1 charuto · R$ 280/un.</span>
+          <button class="c2-add">+ Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-note" style="margin-top:.65rem;">
+      ✓ Ocupa menos espaço · Estilo iOS familiar · Ideal quando as opções têm nomes curtos
+    </div>
+  </div>
+
+
+  <!-- ══ CONCEITO 3 ══ -->
+  <div>
+    <div class="concept-title">Conceito 3 — Lista com radio</div>
+    <div class="card-shell">
+      <div class="c3-body">
+        <div class="c3-label">Quantidade</div>
+        <div class="c3-options">
+          <div class="c3-option active">
+            <div class="c3-radio"><div class="c3-radio-dot"></div></div>
+            <span class="c3-name">Unitário</span>
+            <div class="c3-right">
+              <span class="c3-price">R$ 280</span>
+            </div>
+          </div>
+          <div class="c3-option">
+            <div class="c3-radio"><div class="c3-radio-dot"></div></div>
+            <span class="c3-name">Petaca (3)</span>
+            <div class="c3-right">
+              <span class="c3-discount">−5%</span>
+              <span class="c3-price">R$ 798</span>
+            </div>
+          </div>
+          <div class="c3-option">
+            <div class="c3-radio"><div class="c3-radio-dot"></div></div>
+            <span class="c3-name">Caixa (25)</span>
+            <div class="c3-right">
+              <span class="c3-discount">−10%</span>
+              <span class="c3-price">R$ 6.300</span>
+            </div>
+          </div>
+        </div>
+        <button class="c3-add">+ Adicionar ao carrinho</button>
+      </div>
+    </div>
+    <div class="mobile-note" style="margin-top:.65rem;">
+      ✓ Mais elegante e legível · Toque fácil em qualquer tamanho de tela · Preço sempre visível
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

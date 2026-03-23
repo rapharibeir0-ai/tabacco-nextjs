@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página de Produto — Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f4f2ef;
+  --white:     #ffffff;
+  --border:    #e5e1db;
+  --ink:       #1e1b18;
+  --dim:       #7a7268;
+  --muted:     #b0aba3;
+  --light:     #ede9e3;
+  --brand-red: #9b3a2a;
+  --green:     #2a9a4a;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: #dedad4;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* ── PAGE META ── */
+.page-meta {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+}
+.page-meta-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: .2rem;
+}
+.page-meta-sub {
+  font-size: .7rem;
+  color: var(--dim);
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ══════════════════════════════════════════
+   DESKTOP FRAME
+══════════════════════════════════════════ */
+.desktop-frame {
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  background: var(--bg);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 40px rgba(0,0,0,.08);
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.02em;
+  flex-shrink: 0;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+}
+.nav-link {
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .12s;
+}
+.nav-link:hover, .nav-link.active { color: var(--ink); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.nav-cart {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: .4rem .85rem;
+  font-family: var(--sans);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.nav-cart svg { width: 13px; height: 13px; flex-shrink: 0; }
+.cart-badge {
+  background: var(--brand-red);
+  color: #fff;
+  font-size: .55rem;
+  font-weight: 700;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  padding: .9rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.bc-item {
+  font-size: .68rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.bc-item.active { color: var(--ink); font-weight: 500; }
+.bc-sep {
+  font-size: .6rem;
+  color: var(--border);
+}
+
+/* ── MAIN PRODUCT SECTION ── */
+.product-section {
+  padding: 2.5rem 2rem;
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* LEFT: Gallery */
+.gallery-col {}
+.gallery-main {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-main-ph {
+  opacity: .08;
+}
+.gallery-badge {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  background: #6e2418;
+  color: #fff;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .3rem .7rem;
+  border-radius: 4px;
+}
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: .65rem;
+  margin-top: .75rem;
+}
+.gallery-thumb {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.gallery-thumb:first-child {
+  border-color: var(--ink);
+}
+.gallery-thumb-ph { opacity: .07; }
+
+/* RIGHT: Info */
+.info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.monogram {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: .92rem; font-weight: 600;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.brand-name-text { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.brand-origin { font-size: .7rem; color: var(--dim); margin-top: .1rem; }
+
+.product-brand-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--brand-red);
+  margin-bottom: .3rem;
+}
+.product-name {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.product-vitola {
+  font-size: .78rem;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+}
+
+/* Meta row */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+.ibar-row { display: inline-flex; align-items: center; gap: 3px; }
+.ibar { width: 26px; height: 6px; border-radius: 100px; }
+.ibar-1        { background: #c8edd4; }
+.ibar-1.on     { background: #2a9a4a; }
+.ibar-2        { background: #fde8c8; }
+.ibar-2.on     { background: #e07820; }
+.ibar-3        { background: #fdd8d4; }
+.ibar-3.on     { background: #d03020; }
+.ilabel { font-size: .75rem; color: var(--dim); }
+.ilabel.medio { color: #e07820; font-weight: 500; }
+.msep { color: var(--border); font-size: .8rem; }
+.mtext { font-size: .75rem; color: var(--dim); display: flex; align-items: center; gap: .3rem; }
+.mtext svg { width: 11px; height: 11px; flex-shrink: 0; opacity: .6; }
+
+/* Pairing */
+.pairing-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.pairing-label {
+  font-size: .65rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.pairing-tag {
+  font-size: .68rem;
+  color: var(--dim);
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: .22rem .65rem;
+  border-radius: 100px;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 1.5rem;
+}
+
+/* Variants — card grid */
+.variants-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .75rem;
+}
+.variants-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .55rem;
+  margin-bottom: 1.5rem;
+}
+.varopt {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  padding: .85rem .9rem;
+  cursor: pointer;
+  transition: border-color .12s, background .12s;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.varopt:hover { border-color: #c0bbb3; }
+.varopt.active {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.varopt.out {
+  opacity: .55;
+  cursor: default;
+  pointer-events: none;
+}
+
+.var-top {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.var-name {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.varopt.active .var-name { color: #fff; }
+.varopt.out .var-name { color: var(--muted); }
+
+.var-discount {
+  font-size: .58rem;
+  font-weight: 700;
+  color: var(--green);
+  background: #e8f5ec;
+  padding: .1rem .35rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.varopt.active .var-discount {
+  background: rgba(255,255,255,.15);
+  color: #8de8a8;
+}
+
+.var-price {
+  font-size: .82rem;
+  font-weight: 400;
+  color: var(--dim);
+  line-height: 1;
+}
+.varopt.active .var-price { color: rgba(255,255,255,.7); }
+.varopt.out .var-price {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.var-stock {
+  font-size: .67rem;
+  font-weight: 600;
+  color: var(--green);
+  margin-top: .05rem;
+}
+.varopt.active .var-stock { color: #8de8a8; }
+.varopt.out .var-stock { color: var(--muted); font-weight: 400; }
+
+/* Price block */
+.price-block {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: .65rem;
+}
+.price-val {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.price-meta {
+  padding-bottom: .35rem;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+.price-unit {
+  font-size: .7rem;
+  color: var(--muted);
+}
+.price-perunit {
+  font-size: .7rem;
+  color: var(--dim);
+  font-weight: 500;
+}
+
+/* Status pills row */
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.stock-pill {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .67rem; font-weight: 600;
+  padding: .28rem .7rem; border-radius: 100px;
+}
+.stock-pill.in { background: #e8f5ec; color: var(--green); }
+.stock-pill svg { width: 11px; height: 11px; }
+.ship-pill {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .67rem; font-weight: 500;
+  color: var(--dim);
+}
+.ship-pill svg { width: 11px; height: 11px; opacity: .7; }
+
+/* CTA button */
+.btn-add {
+  width: 100%;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: var(--sans);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  transition: opacity .14s;
+  margin-bottom: 1.5rem;
+}
+.btn-add:hover { opacity: .8; }
+.btn-add svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* CEP calculator */
+.cep-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .9rem 1rem;
+  margin-bottom: 1.5rem;
+}
+.cep-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .55rem;
+}
+.cep-input-row {
+  display: flex; gap: .5rem;
+}
+.cep-input {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: .82rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  padding: .55rem .75rem;
+  outline: none;
+}
+.cep-input::placeholder { color: var(--muted); }
+.cep-btn {
+  background: var(--ink); border: none; color: #fff;
+  font-family: var(--sans); font-size: .68rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: .55rem 1rem; border-radius: 6px;
+  cursor: pointer; white-space: nowrap;
+  display: flex; align-items: center; gap: .35rem;
+}
+.cep-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+.cep-result {
+  margin-top: .75rem;
+  display: flex; flex-direction: column; gap: .4rem;
+}
+.cep-option {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .55rem .6rem;
+  border-radius: 6px;
+  background: var(--bg);
+}
+.cep-option-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cep-option-icon.fast  { background: #dcfce7; color: #166534; }
+.cep-option-icon.mid   { background: #fef9c3; color: #854d0e; }
+.cep-option-icon svg { width: 13px; height: 13px; }
+.cep-option-info { flex: 1; }
+.cep-option-name { font-size: .75rem; font-weight: 600; color: var(--ink); }
+.cep-option-days { font-size: .68rem; color: var(--dim); margin-top: .05rem; }
+.cep-option-price {
+  font-family: var(--serif);
+  font-size: .9rem; font-weight: 600; color: var(--ink);
+}
+.cep-option-price.free { color: var(--green); font-family: var(--sans); font-size: .72rem; font-weight: 700; }
+.cep-link {
+  font-size: .65rem; color: var(--muted); margin-top: .3rem;
+  display: inline-flex; align-items: center; gap: .25rem; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* Brand bio */
+.brand-bio {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: 0 7px 7px 0;
+  padding: .9rem 1.1rem;
+}
+.brand-bio-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .4rem;
+}
+.brand-bio-text {
+  font-size: .78rem;
+  color: var(--dim);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* ── ESTADOS DO COMPONENTE CEP ── */
+.states-section {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+.states-title {
+  font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #8a8680;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.states-title::after { content:''; flex:1; height:1px; background:#ccc9c3; }
+.states-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.state-card {
+  background: var(--bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.state-card-label {
+  padding: .65rem 1rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: .5rem;
+}
+.state-card-label-text {
+  font-size: .62rem; font-weight: 600; color: var(--dim);
+}
+.state-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.state-dot.empty  { background: var(--muted); }
+.state-dot.filled { background: var(--green); }
+.state-card-body {
+  padding: 1.25rem;
+}
+
+/* ── FICHA TÉCNICA SECTION ── */
+.ficha-section {
+  padding: 0 2rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.ficha-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 3rem;
+  align-items: start;
+}
+
+/* Bloco descricao */
+.ficha-desc {
+  grid-column: 1 / -1;
+}
+.ficha-block-title {
+  font-size: .6rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .9rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.ficha-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.ficha-desc-text {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 300;
+  color: var(--dim);
+  line-height: 1.85;
+  font-style: italic;
+  max-width: 72ch;
+}
+
+/* Tabela de specs */
+.ficha-table {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.ficha-row {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.ficha-row:last-child { border-bottom: none; }
+.ficha-key {
+  width: 140px; flex-shrink: 0;
+  padding: .65rem .9rem;
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .04em; color: var(--muted);
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+}
+.ficha-val {
+  padding: .65rem .9rem;
+  font-size: .78rem; color: var(--ink);
+  flex: 1; line-height: 1.4;
+}
+
+/* ── FICHA TÉCNICA NOVA ── */
+.ft-wrap {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: .75rem;
+}
+.ft-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 1.5rem 1.75rem;
+  border-right: 1px solid var(--border);
+}
+.ft-spec {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-template-rows: auto auto;
+  gap: 0 .6rem;
+  padding: .95rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.ft-spec:nth-last-child(-n+2) { border-bottom: none; }
+.ft-spec-ico {
+  grid-row: 1 / 3;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+}
+.ft-spec-ico svg { display: block; }
+.ft-spec-label {
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); line-height: 1; padding-top: .1rem;
+}
+.ft-spec-val {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--ink); line-height: 1.2; margin-top: .25rem;
+}
+/* Cigar panel */
+.ft-cigar-panel {
+  padding: 1.5rem 1.5rem 1.25rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  background: var(--bg);
+}
+.ft-cigar-heading {
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+}
+.ft-cigar-svg { width: 100%; display: block; }
+.ft-thirds {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--border); border-radius: 9px;
+  overflow: hidden; background: var(--white);
+}
+.ft-third {
+  padding: .7rem .85rem;
+  border-bottom: 1px solid var(--border);
+}
+.ft-third:last-child { border-bottom: none; }
+.ft-third-name {
+  font-size: .56rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .2rem;
+}
+.ft-third-notes {
+  font-size: .78rem; color: var(--ink); line-height: 1.4;
+}
+.ft-extra {
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.ft-extra-row {
+  font-size: .7rem; color: var(--dim); display: flex; gap: .4rem;
+}
+.ft-extra-row strong { color: var(--ink); font-weight: 600; }
+
+/* Harmonizacoes */
+.harm-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+}
+.harm-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: .9rem .85rem;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: .35rem;
+}
+.harm-icon { font-size: 1.5rem; line-height: 1; }
+.harm-name { font-size: .73rem; font-weight: 600; color: var(--ink); }
+.harm-tip { font-size: .63rem; color: var(--dim); line-height: 1.45; }
+
+/* Mobile CEP */
+.m-cep-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .8rem .9rem;
+  margin-bottom: 1rem;
+}
+.m-cep-label {
+  font-size: .55rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .5rem;
+}
+.m-cep-row { display: flex; gap: .4rem; }
+.m-cep-input {
+  flex: 1;
+  font-family: var(--sans); font-size: .78rem; color: var(--ink);
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 6px; padding: .5rem .65rem; outline: none;
+}
+.m-cep-input::placeholder { color: var(--muted); }
+.m-cep-btn {
+  background: var(--ink); border: none; color: #fff;
+  font-family: var(--sans); font-size: .62rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: .5rem .85rem; border-radius: 6px; cursor: pointer;
+}
+.m-cep-result {
+  margin-top: .65rem;
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.m-cep-opt {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .45rem .5rem; border-radius: 6px; background: var(--bg);
+}
+.m-cep-opt-icon {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.m-cep-opt-icon.fast { background: #dcfce7; color: #166534; }
+.m-cep-opt-icon.mid  { background: #fef9c3; color: #854d0e; }
+.m-cep-opt-icon svg { width: 11px; height: 11px; }
+.m-cep-opt-info { flex: 1; }
+.m-cep-opt-name { font-size: .7rem; font-weight: 600; color: var(--ink); }
+.m-cep-opt-days { font-size: .62rem; color: var(--dim); }
+.m-cep-opt-price { font-size: .72rem; font-weight: 600; color: var(--ink); }
+.m-cep-opt-price.free { color: var(--green); }
+
+/* ── ALSO LIKE SECTION ── */
+.also-section {
+  padding: 0 2rem 2.5rem;
+}
+.also-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: .3rem;
+}
+.also-sub {
+  font-size: .7rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.also-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.also-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.also-card-img {
+  background: var(--light);
+  aspect-ratio: 5/3;
+  display: flex; align-items: center; justify-content: center;
+}
+.also-card-img-ph { opacity: .08; }
+.also-card-body {
+  padding: .9rem 1rem 1rem;
+}
+.also-card-brand {
+  font-size: .55rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--brand-red);
+  margin-bottom: .15rem;
+}
+.also-card-name {
+  font-family: var(--serif);
+  font-size: 1.15rem; font-weight: 600;
+  color: var(--ink); line-height: 1.1;
+  margin-bottom: .2rem;
+}
+.also-card-vitola {
+  font-size: .65rem; color: var(--muted); margin-bottom: .55rem;
+}
+.also-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.also-card-price {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--ink);
+}
+.also-card-btn {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: .3rem .7rem;
+  font-size: .62rem; font-weight: 600;
+  font-family: var(--sans);
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink); cursor: pointer;
+}
+
+
+/* ══════════════════════════════════════════
+   MOBILE FRAME
+══════════════════════════════════════════ */
+.mobile-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.mobile-section-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: #8a8680;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.mobile-section-label::before,
+.mobile-section-label::after { content:''; flex:1; height:1px; background:#ccc9c3; }
+
+.mobile-frame {
+  max-width: 390px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow: 0 0 0 10px #2a2620, 0 25px 70px rgba(0,0,0,.4);
+  position: relative;
+}
+/* Notch */
+.mobile-notch {
+  background: #2a2620;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notch-pill {
+  width: 120px; height: 28px;
+  background: #111;
+  border-radius: 0 0 18px 18px;
+}
+.mobile-inner {
+  overflow: hidden;
+}
+
+/* Mobile navbar */
+.m-navbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.1rem;
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.m-nav-back {
+  display: flex; align-items: center; gap: .3rem;
+  font-size: .72rem; font-weight: 500; color: var(--ink);
+}
+.m-nav-back svg { width: 14px; height: 14px; }
+.m-nav-logo {
+  font-family: var(--serif);
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--ink);
+}
+.m-nav-cart { position: relative; }
+.m-nav-cart svg { width: 20px; height: 20px; color: var(--ink); }
+.m-cart-dot {
+  position: absolute; top: -3px; right: -3px;
+  width: 8px; height: 8px;
+  background: var(--brand-red);
+  border-radius: 50%;
+  border: 1.5px solid var(--bg);
+}
+
+/* Mobile gallery */
+.m-gallery {
+  background: var(--light);
+  aspect-ratio: 4/3;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.m-gallery-ph { opacity: .08; }
+.m-gallery-badge {
+  position: absolute; top: .8rem; left: .8rem;
+  background: #6e2418; color: #fff;
+  font-size: .5rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .22rem .55rem; border-radius: 3px;
+}
+.m-gallery-dots {
+  position: absolute; bottom: .75rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: .35rem;
+}
+.m-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(30,27,24,.2);
+}
+.m-dot.on { background: var(--ink); width: 16px; border-radius: 3px; }
+
+/* Mobile content */
+.m-content {
+  padding: 1.25rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.m-brand-row {
+  display: flex; align-items: center; gap: .65rem;
+  padding-bottom: .85rem;
+  margin-bottom: .85rem;
+  border-bottom: 1px solid var(--border);
+}
+.m-monogram {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: .75rem; font-weight: 600;
+  color: var(--ink); flex-shrink: 0;
+}
+.m-brand-name { font-size: .8rem; font-weight: 600; color: var(--ink); }
+.m-brand-origin { font-size: .62rem; color: var(--dim); margin-top: .05rem; }
+
+.m-product-brand {
+  font-size: .55rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--brand-red);
+  margin-bottom: .2rem;
+}
+.m-product-name {
+  font-family: var(--serif);
+  font-size: 2.2rem; font-weight: 600;
+  color: var(--ink); line-height: 1;
+  margin-bottom: .25rem;
+}
+.m-product-vitola {
+  font-size: .7rem; color: var(--muted); margin-bottom: .9rem;
+}
+.m-meta-row {
+  display: flex; align-items: center; gap: .45rem;
+  flex-wrap: wrap; margin-bottom: .65rem;
+}
+.m-ibar { width: 20px; height: 5px; border-radius: 100px; }
+.m-pairing-row {
+  display: flex; align-items: center; gap: .4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+.m-pairing-tag {
+  font-size: .63rem; color: var(--dim);
+  background: var(--white); border: 1px solid var(--border);
+  padding: .18rem .55rem; border-radius: 100px;
+}
+.m-divider { height: 1px; background: var(--border); margin-bottom: 1rem; }
+
+/* Mobile variants — card grid */
+.m-variants-label {
+  font-size: .55rem; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .6rem;
+}
+.m-variants-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .4rem;
+  margin-bottom: 1rem;
+}
+.m-varopt {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: .7rem .65rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+.m-varopt.active {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.m-varopt.out {
+  opacity: .55;
+  pointer-events: none;
+}
+.m-var-top { display: flex; align-items: center; gap: .3rem; flex-wrap: wrap; }
+.m-var-name { font-size: .72rem; font-weight: 600; color: var(--ink); line-height: 1.1; }
+.m-varopt.active .m-var-name { color: #fff; }
+.m-varopt.out .m-var-name { color: var(--muted); }
+.m-var-disc {
+  font-size: .55rem; font-weight: 700; color: var(--green);
+  background: #e8f5ec; padding: .08rem .28rem; border-radius: 3px;
+}
+.m-varopt.active .m-var-disc { background: rgba(255,255,255,.15); color: #8de8a8; }
+.m-var-price { font-size: .7rem; color: var(--dim); }
+.m-varopt.active .m-var-price { color: rgba(255,255,255,.7); }
+.m-varopt.out .m-var-price { text-decoration: line-through; color: var(--muted); }
+.m-var-stock { font-size: .62rem; font-weight: 600; color: var(--green); }
+.m-varopt.active .m-var-stock { color: #8de8a8; }
+.m-varopt.out .m-var-stock { color: var(--muted); font-weight: 400; }
+
+/* Mobile footer bar */
+.m-footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: .85rem 1.1rem;
+  display: flex; align-items: center; gap: .85rem;
+}
+.m-footer-price {}
+.m-footer-price-val {
+  font-family: var(--serif);
+  font-size: 1.75rem; font-weight: 600;
+  color: var(--ink); line-height: 1;
+}
+.m-footer-unit {
+  font-size: .62rem; color: var(--muted); margin-top: .1rem;
+}
+.m-footer-stock {
+  font-size: .6rem; font-weight: 600; color: var(--green);
+}
+.m-btn-add {
+  flex: 1;
+  background: var(--ink); border: none; color: #fff;
+  font-family: var(--sans); font-size: .7rem; font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase;
+  padding: .9rem; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+  cursor: pointer;
+}
+.m-btn-add svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* Home indicator */
+.home-indicator {
+  background: var(--white);
+  padding: .55rem 0 .4rem;
+  display: flex; justify-content: center;
+}
+.home-bar {
+  width: 120px; height: 4px;
+  background: rgba(30,27,24,.2);
+  border-radius: 2px;
+}
+
+/* ── DESIGN NOTES ── */
+.notes-section {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+.note-title {
+  font-size: .6rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .45rem;
+}
+.note-text { font-size: .78rem; color: var(--dim); line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<!-- ── PAGE META ── -->
+<div class="page-meta">
+  <p class="page-meta-title">Página de Produto</p>
+  <p class="page-meta-sub">Desktop (acima) · Mobile 390px (abaixo) · Cohiba Siglo VI · Variante "Petaca" selecionada</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DESKTOP FRAME
+══════════════════════════════════════════ -->
+<div class="desktop-frame">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <span class="nav-logo">Tabacco.</span>
+    <div class="nav-links">
+      <a class="nav-link active">Catálogo</a>
+      <a class="nav-link">Marcas</a>
+      <a class="nav-link">Acessórios</a>
+      <a class="nav-link">Sobre</a>
+    </div>
+    <div class="nav-right">
+      <button class="nav-cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Carrinho
+        <span class="cart-badge">2</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a class="bc-item">Catálogo</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-item">Cubanos</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-item">Cohiba</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-item active">Siglo VI</span>
+  </div>
+
+  <!-- MAIN PRODUCT SECTION -->
+  <div class="product-section">
+
+    <!-- LEFT: GALLERY -->
+    <div class="gallery-col">
+      <div class="gallery-main">
+        <span class="gallery-badge">Exclusivo</span>
+        <div class="gallery-main-ph">
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-ph">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>
+          </div>
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-ph">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+        </div>
+        <div class="gallery-thumb">
+          <div class="gallery-thumb-ph">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: INFO -->
+    <div class="info-col">
+
+      <!-- Brand row -->
+      <div class="brand-row">
+        <div class="monogram">CO</div>
+        <div>
+          <div class="brand-name-text">Cohiba</div>
+          <div class="brand-origin">Cuba · Est. 1966</div>
+        </div>
+      </div>
+
+      <!-- Product name -->
+      <div class="product-brand-label">Cohiba</div>
+      <div class="product-name">Siglo VI</div>
+      <div class="product-vitola">Corona Grande · 52×150mm</div>
+
+      <!-- Meta row -->
+      <div class="meta-row">
+        <span class="ibar-row">
+          <span class="ibar ibar-1"></span>
+          <span class="ibar ibar-2 on"></span>
+          <span class="ibar ibar-3"></span>
+        </span>
+        <span class="ilabel medio">Médio</span>
+        <span class="msep">·</span>
+        <span class="mtext">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg>
+          Long-filler
+        </span>
+        <span class="msep">·</span>
+        <span class="mtext">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          90–120 min
+        </span>
+      </div>
+
+      <!-- Pairing -->
+      <div class="pairing-row">
+        <span class="pairing-label">Harmoniza</span>
+        <span class="pairing-tag">🍷 Whisky</span>
+        <span class="pairing-tag">🥃 Rum Envelhecido</span>
+        <span class="pairing-tag">🍶 Conhaque</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Variants -->
+      <div class="variants-label">Quantidade</div>
+      <div class="variants-list">
+
+        <div class="varopt active">
+          <div class="var-top">
+            <span class="var-name">Unitário</span>
+          </div>
+          <span class="var-price">R$ 280,00</span>
+          <span class="var-stock">Em estoque</span>
+        </div>
+
+        <div class="varopt">
+          <div class="var-top">
+            <span class="var-name">Petaca (3)</span>
+            <span class="var-discount">−5%</span>
+          </div>
+          <span class="var-price">R$ 798,00</span>
+          <span class="var-stock">Em estoque</span>
+        </div>
+
+        <div class="varopt out">
+          <div class="var-top">
+            <span class="var-name">Caixa (25)</span>
+            <span class="var-discount">−10%</span>
+          </div>
+          <span class="var-price">R$ 6.300,00</span>
+          <span class="var-stock">Esgotado</span>
+        </div>
+
+      </div>
+
+      <!-- Price -->
+      <div class="price-block">
+        <span class="price-val">R$ 798</span>
+        <div class="price-meta">
+          <span class="price-unit">petaca c/ 3</span>
+          <span class="price-perunit">R$ 266 / unid.</span>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="status-row">
+        <span class="stock-pill in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Em estoque
+        </span>
+        <span class="ship-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Receba ainda hoje
+        </span>
+      </div>
+
+      <!-- CTA -->
+      <button class="btn-add">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Adicionar ao Carrinho
+      </button>
+
+      <!-- CEP calculator — estado vazio (padrão) -->
+      <div class="cep-block">
+        <div class="cep-label">Calcular frete e prazo</div>
+        <div class="cep-input-row">
+          <input class="cep-input" type="text" placeholder="00000-000" maxlength="9">
+          <button class="cep-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Calcular
+          </button>
+        </div>
+      </div>
+
+      <!-- Brand bio -->
+      <div class="brand-bio">
+        <div class="brand-bio-label">Sobre a marca</div>
+        <div class="brand-bio-text">Cuba · Est. 1966 · Criada para Fidel Castro, símbolo máximo do charuto cubano. Produzida exclusivamente na fábrica El Laguito, em Havana, a Cohiba representa o ápice da tradição tabagista cubana.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FICHA TÉCNICA -->
+  <div class="ficha-section">
+    <div class="ficha-grid">
+
+      <!-- Descrição -->
+      <div class="ficha-desc">
+        <div class="ficha-block-title">Descrição</div>
+        <p class="ficha-desc-text">O Cohiba Siglo VI é um dos charutos cubanos mais reverenciados do mundo. Lançado em 2003 para celebrar o novo milênio, representa o ápice da arte tabagista cubana — com um perfil médio-pleno, rico em notas de cedro, couro e especiarias, com um acabamento suave e prolongado. Cada charuto é enrolado à mão por torcedores de primeira linha na fábrica El Laguito, em Havana.</p>
+      </div>
+
+      <!-- Ficha técnica + Notas de sabor — novo layout -->
+      <div style="grid-column: 1 / -1">
+        <div class="ficha-block-title">Ficha Técnica</div>
+        <div class="ft-wrap">
+
+          <!-- Esquerda: grid de specs com ícones -->
+          <div class="ft-specs">
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 8 22l4-2 4 2-1-8.5"/></svg></div>
+              <div class="ft-spec-label">Marca</div>
+              <div class="ft-spec-val">Cohiba</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2m1-5 2 2m1-5 2 2"/></svg></div>
+              <div class="ft-spec-label">Vitola</div>
+              <div class="ft-spec-val">Corona Grande</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></div>
+              <div class="ft-spec-label">Medida</div>
+              <div class="ft-spec-val">52 × 150 mm</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <div class="ft-spec-label">Anel</div>
+              <div class="ft-spec-val">52 ring gauge</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="ft-spec-label">Duração</div>
+              <div class="ft-spec-val">90–120 min</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 6-6 8-6 14a6 6 0 0 0 12 0c0-6-6-8-6-14z"/><path d="M12 12c0 3-2 4-2 7a2 2 0 0 0 4 0c0-3-2-4-2-7z"/></svg></div>
+              <div class="ft-spec-label">Intensidade</div>
+              <div class="ft-spec-val">Médio</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+              <div class="ft-spec-label">Miolo</div>
+              <div class="ft-spec-val">Long-filler · Cuba</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div class="ft-spec-label">Origem</div>
+              <div class="ft-spec-val">Cuba · El Laguito</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+              <div class="ft-spec-label">Capa</div>
+              <div class="ft-spec-val">Colorado Claro · Cuba</div>
+            </div>
+
+            <div class="ft-spec">
+              <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+              <div class="ft-spec-label">Linha</div>
+              <div class="ft-spec-val">Siglo</div>
+            </div>
+
+          </div>
+
+          <!-- Direita: charuto anotado por terço -->
+          <div class="ft-cigar-panel">
+            <div class="ft-cigar-heading">Notas de Sabor por Terço</div>
+
+            <!-- Ilustração do charuto com anotações -->
+            <svg class="ft-cigar-svg" viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- ── Forma do charuto ── -->
+                <clipPath id="cc">
+                  <!-- Cabeça cônica (esq) + pé aberto/blunt (dir) -->
+                  <path d="
+                    M 52,46
+                    L 232,46
+                    C 248,46 258,55 260,68
+                    C 258,81 248,90 232,90
+                    L 52,90
+                    C 28,90 12,81 12,68
+                    C 12,55 28,46 52,46
+                    Z
+                  "/>
+                </clipPath>
+                <!-- Cor base do tabaco (maduro escuro uniforme) -->
+                <linearGradient id="tob" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%"   stop-color="#2E1106"/>
+                  <stop offset="30%"  stop-color="#3D1A0A"/>
+                  <stop offset="100%" stop-color="#4A2010"/>
+                </linearGradient>
+                <!-- Sombreamento cilíndrico (escuro no topo e na base, claro no meio) -->
+                <linearGradient id="cyl" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stop-color="rgba(0,0,0,0.65)"/>
+                  <stop offset="22%"  stop-color="rgba(0,0,0,0.08)"/>
+                  <stop offset="50%"  stop-color="rgba(0,0,0,0)"/>
+                  <stop offset="80%"  stop-color="rgba(0,0,0,0.12)"/>
+                  <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+                </linearGradient>
+                <!-- Highlight superior brilhante -->
+                <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stop-color="rgba(255,255,255,0.38)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </linearGradient>
+                <!-- Borda da banda (gold) -->
+                <linearGradient id="band-v" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stop-color="#C89010"/>
+                  <stop offset="40%"  stop-color="#E8C030"/>
+                  <stop offset="100%" stop-color="#C89010"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Sombra projetada -->
+              <ellipse cx="140" cy="97" rx="128" ry="5" fill="rgba(0,0,0,0.13)"/>
+
+              <!-- ═══ CORPO (clipped) ═══ -->
+              <g clip-path="url(#cc)">
+                <!-- Cor base tabaco -->
+                <rect x="0" y="46" width="280" height="44" fill="url(#tob)"/>
+                <!-- Volume cilíndrico -->
+                <rect x="0" y="46" width="280" height="44" fill="url(#cyl)"/>
+                <!-- Highlight superior -->
+                <rect x="0" y="46" width="280" height="13" fill="url(#hl)"/>
+                <!-- Reflexo lateral (borda direita mais clara) -->
+                <rect x="240" y="46" width="30" height="44" fill="rgba(255,255,255,0.04)"/>
+              </g>
+
+              <!-- ═══ BANDA DOURADA — próxima à cabeça (esq) ═══ -->
+              <g clip-path="url(#cc)">
+                <rect x="58" y="46" width="38" height="44" fill="url(#band-v)"/>
+                <rect x="58" y="46" width="38" height="3.5" fill="rgba(0,0,0,0.25)"/>
+                <rect x="58" y="86.5" width="38" height="3.5" fill="rgba(0,0,0,0.25)"/>
+                <ellipse cx="77" cy="68" rx="11" ry="9" fill="rgba(255,240,160,0.55)" stroke="rgba(180,130,0,0.4)" stroke-width="0.8"/>
+              </g>
+
+              <!-- Contorno do charuto -->
+              <path d="M 52,46 L 232,46 C 248,46 258,55 260,68 C 258,81 248,90 232,90 L 52,90 C 28,90 12,81 12,68 C 12,55 28,46 52,46 Z"
+                    fill="none" stroke="rgba(20,6,2,0.6)" stroke-width="1"/>
+
+              <!-- ═══ ANOTAÇÕES ═══ -->
+              <!-- 1º terço -->
+              <line x1="82" y1="46" x2="82" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+              <circle cx="82" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+              <circle cx="82" cy="30" r="2.5" fill="#2a2620"/>
+              <!-- 2º terço -->
+              <line x1="152" y1="46" x2="152" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+              <circle cx="152" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+              <circle cx="152" cy="30" r="2.5" fill="#2a2620"/>
+              <!-- 3º terço -->
+              <line x1="222" y1="46" x2="222" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+              <circle cx="222" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+              <circle cx="222" cy="30" r="2.5" fill="#2a2620"/>
+              <!-- Linha horizontal conectora -->
+              <line x1="82" y1="30" x2="222" y2="30" stroke="#D8D0C8" stroke-width="0.8"/>
+              <!-- Labels dos terços -->
+              <text x="82"  y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">1º TERÇO</text>
+              <text x="152" y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">2º TERÇO</text>
+              <text x="222" y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">3º TERÇO</text>
+              <!-- Cabeça (esq) / Pé (dir) -->
+              <text x="14"  y="110" font-family="'DM Sans', sans-serif" font-size="6" fill="#B0A898" text-anchor="middle">Cabeça</text>
+              <text x="260" y="110" font-family="'DM Sans', sans-serif" font-size="6" fill="#B0A898" text-anchor="middle">Pé</text>
+            </svg>
+
+            <!-- Notas por terço -->
+            <div class="ft-thirds">
+              <div class="ft-third">
+                <div class="ft-third-name">1º Terço · Ignição</div>
+                <div class="ft-third-notes">Cedro · Creme · Nozes</div>
+              </div>
+              <div class="ft-third">
+                <div class="ft-third-name">2º Terço · Desenvolvimento</div>
+                <div class="ft-third-notes">Couro · Pimenta branca · Cacau</div>
+              </div>
+              <div class="ft-third">
+                <div class="ft-third-name">3º Terço · Finalização</div>
+                <div class="ft-third-notes">Especiarias · Terra · Mel</div>
+              </div>
+            </div>
+
+            <!-- Notas extras -->
+            <div class="ft-extra">
+              <div class="ft-extra-row"><strong>Fumaça:</strong> Densa · Suave ao palato</div>
+              <div class="ft-extra-row"><strong>Retronasal:</strong> Longa persistência</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Harmonizações -->
+      <div style="grid-column: 1 / -1">
+        <div class="ficha-block-title">Harmonizações</div>
+        <div class="harm-grid">
+          <div class="harm-card">
+            <div class="harm-icon">🥃</div>
+            <div class="harm-name">Whisky Escocês</div>
+            <div class="harm-tip">Single malt defumado, como Laphroaig ou Glenfarclas</div>
+          </div>
+          <div class="harm-card">
+            <div class="harm-icon">🍷</div>
+            <div class="harm-name">Rum Envelhecido</div>
+            <div class="harm-tip">Rum cubano ou jamaicano com 12+ anos de barrica</div>
+          </div>
+          <div class="harm-card">
+            <div class="harm-icon">🍶</div>
+            <div class="harm-name">Conhaque</div>
+            <div class="harm-tip">Cognac VSOP ou XO de boa estrutura tânica</div>
+          </div>
+          <div class="harm-card">
+            <div class="harm-icon">☕</div>
+            <div class="harm-name">Café Especial</div>
+            <div class="harm-tip">Espresso encorpado, de origem única, sem açúcar</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ALSO LIKE SECTION -->
+  <div class="also-section">
+    <div class="section-label">Também pode interessar</div>
+
+    <div class="also-grid">
+
+      <!-- Card 1 -->
+      <div class="also-card">
+        <div class="also-card-img">
+          <div class="also-card-img-ph">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+        </div>
+        <div class="also-card-body">
+          <div class="also-card-brand">Cohiba</div>
+          <div class="also-card-name">Behike 52</div>
+          <div class="also-card-vitola">Campana · 52×160mm</div>
+          <div class="also-card-footer">
+            <span class="also-card-price">R$ 420</span>
+            <button class="also-card-btn">Ver produto</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="also-card">
+        <div class="also-card-img">
+          <div class="also-card-img-ph">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+        </div>
+        <div class="also-card-body">
+          <div class="also-card-brand">Montecristo</div>
+          <div class="also-card-name">No. 2</div>
+          <div class="also-card-vitola">Torpedo · 52×156mm</div>
+          <div class="also-card-footer">
+            <span class="also-card-price">R$ 210</span>
+            <button class="also-card-btn">Ver produto</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="also-card">
+        <div class="also-card-img">
+          <div class="also-card-img-ph">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".9" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+        </div>
+        <div class="also-card-body">
+          <div class="also-card-brand">Davidoff</div>
+          <div class="also-card-name">Winston Churchill</div>
+          <div class="also-card-vitola">Robusto · 50×127mm</div>
+          <div class="also-card-footer">
+            <span class="also-card-price">R$ 185</span>
+            <button class="also-card-btn">Ver produto</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /desktop-frame -->
+
+
+<!-- ══════════════════════════════════════════
+     ESTADOS DO COMPONENTE CEP
+══════════════════════════════════════════ -->
+<div class="states-section">
+  <div class="states-title">Componente CEP — Estados</div>
+  <div class="states-grid">
+
+    <!-- Estado 1: vazio -->
+    <div class="state-card">
+      <div class="state-card-label">
+        <span class="state-dot empty"></span>
+        <span class="state-card-label-text">Estado padrão — aguardando CEP</span>
+      </div>
+      <div class="state-card-body">
+        <div class="cep-block" style="margin-bottom:0">
+          <div class="cep-label">Calcular frete e prazo</div>
+          <div class="cep-input-row">
+            <input class="cep-input" type="text" placeholder="00000-000" maxlength="9">
+            <button class="cep-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Calcular
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estado 2: com resultado -->
+    <div class="state-card">
+      <div class="state-card-label">
+        <span class="state-dot filled"></span>
+        <span class="state-card-label-text">Após calcular — resultado exibido</span>
+      </div>
+      <div class="state-card-body">
+        <div class="cep-block" style="margin-bottom:0">
+          <div class="cep-label">Calcular frete e prazo</div>
+          <div class="cep-input-row">
+            <input class="cep-input" type="text" value="01310-100" maxlength="9">
+            <button class="cep-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Calcular
+            </button>
+          </div>
+          <div class="cep-result">
+            <div class="cep-option">
+              <div class="cep-option-icon fast">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="cep-option-info">
+                <div class="cep-option-name">Entrega Expressa</div>
+                <div class="cep-option-days">Receba ainda hoje, até 22h</div>
+              </div>
+              <span class="cep-option-price free">Grátis</span>
+            </div>
+            <div class="cep-option">
+              <div class="cep-option-icon mid">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="cep-option-info">
+                <div class="cep-option-name">Sedex</div>
+                <div class="cep-option-days">Amanhã, 23/03</div>
+              </div>
+              <span class="cep-option-price">R$ 18,90</span>
+            </div>
+            <a class="cep-link">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Consultar outros CEPs
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MOBILE FRAME
+══════════════════════════════════════════ -->
+<div class="mobile-section">
+  <div class="mobile-section-label">Mobile · 390px</div>
+
+  <div class="mobile-frame">
+    <!-- Notch -->
+    <div class="mobile-notch"><div class="notch-pill"></div></div>
+
+    <div class="mobile-inner">
+
+      <!-- Mobile navbar -->
+      <div class="m-navbar">
+        <div class="m-nav-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Cubanos
+        </div>
+        <span class="m-nav-logo">T.</span>
+        <div class="m-nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <div class="m-cart-dot"></div>
+        </div>
+      </div>
+
+      <!-- Mobile gallery -->
+      <div class="m-gallery">
+        <span class="m-gallery-badge">Exclusivo</span>
+        <div class="m-gallery-ph">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <div class="m-gallery-dots">
+          <div class="m-dot on"></div>
+          <div class="m-dot"></div>
+          <div class="m-dot"></div>
+        </div>
+      </div>
+
+      <!-- Mobile content -->
+      <div class="m-content">
+
+        <!-- Brand row -->
+        <div class="m-brand-row">
+          <div class="m-monogram">CO</div>
+          <div>
+            <div class="m-brand-name">Cohiba</div>
+            <div class="m-brand-origin">Cuba · Est. 1966</div>
+          </div>
+        </div>
+
+        <!-- Product name -->
+        <div class="m-product-brand">Cohiba</div>
+        <div class="m-product-name">Siglo VI</div>
+        <div class="m-product-vitola">Corona Grande · 52×150mm</div>
+
+        <!-- Meta -->
+        <div class="m-meta-row">
+          <span class="ibar-row">
+            <span class="ibar m-ibar ibar-1"></span>
+            <span class="ibar m-ibar ibar-2 on"></span>
+            <span class="ibar m-ibar ibar-3"></span>
+          </span>
+          <span class="ilabel medio" style="font-size:.65rem;">Médio</span>
+          <span class="msep">·</span>
+          <span class="mtext" style="font-size:.65rem;">Long-filler</span>
+          <span class="msep">·</span>
+          <span class="mtext" style="font-size:.65rem;">90–120 min</span>
+        </div>
+
+        <!-- Pairing -->
+        <div class="m-pairing-row">
+          <span class="m-pairing-tag">🍷 Whisky</span>
+          <span class="m-pairing-tag">🥃 Rum</span>
+          <span class="m-pairing-tag">🍶 Conhaque</span>
+        </div>
+
+        <div class="m-divider"></div>
+
+        <!-- Mobile variants -->
+        <div class="m-variants-label">Quantidade</div>
+        <div class="m-variants-list">
+
+          <div class="m-varopt active">
+            <div class="m-var-top"><span class="m-var-name">Unitário</span></div>
+            <span class="m-var-price">R$ 280,00</span>
+            <span class="m-var-stock">Em estoque</span>
+          </div>
+
+          <div class="m-varopt">
+            <div class="m-var-top">
+              <span class="m-var-name">Petaca (3)</span>
+              <span class="m-var-disc">−5%</span>
+            </div>
+            <span class="m-var-price">R$ 798,00</span>
+            <span class="m-var-stock">Em estoque</span>
+          </div>
+
+          <div class="m-varopt out">
+            <div class="m-var-top">
+              <span class="m-var-name">Caixa (25)</span>
+              <span class="m-var-disc">−10%</span>
+            </div>
+            <span class="m-var-price">R$ 6.300,00</span>
+            <span class="m-var-stock">Esgotado</span>
+          </div>
+
+        </div>
+
+        <!-- Mobile CEP -->
+        <div class="m-cep-block">
+          <div class="m-cep-label">Calcular frete e prazo</div>
+          <div class="m-cep-row">
+            <input class="m-cep-input" type="text" placeholder="00000-000" value="01310-100">
+            <button class="m-cep-btn">Calcular</button>
+          </div>
+          <div class="m-cep-result">
+            <div class="m-cep-opt">
+              <div class="m-cep-opt-icon fast">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="m-cep-opt-info">
+                <div class="m-cep-opt-name">Expressa · Hoje até 22h</div>
+                <div class="m-cep-opt-days">São Paulo, SP</div>
+              </div>
+              <span class="m-cep-opt-price free">Grátis</span>
+            </div>
+            <div class="m-cep-opt">
+              <div class="m-cep-opt-icon mid">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="m-cep-opt-info">
+                <div class="m-cep-opt-name">Sedex · Amanhã, 23/03</div>
+                <div class="m-cep-opt-days">São Paulo, SP</div>
+              </div>
+              <span class="m-cep-opt-price">R$ 18,90</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /m-content -->
+
+      <!-- Mobile sticky footer -->
+      <div class="m-footer">
+        <div class="m-footer-price">
+          <div class="m-footer-price-val">R$ 798</div>
+          <div class="m-footer-unit">petaca c/ 3</div>
+          <div class="m-footer-stock">Em estoque · Receba hoje</div>
+        </div>
+        <button class="m-btn-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Adicionar
+        </button>
+      </div>
+
+      <!-- Home indicator -->
+      <div class="home-indicator"><div class="home-bar"></div></div>
+
+    </div><!-- /mobile-inner -->
+  </div><!-- /mobile-frame -->
+</div><!-- /mobile-section -->
+
+
+<!-- ── DESIGN NOTES ── -->
+<div class="notes-section">
+  <div>
+    <div class="note-title">Navegação</div>
+    <div class="note-text">Breadcrumb mostra o caminho completo: Catálogo › Cubanos › Cohiba › Siglo VI. No mobile, botão "← Cubanos" substitui o breadcrumb para economizar espaço.</div>
+  </div>
+  <div>
+    <div class="note-title">Galeria</div>
+    <div class="note-text">Imagem principal em proporção 4:5 com 3 miniaturas abaixo. No mobile, galeria ocupa largura total com indicadores de swipe. Primeira miniatura aparece selecionada.</div>
+  </div>
+  <div>
+    <div class="note-title">Variantes & Preço</div>
+    <div class="note-text">Variantes como lista com radio — opção ativa em preto. Preço atualiza conforme seleção. No mobile, preço fica fixo na barra inferior, sempre visível sem rolar.</div>
+  </div>
+  <div>
+    <div class="note-title">CTA Mobile</div>
+    <div class="note-text">Barra inferior fixa com preço + botão "Adicionar" garante que o call-to-action seja sempre acessível com o polegar, sem precisar rolar a página.</div>
+  </div>
+</div>
+
+</body>
+</html>

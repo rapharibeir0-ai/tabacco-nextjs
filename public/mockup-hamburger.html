@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mockup — Menu Mobile Hamburger</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white:  #ffffff;
+    --off:    #fafaf9;
+    --light:  #f4f3f1;
+    --muted:  #7a746c;
+    --dim:    #787268;
+    --ink:    #2a2620;
+    --black:  #111110;
+    --border: #e0ddd8;
+    --serif:  'Cormorant Garamond', Georgia, serif;
+    --sans:   'DM Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: #dedad4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 1.5rem 4rem;
+    min-height: 100vh;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: .02em;
+  }
+  .page-sub {
+    font-size: .72rem;
+    color: var(--muted);
+    margin-top: .25rem;
+    text-align: center;
+  }
+
+  /* ── Phone frame ── */
+  .phone {
+    width: 375px;
+    height: 720px;
+    background: var(--light);
+    border-radius: 40px;
+    box-shadow:
+      0 40px 100px rgba(0,0,0,.28),
+      0 0 0 1px rgba(0,0,0,.1),
+      inset 0 0 0 1px rgba(255,255,255,.08);
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  /* ── Simulated page behind drawer ── */
+  .page-content {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    transition: transform .34s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+  .page-content.pushed {
+    transform: translateX(76px) scale(.97);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: -8px 0 32px rgba(0,0,0,.22);
+  }
+
+  /* ── Header ── */
+  .fake-header {
+    height: 56px;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 .85rem;
+    gap: .6rem;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+
+  /* Hamburger */
+  .ham-btn {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+    transition: background .15s;
+  }
+  .ham-btn:hover { background: rgba(255,255,255,.16); }
+  .ham-btn span {
+    display: block;
+    width: 15px; height: 1.5px;
+    background: rgba(255,255,255,.85);
+    border-radius: 2px;
+    transition: all .24s cubic-bezier(.4,0,.2,1);
+    transform-origin: center;
+  }
+  .ham-btn.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .ham-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .ham-btn.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  /* Logo */
+  .fake-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: .06em;
+    flex-shrink: 0;
+  }
+
+  /* CEP button */
+  .cep-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 6px;
+    padding: .3rem .55rem;
+    cursor: pointer;
+    transition: background .14s;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .cep-btn:hover { background: rgba(255,255,255,.12); }
+  .cep-btn svg { width: 11px; height: 11px; stroke: rgba(255,255,255,.45); stroke-width: 2; fill: none; flex-shrink: 0; }
+  .cep-btn-text { display: flex; flex-direction: column; min-width: 0; }
+  .cep-btn-label { font-size: .48rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.3); line-height: 1; }
+  .cep-btn-val { font-size: .72rem; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
+
+  /* Cart */
+  .cart-btn-sm {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .cart-btn-sm svg { width: 17px; height: 17px; stroke: rgba(255,255,255,.85); stroke-width: 1.5; fill: none; }
+  .cart-badge {
+    position: absolute;
+    top: -5px; right: -5px;
+    background: #c0392b;
+    color: #fff;
+    font-size: .52rem;
+    font-weight: 700;
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--black);
+  }
+
+  /* Fake hero */
+  .fake-hero {
+    height: 190px;
+    background: #0a0704;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .fake-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(122,43,30,.45) 0%, rgba(10,7,4,.85) 100%);
+  }
+  .fake-hero-title {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.1;
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+  .fake-hero-title em { font-style: italic; }
+  .fake-hero-sub {
+    font-size: .68rem;
+    color: rgba(255,255,255,.5);
+    text-align: center;
+    position: relative; z-index: 1;
+  }
+
+  /* Fake cards */
+  .fake-cards { padding: .85rem; display: flex; flex-direction: column; gap: .55rem; }
+  .fake-card {
+    height: 68px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .65rem;
+  }
+  .fake-card-img { width: 40px; height: 40px; border-radius: 6px; background: var(--light); flex-shrink: 0; }
+  .fake-card-lines { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .fake-line { height: 7px; border-radius: 4px; background: var(--light); }
+  .fake-line.dark { background: #e2dfd9; }
+  .fake-line.sm { width: 55%; }
+  .fake-line.xs { width: 35%; }
+
+  /* ── Backdrop ── */
+  .drawer-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(1px);
+  }
+  .drawer-backdrop.visible { opacity: 1; pointer-events: all; }
+
+  /* ── Drawer ── */
+  .drawer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 292px;
+    height: 100%;
+    background: var(--white);
+    z-index: 30;
+    transform: translateX(-100%);
+    transition: transform .34s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    box-shadow: 4px 0 24px rgba(0,0,0,.08);
+  }
+  .drawer.open { transform: translateX(0); }
+
+  /* Drawer header */
+  .drawer-header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .85rem 0 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--black);
+    flex-shrink: 0;
+  }
+  .drawer-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: rgba(255,255,255,.9);
+    letter-spacing: .06em;
+  }
+  .drawer-close {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .14s;
+  }
+  .drawer-close:hover { background: rgba(255,255,255,.2); }
+  .drawer-close svg { width: 13px; height: 13px; stroke: rgba(255,255,255,.7); stroke-width: 2.5; fill: none; }
+
+  /* Drawer body */
+  .drawer-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; background: var(--white); }
+  .drawer-body::-webkit-scrollbar { display: none; }
+
+  /* Location row */
+  .drawer-loc {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background .14s;
+    background: var(--off);
+  }
+  .drawer-loc:hover { background: var(--light); }
+  .drawer-loc-ico {
+    width: 28px; height: 28px;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .drawer-loc-ico svg { width: 12px; height: 12px; stroke: var(--muted); stroke-width: 2; fill: none; }
+  .drawer-loc-text { flex: 1; }
+  .drawer-loc-label { font-size: .55rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .drawer-loc-val { font-size: .78rem; color: var(--dim); }
+  .drawer-caret svg { width: 11px; height: 11px; stroke: var(--border); stroke-width: 2.5; fill: none; }
+
+  /* Section label */
+  .drawer-section-label {
+    font-size: .52rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 1rem 1rem .4rem;
+  }
+
+  /* Nav item */
+  .drawer-nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .65rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: .88rem;
+    font-weight: 400;
+    text-align: left;
+    transition: background .14s, color .14s;
+  }
+  .drawer-nav-item:hover { background: var(--off); color: var(--black); }
+  .drawer-nav-item.active { color: var(--black); font-weight: 500; }
+  .item-left { display: flex; align-items: center; gap: .65rem; }
+  .item-ico {
+    width: 30px; height: 30px;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .95rem; flex-shrink: 0;
+    transition: background .14s;
+  }
+  .drawer-nav-item:hover .item-ico { background: var(--border); }
+  .drawer-nav-item.active .item-ico { background: rgba(122,43,30,.08); border-color: rgba(122,43,30,.2); }
+  .item-caret {
+    display: flex; align-items: center;
+    color: var(--border);
+    transition: transform .22s, color .14s;
+  }
+  .drawer-nav-item:hover .item-caret { color: var(--muted); }
+  .item-caret svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; }
+  .item-caret.open { transform: rotate(90deg); color: var(--dim); }
+
+  /* Submenu */
+  .drawer-submenu {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .3s cubic-bezier(.4,0,.2,1);
+    background: var(--off);
+    border-top: 1px solid var(--border);
+  }
+  .drawer-submenu.open { max-height: 260px; }
+
+  .drawer-sub-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .58rem 1rem .58rem 3.05rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: .82rem;
+    text-align: left;
+    transition: background .14s, color .14s;
+  }
+  .drawer-sub-item:hover { background: var(--light); color: var(--ink); }
+  .sub-count {
+    margin-left: auto;
+    font-size: .58rem;
+    color: var(--muted);
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: .1rem .4rem;
+  }
+  .sub-all {
+    padding: .5rem 1rem .5rem 3.05rem;
+    border-top: 1px solid var(--border);
+    font-size: .72rem;
+    color: var(--muted);
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    text-align: left;
+    font-family: var(--sans);
+    transition: color .14s;
+  }
+  .sub-all:hover { color: var(--ink); }
+
+  /* ── Category card grid ── */
+  .cat-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem .5rem;
+  }
+  .cat-section-title {
+    font-size: .52rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cat-see-all {
+    font-size: .68rem;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: color .14s;
+    padding: 0;
+  }
+  .cat-see-all:hover { color: var(--ink); }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .55rem;
+    padding: 0 1rem 1rem;
+  }
+  .cat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .45rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .cat-card-img {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    transition: transform .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card:hover .cat-card-img {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.18);
+  }
+  .cat-card:active .cat-card-img { transform: translateY(0); }
+  .cat-card-label {
+    font-size: .65rem;
+    color: var(--ink);
+    text-align: center;
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  /* Divider */
+  .drawer-divider { height: 1px; background: var(--border); margin: .3rem 0; }
+
+  /* Secondary links */
+  .drawer-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .6rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: .82rem;
+    text-align: left;
+    transition: background .14s, color .14s;
+  }
+  .drawer-link:hover { color: var(--ink); background: var(--off); }
+  .drawer-link svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 1.6; fill: none; flex-shrink: 0; }
+
+  /* Footer */
+  .drawer-footer {
+    padding: .85rem 1rem 1.1rem;
+    border-top: 1px solid var(--border);
+    background: var(--off);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .wa-btn {
+    width: 100%;
+    background: #1a8540;
+    border: none;
+    border-radius: 10px;
+    padding: .72rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .55rem;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: .78rem;
+    font-weight: 600;
+    color: #fff;
+    transition: background .14s;
+  }
+  .wa-btn:hover { background: #1d9647; }
+  .wa-btn svg { width: 16px; height: 16px; fill: #fff; flex-shrink: 0; }
+  .drawer-legal {
+    font-size: .52rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Annotations ── */
+  .annotations {
+    width: 375px;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    background: rgba(255,255,255,.55);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(0,0,0,.06);
+  }
+  .annotations h3 {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .15rem;
+  }
+  .ann {
+    display: flex;
+    align-items: flex-start;
+    gap: .55rem;
+    font-size: .72rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .ann-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #7a2b1e;
+    flex-shrink: 0;
+    margin-top: .3rem;
+  }
+  .ann strong { font-weight: 600; }
+
+  .badge-wrap { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    font-size: .6rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    padding: .25rem .75rem; border-radius: 100px; border: 1.5px solid;
+  }
+  .badge.green { color: #2a7a4a; border-color: #2a7a4a; background: rgba(42,122,74,.1); }
+  .badge.blue  { color: #2a5aaa; border-color: #2a5aaa; background: rgba(42,90,170,.1); }
+</style>
+</head>
+<body>
+
+<div style="text-align:center;">
+  <div class="page-title">Menu Mobile — Mockup</div>
+  <div class="page-sub">Layout: ☰ &nbsp;Tabacco &nbsp;📍CEP &nbsp;🛒 &nbsp;· Toque no ☰ para abrir o drawer</div>
+</div>
+
+<!-- ── Phone ── -->
+<div class="phone" id="phone">
+
+  <!-- Page content -->
+  <div class="page-content" id="page">
+
+    <!-- Header: ☰ | Logo | CEP | Cart -->
+    <div class="fake-header">
+      <div class="ham-btn" id="hamBtn" onclick="toggle()">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="fake-logo">Tabacco</div>
+
+      <div class="cep-btn" style="margin-left:.25rem;">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="cep-btn-text">
+          <span class="cep-btn-label">Entrega</span>
+          <span class="cep-btn-val">Informe o CEP</span>
+        </div>
+      </div>
+
+      <div class="cart-btn-sm">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge">2</span>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="fake-hero">
+      <div class="fake-hero-title">O prazer de um<br/>bom <em>charuto.</em></div>
+      <div class="fake-hero-sub">Seleção curada das melhores marcas</div>
+    </div>
+
+    <!-- Cards -->
+    <div class="fake-cards">
+      <div class="fake-card">
+        <div class="fake-card-img"></div>
+        <div class="fake-card-lines">
+          <div class="fake-line dark sm"></div>
+          <div class="fake-line"></div>
+          <div class="fake-line xs"></div>
+        </div>
+      </div>
+      <div class="fake-card">
+        <div class="fake-card-img"></div>
+        <div class="fake-card-lines">
+          <div class="fake-line dark sm"></div>
+          <div class="fake-line"></div>
+          <div class="fake-line xs"></div>
+        </div>
+      </div>
+      <div class="fake-card">
+        <div class="fake-card-img"></div>
+        <div class="fake-card-lines">
+          <div class="fake-line dark sm"></div>
+          <div class="fake-line"></div>
+          <div class="fake-line xs"></div>
+        </div>
+      </div>
+      <div class="fake-card">
+        <div class="fake-card-img"></div>
+        <div class="fake-card-lines">
+          <div class="fake-line dark sm"></div>
+          <div class="fake-line"></div>
+          <div class="fake-line xs"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+
+  <!-- Backdrop -->
+  <div class="drawer-backdrop" id="backdrop" onclick="toggle()"></div>
+
+  <!-- Drawer -->
+  <div class="drawer" id="drawer">
+
+    <div class="drawer-header">
+      <div class="drawer-logo">Tabacco</div>
+      <button class="drawer-close" onclick="toggle()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+
+      <!-- Localização -->
+      <div class="drawer-loc">
+        <div class="drawer-loc-ico">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="drawer-loc-text">
+          <div class="drawer-loc-label">Entrega em</div>
+          <div class="drawer-loc-val">Informe seu CEP</div>
+        </div>
+        <div class="drawer-caret">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+
+      <!-- Charutos: grid visual de países -->
+      <div class="cat-section-header">
+        <span class="cat-section-title">Charutos por país</span>
+        <button class="cat-see-all">Ver todos →</button>
+      </div>
+
+      <div class="cat-grid">
+        <button class="cat-card">
+          <div class="cat-card-img" style="background: linear-gradient(140deg, #c4883a 0%, #a06028 100%);">🇨🇺</div>
+          <span class="cat-card-label">Cubanos</span>
+        </button>
+        <button class="cat-card">
+          <div class="cat-card-img" style="background: linear-gradient(140deg, #5a7a9a 0%, #3d5e7a 100%);">🌎</div>
+          <span class="cat-card-label">Outros Países</span>
+        </button>
+        <button class="cat-card">
+          <div class="cat-card-img" style="background: linear-gradient(140deg, #4e7a52 0%, #365438 100%);">🇧🇷</div>
+          <span class="cat-card-label">Nacionais</span>
+        </button>
+      </div>
+
+      <div class="drawer-divider" style="margin: 0 0 .3rem;"></div>
+
+      <!-- Acessórios -->
+      <button class="drawer-nav-item" onclick="toggleSub('acessorios')">
+        <div class="item-left">
+          <div class="item-ico">✂️</div>
+          Acessórios
+        </div>
+        <div class="item-caret" id="caret-acessorios">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </button>
+      <div class="drawer-submenu" id="sub-acessorios">
+        <button class="drawer-sub-item">Cortadores</button>
+        <button class="drawer-sub-item">Isqueiros</button>
+        <button class="drawer-sub-item">Umidores</button>
+      </div>
+
+      <!-- Kits -->
+      <button class="drawer-nav-item" onclick="toggleSub('kits')">
+        <div class="item-left">
+          <div class="item-ico">🎁</div>
+          Kits & Presentes
+        </div>
+        <div class="item-caret" id="caret-kits">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </button>
+      <div class="drawer-submenu" id="sub-kits">
+        <button class="drawer-sub-item">Kits para Presente</button>
+        <button class="drawer-sub-item">Vale-Presentes</button>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <div class="drawer-section-label">Mais</div>
+
+      <button class="drawer-link">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Guia do Charuto
+      </button>
+      <button class="drawer-link">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Meus Pedidos
+      </button>
+
+    </div><!-- /drawer-body -->
+
+    <div class="drawer-footer">
+      <button class="wa-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Falar no WhatsApp
+      </button>
+      <div class="drawer-legal">Proibida a venda para menores de 18 anos · O tabaco é prejudicial à saúde</div>
+    </div>
+
+  </div><!-- /drawer -->
+</div><!-- /phone -->
+
+<!-- Badges -->
+<div class="badge-wrap">
+  <span class="badge green">Interativo</span>
+  <span class="badge blue">Toque no ☰ para abrir</span>
+</div>
+
+<!-- Annotations -->
+<div class="annotations">
+  <h3>Notas de design</h3>
+  <div class="ann"><div class="ann-dot"></div><span><strong>Header:</strong> ☰ Hamburger → Logo → CEP/Entrega (flex crescente) → Carrinho. O CEP estica para preencher o espaço disponível.</span></div>
+  <div class="ann"><div class="ann-dot"></div><span><strong>Drawer:</strong> 292px de largura, desliza da esquerda. O conteúdo por trás recua levemente (scale + translateX) para dar profundidade.</span></div>
+  <div class="ann"><div class="ann-dot"></div><span><strong>Charutos:</strong> grid 3 colunas com cards visuais — fundo colorido + bandeira + label. Cubano (âmbar), Outros (azul slate), Nacionais (verde floresta). Acessórios e Kits mantêm lista.</span></div>
+  <div class="ann"><div class="ann-dot"></div><span><strong>Rodapé:</strong> botão WhatsApp fixo no fundo do drawer para acesso rápido ao atendimento.</span></div>
+</div>
+
+<script>
+  let isOpen = false;
+
+  function toggle() {
+    isOpen = !isOpen;
+    document.getElementById('drawer').classList.toggle('open', isOpen);
+    document.getElementById('backdrop').classList.toggle('visible', isOpen);
+    document.getElementById('hamBtn').classList.toggle('open', isOpen);
+    document.getElementById('page').classList.toggle('pushed', isOpen);
+  }
+
+  function toggleSub(key) {
+    const sub   = document.getElementById('sub-'   + key);
+    const caret = document.getElementById('caret-' + key);
+    const isNowOpen = sub.classList.contains('open');
+
+    // fecha todos
+    document.querySelectorAll('.drawer-submenu').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.item-caret').forEach(el => el.classList.remove('open'));
+
+    if (!isNowOpen) {
+      sub.classList.add('open');
+      caret.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitrine — Proposta v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f4f2ef;
+  --white:     #ffffff;
+  --border:    #e5e1db;
+  --ink:       #1e1b18;
+  --dim:       #7a7268;
+  --muted:     #b0aba3;
+  --light:     #ede9e3;
+  --brand-red: #9b3a2a;
+  --green:     #2a9a4a;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: #e8e4df;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding: 2rem 1.5rem 6rem;
+}
+
+/* ── LAYOUT DE PÁGINA ── */
+.page { max-width: 1100px; margin: 0 auto; }
+
+.page-title {
+  font-family: var(--serif);
+  font-size: 1.6rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .3rem;
+}
+.page-sub {
+  font-size: .75rem; color: var(--dim);
+  margin-bottom: 2.5rem;
+}
+
+.views {
+  display: grid;
+  grid-template-columns: 1fr 375px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.view-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.view-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ══════════════════════════════════
+   DESKTOP CARD
+══════════════════════════════════ */
+.desktop-view { background: var(--bg); border-radius: 12px; padding: 1.75rem; }
+
+.brand-row {
+  display: flex; align-items: center; gap: .85rem;
+  padding-bottom: .85rem;
+  margin-bottom: .85rem;
+  border-bottom: 1px solid var(--border);
+}
+.monogram {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: .85rem; font-weight: 600;
+  color: var(--ink); flex-shrink: 0;
+}
+.brand-text { display: flex; flex-direction: column; gap: .1rem; }
+.brand-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.brand-desc { font-size: .7rem; color: var(--dim); }
+
+/* Desktop card grid */
+.dcard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 180px 1fr 230px 170px;
+  min-height: 210px;
+}
+
+/* Col 1 — imagem */
+.dcard-img {
+  background: var(--light);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.dcard-img-ph { opacity: .15; }
+.dbadge {
+  position: absolute; top: .75rem; left: .75rem;
+  font-size: .55rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .28rem .6rem;
+  border-radius: 4px; line-height: 1;
+}
+.dbadge-exclusivo { background: #6e2418; color: #fff; }
+.dbadge-limitado  { background: #7a4a1a; color: #fff; }
+.dbadge-novidade  { background: #1a3a7a; color: #fff; }
+
+/* Col 2 — info */
+.dcard-info {
+  padding: 1.4rem 1.5rem 1.4rem 1.75rem;
+  display: flex; flex-direction: column; gap: .45rem;
+  border-right: 1px solid var(--border);
+}
+.dcard-brand {
+  font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--brand-red);
+}
+.dcard-name {
+  font-family: var(--serif);
+  font-size: 1.55rem; font-weight: 600; color: var(--ink);
+  line-height: 1.1; margin-top: -.05rem;
+}
+.dcard-vitola { font-size: .75rem; color: var(--muted); font-weight: 300; }
+
+.dmeta {
+  display: flex; align-items: center; gap: .5rem;
+  flex-wrap: wrap; margin-top: .15rem;
+}
+.ibar-row { display: inline-flex; align-items: center; gap: 3px; }
+.ibar { width: 24px; height: 6px; border-radius: 100px; }
+.ibar-1        { background: #c8edd4; }
+.ibar-1.on     { background: #2a9a4a; }
+.ibar-2        { background: #fde8c8; }
+.ibar-2.on     { background: #e07820; }
+.ibar-3        { background: #fdd8d4; }
+.ibar-3.on     { background: #d03020; }
+.ilabel { font-size: .74rem; color: var(--dim); }
+.ilabel.suave { color: #2a9a4a; }
+.ilabel.medio { color: #e07820; }
+.ilabel.forte { color: #d03020; }
+.msep { color: var(--border); }
+.mtext { font-size: .74rem; color: var(--dim); }
+
+.dpairing {
+  font-size: .72rem; color: var(--dim); line-height: 1.5;
+  margin-top: .1rem;
+}
+.dship {
+  display: inline-flex; align-items: center; gap: .35rem;
+  background: #e8f5ec; color: var(--green);
+  font-size: .65rem; font-weight: 600;
+  padding: .28rem .65rem; border-radius: 100px;
+  width: fit-content; margin-top: .2rem;
+}
+.dship svg { width: 11px; height: 11px; }
+
+/* Col 3 — variantes */
+.dcard-variants {
+  padding: 1.25rem 1.1rem;
+  display: flex; flex-direction: column; gap: 0;
+  border-right: 1px solid var(--border);
+  justify-content: center;
+}
+.varlabel {
+  font-size: .55rem; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .6rem;
+}
+
+.varopt {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .6rem .5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .12s;
+}
+.varopt:hover { background: var(--light); }
+.varopt.active { background: var(--ink); }
+
+.var-radio {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 1.5px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .13s;
+}
+.varopt.active .var-radio { border-color: #fff; background: transparent; }
+.var-radio-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ink); opacity: 0;
+}
+.varopt.active .var-radio-dot { background: #fff; opacity: 1; }
+
+.var-name {
+  font-size: .78rem; font-weight: 500; color: var(--dim);
+  flex: 1; line-height: 1.1;
+}
+.varopt.active .var-name { color: #fff; font-weight: 600; }
+
+.var-right { display: flex; flex-direction: column; align-items: flex-end; gap: .05rem; }
+.var-price {
+  font-family: var(--serif);
+  font-size: .88rem; font-weight: 600; color: var(--dim);
+}
+.varopt.active .var-price { color: #fff; }
+.var-discount {
+  font-size: .58rem; font-weight: 700; color: var(--green);
+  background: #e8f5ec; padding: .1rem .3rem; border-radius: 3px;
+}
+.varopt.active .var-discount { background: rgba(255,255,255,.18); color: #8de8a8; }
+
+/* Col 4 — preço e ação */
+.dcard-action {
+  padding: 1.4rem 1.25rem 1.25rem;
+  display: flex; flex-direction: column;
+}
+.dprice {
+  font-family: var(--serif);
+  font-size: 2.4rem; font-weight: 600; color: var(--ink);
+  line-height: 1; text-align: right;
+}
+.dunit { font-size: .68rem; color: var(--muted); text-align: right; margin-top: .2rem; }
+.dstock {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .65rem; font-weight: 600;
+  padding: .28rem .65rem; border-radius: 100px;
+  margin-top: .65rem; align-self: flex-end;
+}
+.dstock.in  { background: #e8f5ec; color: var(--green); }
+.dstock.low { background: #fef3e2; color: #a06020; }
+.dadd {
+  margin-top: auto;
+  background: var(--ink); border: none; color: #fff;
+  font-family: var(--sans); font-size: .68rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .8rem .75rem; border-radius: 6px;
+  cursor: pointer; transition: opacity .14s;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+}
+.dadd:hover { opacity: .8; }
+.dadd svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+
+/* ══════════════════════════════════
+   MOBILE CARD (375px)
+══════════════════════════════════ */
+.mobile-view {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 1.25rem;
+  /* simula largura de iPhone */
+}
+
+.mbrand-row {
+  display: flex; align-items: center; gap: .7rem;
+  padding-bottom: .7rem;
+  margin-bottom: .7rem;
+  border-bottom: 1px solid var(--border);
+}
+.mmonogram {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: .72rem; font-weight: 600;
+  color: var(--ink); flex-shrink: 0;
+}
+.mbrand-name { font-size: .78rem; font-weight: 600; color: var(--ink); }
+.mbrand-desc { font-size: .62rem; color: var(--dim); margin-top: .05rem; }
+
+.mcard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Topo: imagem + info lado a lado */
+.mcard-top {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  min-height: 130px;
+}
+.mcard-img {
+  background: var(--light);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.mbadge {
+  position: absolute; top: .55rem; left: .55rem;
+  font-size: .5rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: .22rem .45rem;
+  border-radius: 3px; line-height: 1;
+  background: #6e2418; color: #fff;
+}
+.mcard-info {
+  padding: .9rem .9rem .9rem 1rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.mcard-brand {
+  font-size: .55rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--brand-red);
+}
+.mcard-name {
+  font-family: var(--serif);
+  font-size: 1.2rem; font-weight: 600; color: var(--ink); line-height: 1.1;
+}
+.mcard-vitola { font-size: .67rem; color: var(--muted); font-weight: 300; }
+.mmeta {
+  display: flex; align-items: center; gap: .35rem;
+  flex-wrap: wrap; margin-top: .1rem;
+}
+.mpairing { font-size: .65rem; color: var(--dim); margin-top: .15rem; line-height: 1.45; }
+.mship {
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: #e8f5ec; color: var(--green);
+  font-size: .6rem; font-weight: 600;
+  padding: .22rem .55rem; border-radius: 100px;
+  width: fit-content; margin-top: .2rem;
+}
+.mship svg { width: 10px; height: 10px; }
+
+/* Divisor entre topo e variantes */
+.mcard-divider { height: 1px; background: var(--border); }
+
+/* Variantes mobile */
+.mcard-variants {
+  padding: .9rem .9rem .5rem;
+}
+.mvarlabel {
+  font-size: .55rem; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: .55rem;
+}
+.mvaropt {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .65rem .5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .12s;
+}
+.mvaropt + .mvaropt { border-top: 1px solid var(--border); }
+.mvaropt.active { background: var(--ink); border-radius: 6px; }
+.mvaropt + .mvaropt.active { border-top-color: transparent; }
+
+.mvar-radio {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 1.5px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.mvaropt.active .mvar-radio { border-color: rgba(255,255,255,.5); }
+.mvar-radio-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ink); opacity: 0;
+}
+.mvaropt.active .mvar-radio-dot { background: #fff; opacity: 1; }
+
+.mvar-name { font-size: .78rem; font-weight: 500; color: var(--dim); flex: 1; }
+.mvaropt.active .mvar-name { color: #fff; font-weight: 600; }
+
+.mvar-right { display: flex; align-items: center; gap: .4rem; }
+.mvar-discount {
+  font-size: .58rem; font-weight: 700; color: var(--green);
+  background: #e8f5ec; padding: .1rem .3rem; border-radius: 3px;
+}
+.mvaropt.active .mvar-discount { background: rgba(255,255,255,.15); color: #8de8a8; }
+.mvar-price {
+  font-family: var(--serif);
+  font-size: .95rem; font-weight: 600; color: var(--dim);
+}
+.mvaropt.active .mvar-price { color: #fff; }
+
+/* Rodapé mobile: preço + botão */
+.mcard-footer {
+  padding: .85rem .9rem;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: .75rem;
+  margin-top: .35rem;
+}
+.mfooter-price {
+  display: flex; flex-direction: column; gap: .05rem;
+}
+.mfooter-price-val {
+  font-family: var(--serif);
+  font-size: 1.55rem; font-weight: 600; color: var(--ink); line-height: 1;
+}
+.mfooter-stock {
+  font-size: .6rem; font-weight: 600; color: var(--green);
+}
+.madd {
+  flex: 1;
+  background: var(--ink); border: none; color: #fff;
+  font-family: var(--sans); font-size: .72rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .85rem .75rem; border-radius: 6px;
+  cursor: pointer; transition: opacity .14s;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+}
+.madd:hover { opacity: .8; }
+.madd svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+
+/* ── NOTA DE DESIGN ── */
+.design-notes {
+  margin-top: 2.5rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+.dnote-title {
+  font-size: .6rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .5rem;
+}
+.dnote-text { font-size: .78rem; color: var(--dim); line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="page-title">Vitrine — Proposta v2</p>
+  <p class="page-sub">Desktop (esquerda) · Mobile 375px (direita) · Cohiba Siglo VI · Variante "Petaca" selecionada</p>
+
+  <div class="views">
+
+    <!-- ══ DESKTOP ══ -->
+    <div class="desktop-view">
+      <div class="view-label">Desktop</div>
+
+      <div class="brand-row">
+        <div class="monogram">CO</div>
+        <div class="brand-text">
+          <span class="brand-name">Cohiba</span>
+          <span class="brand-desc">Cuba · Est. 1966 · Criada para Fidel Castro, símbolo máximo do charuto cubano.</span>
+        </div>
+      </div>
+
+      <div class="dcard">
+
+        <!-- Col 1: imagem -->
+        <div class="dcard-img">
+          <span class="dbadge dbadge-exclusivo">Exclusivo</span>
+          <div class="dcard-img-ph">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Col 2: info -->
+        <div class="dcard-info">
+          <span class="dcard-brand">Cohiba</span>
+          <span class="dcard-name">Siglo VI</span>
+          <span class="dcard-vitola">Corona Grande · 52×150mm</span>
+          <div class="dmeta">
+            <span class="ibar-row">
+              <span class="ibar ibar-1"></span>
+              <span class="ibar ibar-2 on"></span>
+              <span class="ibar ibar-3"></span>
+            </span>
+            <span class="ilabel medio">Médio</span>
+            <span class="msep">·</span>
+            <span class="mtext">Long-filler</span>
+            <span class="msep">·</span>
+            <span class="mtext">90–120 min</span>
+          </div>
+          <div class="dpairing">🍷 Whisky · Rum Envelhecido · Conhaque</div>
+          <div class="dship">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"/>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            Receba ainda hoje
+          </div>
+        </div>
+
+        <!-- Col 3: variantes -->
+        <div class="dcard-variants">
+          <div class="varlabel">Quantidade</div>
+
+          <div class="varopt">
+            <div class="var-radio"><div class="var-radio-dot"></div></div>
+            <span class="var-name">Unitário</span>
+            <div class="var-right">
+              <span class="var-price">R$ 280</span>
+            </div>
+          </div>
+
+          <div class="varopt active">
+            <div class="var-radio"><div class="var-radio-dot"></div></div>
+            <span class="var-name">Petaca (3)</span>
+            <div class="var-right">
+              <span class="var-price">R$ 798</span>
+              <span class="var-discount">−5%</span>
+            </div>
+          </div>
+
+          <div class="varopt">
+            <div class="var-radio"><div class="var-radio-dot"></div></div>
+            <span class="var-name">Caixa (25)</span>
+            <div class="var-right">
+              <span class="var-price">R$ 6.300</span>
+              <span class="var-discount">−10%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 4: preço + ação -->
+        <div class="dcard-action">
+          <span class="dprice">R$ 798</span>
+          <span class="dunit">petaca c/ 3</span>
+          <span class="dstock in">Em estoque</span>
+          <button class="dadd">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Adicionar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ MOBILE ══ -->
+    <div class="mobile-view">
+      <div class="view-label">Mobile</div>
+
+      <div class="mbrand-row">
+        <div class="mmonogram">CO</div>
+        <div>
+          <div class="mbrand-name">Cohiba</div>
+          <div class="mbrand-desc">Cuba · Est. 1966</div>
+        </div>
+      </div>
+
+      <div class="mcard">
+
+        <!-- Topo: imagem + info -->
+        <div class="mcard-top">
+          <div class="mcard-img">
+            <span class="mbadge">Exclusivo</span>
+            <div style="opacity:.15;">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mcard-info">
+            <span class="mcard-brand">Cohiba</span>
+            <span class="mcard-name">Siglo VI</span>
+            <span class="mcard-vitola">Corona Grande · 52×150mm</span>
+            <div class="mmeta">
+              <span class="ibar-row">
+                <span class="ibar ibar-1"></span>
+                <span class="ibar ibar-2 on"></span>
+                <span class="ibar ibar-3"></span>
+              </span>
+              <span class="ilabel medio" style="font-size:.65rem;">Médio</span>
+              <span class="msep">·</span>
+              <span class="mtext" style="font-size:.65rem;">Long-filler</span>
+            </div>
+            <div class="mpairing">🍷 Whisky · Rum Envelhecido</div>
+            <div class="mship">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"/>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+              </svg>
+              Receba hoje
+            </div>
+          </div>
+        </div>
+
+        <!-- Divisor -->
+        <div class="mcard-divider"></div>
+
+        <!-- Variantes -->
+        <div class="mcard-variants">
+          <div class="mvarlabel">Quantidade</div>
+
+          <div class="mvaropt">
+            <div class="mvar-radio"><div class="mvar-radio-dot"></div></div>
+            <span class="mvar-name">Unitário</span>
+            <div class="mvar-right">
+              <span class="mvar-price">R$ 280</span>
+            </div>
+          </div>
+
+          <div class="mvaropt active">
+            <div class="mvar-radio"><div class="mvar-radio-dot"></div></div>
+            <span class="mvar-name">Petaca (3)</span>
+            <div class="mvar-right">
+              <span class="mvar-discount">−5%</span>
+              <span class="mvar-price">R$ 798</span>
+            </div>
+          </div>
+
+          <div class="mvaropt">
+            <div class="mvar-radio"><div class="mvar-radio-dot"></div></div>
+            <span class="mvar-name">Caixa (25)</span>
+            <div class="mvar-right">
+              <span class="mvar-discount">−10%</span>
+              <span class="mvar-price">R$ 6.300</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rodapé: preço + botão -->
+        <div class="mcard-footer">
+          <div class="mfooter-price">
+            <span class="mfooter-price-val">R$ 798</span>
+            <span class="mfooter-stock">Em estoque</span>
+          </div>
+          <button class="madd">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Adicionar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NOTAS DE DESIGN ── -->
+  <div class="design-notes">
+    <div>
+      <div class="dnote-title">Variantes</div>
+      <div class="dnote-text">Linhas com radio — a opção selecionada fica em preto sólido, criando contraste claro. Desconto visível antes de selecionar. Toque fácil em mobile (48px de altura).</div>
+    </div>
+    <div>
+      <div class="dnote-title">Mobile</div>
+      <div class="dnote-text">Card em 2 seções: topo com imagem + info lado a lado, rodapé com preço e botão fixo na base do card — fácil de alcançar com o polegar.</div>
+    </div>
+    <div>
+      <div class="dnote-title">Preço</div>
+      <div class="dnote-text">Atualiza conforme a variante escolhida. No desktop fica na coluna direita. No mobile fica no rodapé ao lado do botão — visível sem rolar.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
