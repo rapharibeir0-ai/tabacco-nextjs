@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { catLabels, catOrigins, brandInitials, fmt } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
+import { fetchSanityProductPhotos, fetchSanityBrands } from '@/lib/sanity';
 import Header from '@/components/Header';
 import Filters from '@/components/Filters';
 import BrandHeader from '@/components/BrandHeader';
@@ -209,7 +210,7 @@ function Catalog({ products, catFilter, brandsInfo, onAddToCart, onOpenModal }) 
       <div className="catalog-wrap" id="catalog-main">
         {brandNames.map(brand => (
           <div key={brand} className="brand-section">
-            <BrandHeader brand={brand} count={brandMap[brand].length} />
+            <BrandHeader brand={brand} count={brandMap[brand].length} sanityData={brandsInfo[brand]} />
             <div className="brand-grid">
               {brandMap[brand].map(p => (
                 <ProductCard key={p.id} product={p} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />
@@ -332,17 +333,27 @@ export default function CatalogPage() {
   const [cartOpen,     setCartOpen]     = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
 
-  // Busca produtos e marcas do Supabase
+  // Busca produtos do Supabase (preço/estoque) e imagens do Sanity
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const [{ data: prods }, { data: brandsData }] = await Promise.all([
+      const [{ data: prods }, { data: brandsData }, sanityPhotos, sanityBrands] = await Promise.all([
         supabase.from('products').select('*, variants(*)').order('id'),
         supabase.from('brands').select('*'),
+        fetchSanityProductPhotos(),
+        fetchSanityBrands(),
       ]);
-      setProducts((prods || []).map(p => ({ ...p, smokeTime: p.smoke_time })));
+      setProducts((prods || []).map(p => ({
+        ...p,
+        smokeTime: p.smoke_time,
+        photo: sanityPhotos[p.name]?.photo || null,
+      })));
       const map = {};
       (brandsData || []).forEach(b => { map[b.name] = b; });
+      // Mescla dados do Sanity (logo, bio) sobre dados do Supabase
+      Object.entries(sanityBrands).forEach(([name, sb]) => {
+        map[name] = { ...(map[name] || {}), ...sb };
+      });
       setBrandsInfo(map);
       setLoading(false);
     }

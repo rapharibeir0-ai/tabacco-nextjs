@@ -2,7 +2,17 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { BADGES, fillerInfo, fmt, stockText } from '@/lib/data';
+import { urlFor } from '@/lib/sanity';
 import IntensityBar from './IntensityBar';
+
+function getImageUrl(photo, width = 400) {
+  if (!photo?.asset) return null;
+  try {
+    return urlFor(photo).width(width).url();
+  } catch {
+    return photo.asset.url || null;
+  }
+}
 
 /* ── Discount calculator ─────────────────────────────────────── */
 function getDiscount(variants, idx) {
@@ -230,8 +240,8 @@ export default function ProductCard({ product, onAddToCart, onOpenModal, compact
         <div className="cc-top">
           <div className="cc-img">
             {badges.length > 0 && <div className="cc-badge">{badges}</div>}
-            {product.img
-              ? <img src={product.img} alt={product.name} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'contain' }} />
+            {getImageUrl(product.photo, 300) || product.img
+              ? <img src={getImageUrl(product.photo, 300) || product.img} alt={product.name} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'contain' }} />
               : <Placeholder />
             }
           </div>
@@ -286,8 +296,8 @@ export default function ProductCard({ product, onAddToCart, onOpenModal, compact
       {/* Col 1: Image */}
       <div className="col-img">
         {badges.length > 0 && <div className="badge-wrap">{badges}</div>}
-        {product.img
-          ? <img src={product.img} alt={product.name} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'contain' }} />
+        {getImageUrl(product.photo, 400) || product.img
+          ? <img src={getImageUrl(product.photo, 400) || product.img} alt={product.name} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'contain' }} />
           : <Placeholder />
         }
       </div>

@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, useEffect, use } from 'react';
 import Link from 'next/link';
 import { catLabels, brandInitials, fmt } from '@/lib/data';
 import { supabase } from '@/lib/supabase';
+import { fetchSanityProductPhotos, fetchSanityBrands } from '@/lib/sanity';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
 import Cart from '@/components/Cart';
@@ -37,17 +38,27 @@ export default function CategoriaPage({ params }) {
   const [cartOpen,     setCartOpen]     = useState(false);
   const [cartId,       setCartId]       = useState(null);
 
-  // Busca produtos desta categoria do Supabase
+  // Busca produtos desta categoria do Supabase e imagens do Sanity
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const [{ data: prods }, { data: brandsData }] = await Promise.all([
+      const [{ data: prods }, { data: brandsData }, sanityPhotos, sanityBrands] = await Promise.all([
         supabase.from('products').select('*, variants(*)').eq('category', categoria).order('id'),
         supabase.from('brands').select('*'),
+        fetchSanityProductPhotos(),
+        fetchSanityBrands(),
       ]);
-      setAllProducts((prods || []).map(p => ({ ...p, smokeTime: p.smoke_time })));
+      setAllProducts((prods || []).map(p => ({
+        ...p,
+        smokeTime: p.smoke_time,
+        photo: sanityPhotos[p.name]?.photo || null,
+      })));
       const map = {};
       (brandsData || []).forEach(b => { map[b.name] = b; });
+      // Mescla dados do Sanity (logo, bio) sobre dados do Supabase
+      Object.entries(sanityBrands).forEach(([name, sb]) => {
+        map[name] = { ...(map[name] || {}), ...sb };
+      });
       setBrandsInfo(map);
       setLoading(false);
     }
