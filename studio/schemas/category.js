@@ -17,6 +17,33 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'parent',
+      title: 'Categoria pai',
+      type: 'reference',
+      to: [{ type: 'category' }],
+      description: 'Deixe em branco para categoria de nível 1 (ex: Charutos, Acessórios)',
+    },
+    {
+      name: 'order',
+      title: 'Ordem no menu',
+      type: 'number',
+      description: 'Número para ordenar no navbar. Menor = aparece primeiro.',
+      initialValue: 10,
+    },
+    {
+      name: 'megaMenu',
+      title: 'Exibir como mega menu',
+      type: 'boolean',
+      description: 'Ative para categorias de nível 1 que devem abrir um mega menu com subcategorias',
+      initialValue: false,
+    },
+    {
+      name: 'flag',
+      title: 'Emoji / Ícone',
+      type: 'string',
+      description: 'Emoji exibido no menu mobile. Ex: 🇨🇺 🌎 🇧🇷 ✂️ 🎁',
+    },
+    {
       name: 'eyebrow',
       title: 'Eyebrow',
       type: 'string',

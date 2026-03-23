@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-03-23T19:40:37.442Z",
+  "createdAt": "2026-03-23T20:31:32.562Z",
   "studioVersion": "5.17.1",
   "version": 3,
   "workspaces": [
@@ -13,7 +13,7 @@
       },
       "name": "tabacco",
       "projectId": "vzg7ein3",
-      "schema": "b5901aa3.create-schema.json",
+      "schema": "c47db117.create-schema.json",
       "title": "Tabacco CMS",
       "tools": "ef87c8fe.create-tools.json"
     }

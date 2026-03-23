@@ -1,23 +1,42 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { fetchFooterPages } from '@/lib/sanity';
+
 export default function Footer() {
+  const [footerGroups, setFooterGroups] = useState({});
+
+  useEffect(() => {
+    fetchFooterPages().then(groups => setFooterGroups(groups || {}));
+  }, []);
+
+  const groupNames = Object.keys(footerGroups);
+
   return (
     <footer>
       <div className="footer-main">
         <div className="footer-main-inner">
+
+          {/* Col fixa: marca */}
           <div className="footer-col">
             <div className="footer-brand">Charutos <span>Premium</span></div>
             <p className="footer-tagline">Seleção curada das melhores marcas do mundo. Entrega discreta para todo o Brasil.</p>
           </div>
-          <div className="footer-col">
-            <div className="footer-col-title">Formas de pagamento</div>
-            <div className="pay-icons">
-              {['Visa','Master','Elo','Amex','Pix','Boleto'].map(p => (
-                <span key={p} className="pay-icon">{p}</span>
+
+          {/* Colunas dinâmicas de páginas */}
+          {groupNames.map(group => (
+            <div key={group} className="footer-col">
+              <div className="footer-col-title">{group}</div>
+              {footerGroups[group].map(page => (
+                <Link key={page._id} href={`/${page.slug}`} className="footer-link">
+                  {page.title}
+                </Link>
               ))}
             </div>
-            <p className="footer-discount-note">✓ 10% de desconto no Pix e Boleto · Parcele em até 6× sem juros</p>
-          </div>
+          ))}
+
+          {/* Col fixa: atendimento */}
           <div className="footer-col">
             <div className="footer-col-title">Atendimento</div>
             <a className="footer-wa-link" href="https://wa.me/5511939215700">
@@ -28,6 +47,7 @@ export default function Footer() {
             </a>
             <p className="footer-hours">Seg–Sex 9h–18h | Sáb 9h–14h</p>
           </div>
+
         </div>
       </div>
       <div className="footer-legal">
