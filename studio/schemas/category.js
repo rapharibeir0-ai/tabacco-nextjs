@@ -11,9 +11,13 @@ export default {
     },
     {
       name: 'value',
-      title: 'Chave interna',
-      type: 'string',
-      description: 'Identificador usado nas URLs e filtros. Ex: cubanos, outros, nacionais',
+      title: 'Slug',
+      type: 'slug',
+      description: 'URL da categoria. Ex: cubanos → /catalogo/cubanos',
+      options: {
+        source: 'name',
+        slugify: value => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      },
       validation: Rule => Rule.required(),
     },
     {
