@@ -4,8 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { CAT_DATA, catLabels, fmt } from '@/lib/data';
 
-export default function Editorial({ categoria }) {
-  const data = CAT_DATA[categoria] || {};
+export default function Editorial({ categoria, catData }) {
+  const fallback = CAT_DATA[categoria] || {};
+  const data = {
+    ...fallback,
+    title:   catData?.name        || fallback.title,
+    desc:    catData?.description || fallback.desc,
+    country: catData?.country     || fallback.country,
+  };
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [

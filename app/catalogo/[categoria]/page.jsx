@@ -3,8 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, use } from 'react';
 import Link from 'next/link';
 import { catLabels, brandInitials, fmt } from '@/lib/data';
-import { supabase } from '@/lib/supabase';
-import { fetchSanityProductPhotos, fetchSanityBrands } from '@/lib/sanity';
+import { fetchProductsByCategory, buildBrandsMap, fetchCategory } from '@/lib/sanity';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
 import Cart from '@/components/Cart';
@@ -26,6 +25,7 @@ export default function CategoriaPage({ params }) {
   // ── Estado ──
   const [allProducts,  setAllProducts]  = useState([]);
   const [brandsInfo,   setBrandsInfo]   = useState({});
+  const [catData,      setCatData]      = useState(null);
   const [loading,      setLoading]      = useState(true);
   const [activeBrand,  setActiveBrand]  = useState(null);
   const [flavorFilter, setFlavorFilter] = useState('todos');
@@ -36,63 +36,22 @@ export default function CategoriaPage({ params }) {
   const [page,         setPage]         = useState(1);
   const [cart,         setCart]         = useState([]);
   const [cartOpen,     setCartOpen]     = useState(false);
-  const [cartId,       setCartId]       = useState(null);
 
-  // Busca produtos desta categoria do Supabase e imagens do Sanity
+  // Busca produtos desta categoria e dados da categoria do Sanity
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const [{ data: prods }, { data: brandsData }, sanityPhotos, sanityBrands] = await Promise.all([
-        supabase.from('products').select('*, variants(*)').eq('category', categoria).order('id'),
-        supabase.from('brands').select('*'),
-        fetchSanityProductPhotos(),
-        fetchSanityBrands(),
+      const [prods, cat] = await Promise.all([
+        fetchProductsByCategory(categoria),
+        fetchCategory(categoria),
       ]);
-      setAllProducts((prods || []).map(p => ({
-        ...p,
-        smokeTime: p.smoke_time,
-        photo: sanityPhotos[p.name]?.photo || null,
-      })));
-      const map = {};
-      (brandsData || []).forEach(b => { map[b.name] = b; });
-      // Mescla dados do Sanity (logo, bio) sobre dados do Supabase
-      Object.entries(sanityBrands).forEach(([name, sb]) => {
-        map[name] = { ...(map[name] || {}), ...sb };
-      });
-      setBrandsInfo(map);
+      setAllProducts(prods);
+      setBrandsInfo(buildBrandsMap(prods));
+      if (cat) setCatData(cat);
       setLoading(false);
     }
     fetchData();
   }, [categoria]);
-
-  // Carrinho persistido no Supabase
-  useEffect(() => {
-    async function loadCart() {
-      let id = sessionStorage.getItem('tabacco-cart-id');
-      if (!id) {
-        id = crypto.randomUUID();
-        sessionStorage.setItem('tabacco-cart-id', id);
-      }
-      setCartId(id);
-      const { data } = await supabase
-        .from('orders')
-        .select('items')
-        .eq('cart_id', id)
-        .eq('status', 'draft')
-        .maybeSingle();
-      if (data?.items?.length > 0) setCart(data.items);
-    }
-    loadCart();
-  }, []);
-
-  // Sincroniza carrinho com o Supabase ao alterar
-  useEffect(() => {
-    if (!cartId) return;
-    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-    supabase.from('orders')
-      .upsert({ cart_id: cartId, items: cart, status: 'draft', total }, { onConflict: 'cart_id' })
-      .then(({ error }) => { if (error) console.error('Erro ao salvar carrinho:', error); });
-  }, [cart, cartId]);
 
   // Reset página ao mudar filtros
   useEffect(() => { setPage(1); }, [activeBrand, flavorFilter, stockOnly, priceMax, sortMode]);
@@ -185,7 +144,7 @@ export default function CategoriaPage({ params }) {
       </nav>
 
       {/* Hero */}
-      <CategoryHero categoria={categoria} products={allProducts} />
+      <CategoryHero categoria={categoria} products={allProducts} catData={catData} />
 
       {/* Brand Strip */}
       <BrandStrip
@@ -279,7 +238,7 @@ export default function CategoriaPage({ params }) {
       </div>
 
       {/* Editorial SEO/GEO */}
-      <Editorial categoria={categoria} />
+      <Editorial categoria={categoria} catData={catData} />
 
       <Footer />
 

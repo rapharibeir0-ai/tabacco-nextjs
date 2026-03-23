@@ -19,8 +19,15 @@ function CubaFlag({ small = false }) {
   );
 }
 
-export default function CategoryHero({ categoria, products }) {
-  const data = CAT_DATA[categoria] || {};
+export default function CategoryHero({ categoria, products, catData }) {
+  const fallback = CAT_DATA[categoria] || {};
+  const data = {
+    eyebrow:  catData?.eyebrow      || fallback.eyebrow,
+    title:    catData?.name         || fallback.title,
+    desc:     catData?.description  || fallback.desc,
+    country:  catData?.country      || fallback.country,
+    flag:     fallback.flag,
+  };
   const inStock = products.filter(p => p.stock !== 'out').length;
   const brandCount = new Set(products.map(p => p.brand)).size;
 

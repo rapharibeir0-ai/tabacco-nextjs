@@ -100,7 +100,76 @@ export default {
         list: ['novidade', 'destaque', 'limitado'],
       },
     },
-    // Nota: preço e estoque ficam no Supabase
+    {
+      name: 'price',
+      title: 'Preço (R$)',
+      type: 'number',
+      validation: Rule => Rule.required().positive(),
+    },
+    {
+      name: 'stock',
+      title: 'Estoque',
+      type: 'string',
+      initialValue: 'in-stock',
+      options: {
+        list: [
+          { title: 'Em estoque', value: 'in-stock' },
+          { title: 'Pouco estoque', value: 'low-stock' },
+          { title: 'Esgotado', value: 'out' },
+        ],
+      },
+    },
+    {
+      name: 'unit',
+      title: 'Unidade',
+      type: 'string',
+      initialValue: 'unidade',
+      description: 'Ex: unidade, maço com 5, caixa com 25',
+    },
+    {
+      name: 'variants',
+      title: 'Variantes de quantidade',
+      type: 'array',
+      description: 'Opções de compra em quantidade diferente (petaca, caixa etc.)',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'label', title: 'Label', type: 'string', description: 'Ex: Unitário, Petaca (3), Caixa (25)' },
+            { name: 'price', title: 'Preço (R$)', type: 'number' },
+            { name: 'unit', title: 'Unidade', type: 'string', description: 'Ex: unidade, petaca c/ 3' },
+            {
+              name: 'stock',
+              title: 'Estoque',
+              type: 'string',
+              initialValue: 'in-stock',
+              options: {
+                list: [
+                  { title: 'Em estoque', value: 'in-stock' },
+                  { title: 'Pouco estoque', value: 'low-stock' },
+                  { title: 'Esgotado', value: 'out' },
+                ],
+              },
+            },
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'price' },
+            prepare({ title, subtitle }) {
+              return { title, subtitle: subtitle ? `R$ ${subtitle}` : '' };
+            },
+          },
+        },
+      ],
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      fields: [
+        { name: 'title', title: 'Título SEO', type: 'string', description: 'Max 60 caracteres' },
+        { name: 'description', title: 'Descrição Meta', type: 'text', rows: 2, description: 'Max 160 caracteres' },
+      ],
+    },
   ],
   preview: {
     select: {
