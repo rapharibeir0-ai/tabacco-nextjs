@@ -2013,3 +2013,34 @@ footer { background:var(--ink); color:rgba(255,255,255,.55); }
   .cat-hero-stats { flex-wrap: wrap; }
   .cat-stat { padding: 0 1.25rem; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PÁGINAS DE CONTEÚDO (/[slug])
+══════════════════════════════════════════════════════════════ */
+.content-page { min-height: 60vh; padding-top: 80px; }
+.content-page-inner { max-width: 780px; margin: 0 auto; padding: 2.5rem var(--page-px) 5rem; }
+.content-page-title {
+  font-family: var(--serif); font-size: 2.6rem; font-weight: 600;
+  line-height: 1.15; color: var(--ink); margin: 1.5rem 0 2rem;
+}
+.content-page-body { color: var(--ink); }
+.page-p  { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; color: var(--dim); }
+.page-h2 { font-family: var(--serif); font-size: 1.7rem; font-weight: 600; margin: 2.5rem 0 .75rem; }
+.page-h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin: 2rem 0 .5rem; }
+.page-quote {
+  border-left: 3px solid var(--brand-color); padding: .75rem 1.25rem;
+  margin: 1.5rem 0; color: var(--muted); font-style: italic;
+  background: var(--white); border-radius: 0 var(--radius) var(--radius) 0;
+}
+@media(max-width: 640px) {
+  .content-page-inner { padding: 1.5rem var(--page-px-sm) 3rem; }
+  .content-page-title { font-size: 1.9rem; }
+}
+
+/* ── Footer link dinâmico ── */
+.footer-link {
+  display: block; font-size: .82rem; color: var(--muted);
+  text-decoration: none; margin-bottom: .45rem;
+  transition: color .13s;
+}
+.footer-link:hover { color: var(--ink); }
