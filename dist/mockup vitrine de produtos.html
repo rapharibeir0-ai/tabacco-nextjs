@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitrine — v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f4f2ef;
+  --white:     #ffffff;
+  --border:    #e5e1db;
+  --ink:       #1e1b18;
+  --dim:       #7a7268;
+  --muted:     #b0aba3;
+  --light:     #ede9e3;
+  --brand-red: #9b3a2a;
+  --green:     #2a9a4a;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: #dedad4;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ══════════════════════════════════════════
+   SEÇÃO DE DEVICE
+══════════════════════════════════════════ */
+.device-section {
+  padding: 3rem 2rem 4rem;
+  border-bottom: 1px solid #ccc9c3;
+}
+.device-label {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.device-label h2 {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400; color: #5a5650;
+  letter-spacing: .04em;
+}
+.device-label p {
+  font-size: .7rem; color: #8a8680; margin-top: .25rem;
+}
+
+/* cada device tem seu max-width */
+.frame-desktop { max-width: 1000px; margin: 0 auto; background: var(--bg); border-radius: 12px; padding: 2rem; }
+.frame-ipad    { max-width: 768px;  margin: 0 auto; background: var(--bg); border-radius: 12px; padding: 1.5rem; }
+.frame-mobile  { max-width: 390px;  margin: 0 auto; background: var(--bg); border-radius: 24px; padding: 1.25rem; box-shadow: 0 0 0 8px #2a2620, 0 20px 60px rgba(0,0,0,.35); }
+
+
+/* ══════════════════════════════════════════
+   COMPONENTES COMPARTILHADOS
+══════════════════════════════════════════ */
+
+/* Brand header */
+.brand-row {
+  display: flex; align-items: center; gap: .85rem;
+  padding-bottom: .8rem; margin-bottom: .8rem;
+  border-bottom: 1px solid var(--border);
+}
+.brand-row.sm { gap: .65rem; padding-bottom: .65rem; margin-bottom: .65rem; }
+
+.monogram {
+  border: 1.5px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-weight: 600; color: var(--ink);
+  flex-shrink: 0; border-radius: 50%;
+}
+.monogram.lg { width: 40px; height: 40px; font-size: .92rem; }
+.monogram.md { width: 34px; height: 34px; font-size: .78rem; }
+.monogram.sm { width: 28px; height: 28px; font-size: .65rem; }
+
+.brand-name { font-weight: 600; color: var(--ink); }
+.brand-name.lg { font-size: .9rem; }
+.brand-name.md { font-size: .82rem; }
+.brand-name.sm { font-size: .75rem; }
+.brand-desc { font-size: .68rem; color: var(--dim); margin-top: .08rem; }
+.brand-desc.sm { font-size: .6rem; }
+
+/* Intensity bar */
+.ibar-row { display: inline-flex; align-items: center; gap: 3px; }
+.ibar { border-radius: 100px; }
+.ibar.lg { width: 26px; height: 6px; }
+.ibar.sm { width: 20px; height: 5px; }
+.ibar-1        { background: #c8edd4; }
+.ibar-1.on     { background: #2a9a4a; }
+.ibar-2        { background: #fde8c8; }
+.ibar-2.on     { background: #e07820; }
+.ibar-3        { background: #fdd8d4; }
+.ibar-3.on     { background: #d03020; }
+.ilabel        { font-size: .72rem; color: var(--dim); }
+.ilabel.sm     { font-size: .62rem; }
+.ilabel.medio  { color: #e07820; }
+.msep { color: var(--border); font-size: .8rem; }
+.mtext { font-size: .72rem; color: var(--dim); }
+.mtext.sm { font-size: .62rem; }
+
+/* Badges */
+.badge {
+  font-size: .52rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .26rem .55rem;
+  border-radius: 4px; line-height: 1; color: #fff;
+}
+.badge-exclusivo { background: #6e2418; }
+.badge-limitado  { background: #7a4a1a; }
+.badge-novidade  { background: #1a3a7a; }
+
+/* Shipping pill */
+.ship {
+  display: inline-flex; align-items: center; gap: .32rem;
+  background: #e8f5ec; color: var(--green);
+  font-weight: 600; border-radius: 100px; width: fit-content;
+}
+.ship.lg { font-size: .67rem; padding: .28rem .65rem; }
+.ship.sm { font-size: .58rem; padding: .22rem .5rem; }
+.ship svg { flex-shrink: 0; }
+
+/* Stock pill */
+.stock { display: inline-flex; align-items: center; border-radius: 100px; font-weight: 600; }
+.stock.lg { font-size: .67rem; padding: .28rem .65rem; }
+.stock.sm { font-size: .6rem; padding: .22rem .55rem; }
+.stock.in  { background: #e8f5ec; color: var(--green); }
+.stock.low { background: #fef3e2; color: #a06020; }
+
+/* Botão adicionar */
+.add-btn {
+  background: #7ebc43; border: none; color: #fff;
+  font-family: var(--sans); font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  border-radius: 6px; cursor: pointer; transition: opacity .14s;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+}
+.add-btn:hover { opacity: .8; }
+.add-btn.full { width: 100%; padding: .9rem; font-size: .75rem; }
+.add-btn.inline { padding: .8rem 1.25rem; font-size: .7rem; flex-shrink: 0; }
+.add-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+
+/* ══════════════════════════════════════════
+   CHIPS DE VARIANTE
+══════════════════════════════════════════ */
+.var-section { display: flex; flex-direction: column; gap: .5rem; }
+.var-label {
+  font-size: .55rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.chips-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+.col-variants .chips-row,
+.mob-variants .chips-row { flex-wrap: nowrap; }
+.mob-variants .chip { padding: .45rem .6rem; }
+.mob-variants .chip-name { font-size: .7rem; }
+.mob-variants .chip-price { font-size: .6rem; }
+.mob-variants .chip-disc { font-size: .5rem; }
+.mob-variants .chip-stock { font-size: .5rem; }
+
+.chip {
+  display: flex; flex-direction: column; align-items: flex-start; gap: .1rem;
+  padding: .55rem .8rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--white);
+  transition: all .13s;
+  min-width: 0;
+}
+.chip:hover { border-color: var(--muted); }
+.chip.active { background: var(--ink); border-color: var(--ink); }
+
+.chip-top   { display: flex; align-items: center; gap: .35rem; }
+.chip-name  { font-size: .75rem; font-weight: 600; color: var(--ink); line-height: 1; white-space: nowrap; }
+.chip-price { font-size: .65rem; color: var(--muted); line-height: 1; white-space: nowrap; }
+.chip-disc  {
+  font-size: .55rem; font-weight: 700;
+  color: var(--green); background: #e8f5ec;
+  padding: .08rem .3rem; border-radius: 3px; line-height: 1.3;
+}
+.chip-stock {
+  font-size: .55rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: .2rem;
+  line-height: 1.3; white-space: nowrap;
+}
+.chip-stock.in  { color: var(--green); }
+.chip-stock.low { color: #a06020; }
+.chip-stock.out { color: var(--muted); }
+
+.chip.active .chip-name  { color: #fff; }
+.chip.active .chip-price { color: rgba(255,255,255,.6); }
+.chip.active .chip-disc  { background: rgba(255,255,255,.15); color: #8de8a8; }
+.chip.active .chip-stock.in  { color: #8de8a8; }
+.chip.active .chip-stock.low { color: #f0c080; }
+.chip:disabled, .chip.out { opacity: .42; pointer-events: none; cursor: not-allowed; }
+.chip-price-out { text-decoration: line-through; color: var(--muted) !important; }
+.chip-disc-out  { background: var(--light) !important; color: var(--muted) !important; }
+
+/* Chip selecionado + esgotado (Estado B) */
+.chip.active.out-selected {
+  background: #f4f2ef; border-color: var(--border); border-width: 1.5px;
+  pointer-events: none; opacity: 1;
+}
+.chip.active.out-selected .chip-name  { color: var(--muted); }
+.chip.active.out-selected .chip-price { color: var(--muted); text-decoration: line-through; }
+.chip.active.out-selected .chip-stock { color: var(--muted); }
+
+/* Botão esgotado */
+.add-btn-esgotado {
+  background: var(--muted) !important; opacity: 1 !important;
+  cursor: not-allowed !important; letter-spacing: .06em;
+}
+
+/* cc-top layout (compact card novo) */
+.cc-top { display: grid; grid-template-columns: 140px 1fr; min-height: 180px; border-bottom: 1px solid var(--border); }
+.cc-top .cc-img { border-right: 1px solid var(--border); }
+
+/* Botão avise-me */
+.notify-btn {
+  width: 100%; padding: .75rem; border-radius: 6px;
+  border: 1.5px solid var(--border); background: var(--white);
+  font-family: var(--sans); font-size: .72rem; font-weight: 600;
+  color: var(--dim); cursor: pointer; letter-spacing: .04em;
+  display: flex; align-items: center; justify-content: center; gap: .45rem;
+  transition: all .14s;
+}
+.notify-btn:hover { border-color: var(--ink); color: var(--ink); background: #f9f8f6; }
+.notify-btn svg { flex-shrink: 0; }
+
+/* Preço selecionado abaixo dos chips */
+.selected-price {
+  display: flex; align-items: baseline; gap: .45rem;
+  padding-top: .55rem; border-top: 1px solid var(--border);
+}
+.sprice-val {
+  font-family: var(--serif); font-weight: 600; color: var(--ink);
+}
+.sprice-val.lg { font-size: 1.75rem; }
+.sprice-val.sm { font-size: 1.4rem; }
+.sprice-unit { font-size: .68rem; color: var(--muted); }
+
+
+/* ══════════════════════════════════════════
+   1. DESKTOP
+══════════════════════════════════════════ */
+.card-desktop {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 240px 1fr 360px;
+  min-height: 220px;
+}
+.card-desktop .col-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+.col-img .badge-wrap {
+  position: absolute; top: .75rem; left: .75rem; z-index: 1;
+}
+.card-desktop .col-info {
+  padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+  display: flex; flex-direction: column; gap: .4rem;
+  border-right: 1px solid var(--border);
+}
+.brand-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--brand-red);
+}
+.product-name {
+  font-family: var(--serif); font-weight: 600; color: var(--ink); line-height: 1.1;
+}
+.product-name.lg { font-size: 1.55rem; margin-top: -.05rem; }
+.product-name.md { font-size: 1.3rem; }
+.product-name.sm { font-size: 1.1rem; }
+.vitola { font-weight: 300; color: var(--muted); }
+.vitola.lg { font-size: .75rem; }
+.vitola.sm { font-size: .68rem; }
+.meta-row { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin-top: .1rem; }
+.pairing { color: var(--dim); line-height: 1.5; }
+.pairing.lg { font-size: .72rem; }
+.pairing.sm { font-size: .63rem; }
+
+.card-desktop .col-variants {
+  padding: 1.4rem 1.5rem;
+  display: flex; flex-direction: column; gap: .75rem;
+  justify-content: space-between;
+}
+
+
+/* ══════════════════════════════════════════
+   2. IPAD
+   Imagem + info numa linha, variantes + ação embaixo
+══════════════════════════════════════════ */
+.card-ipad {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ipad-top {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 200px;
+  border-bottom: 1px solid var(--border);
+}
+.ipad-top .col-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+}
+.ipad-top .col-info {
+  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.ipad-bottom {
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex; flex-direction: row; align-items: flex-end; gap: 1rem;
+}
+.ipad-bottom .var-section { flex: 1; }
+.ipad-action {
+  display: flex; flex-direction: column; align-items: flex-end; gap: .4rem;
+  flex-shrink: 0;
+}
+.ipad-price-val {
+  font-family: var(--serif); font-size: 1.65rem; font-weight: 600;
+  color: var(--ink); line-height: 1;
+}
+.ipad-price-unit { font-size: .65rem; color: var(--muted); }
+
+
+/* ══════════════════════════════════════════
+   3. MOBILE
+   Tudo empilhado. Chips. Rodapé fixo com preço+botão.
+══════════════════════════════════════════ */
+.card-mobile {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.mob-top {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  min-height: 180px;
+  border-bottom: 1px solid var(--border);
+}
+.mob-img {
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+}
+.mob-badge-wrap { position: absolute; top: .5rem; left: .5rem; z-index: 1; }
+.mob-info {
+  padding: .85rem .9rem;
+  display: flex; flex-direction: column; gap: .28rem;
+}
+.mob-variants { padding: .85rem .9rem .5rem; }
+.mob-footer {
+  padding: .85rem .9rem;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: .75rem;
+}
+.mob-price-block { display: flex; flex-direction: column; gap: .08rem; }
+.mob-price-val {
+  font-family: var(--serif); font-size: 1.55rem; font-weight: 600;
+  color: var(--ink); line-height: 1;
+}
+.mob-stock { font-size: .62rem; font-weight: 600; color: var(--green); }
+
+/* Info rows com ícones */
+.info-rows { display: flex; flex-direction: column; gap: .28rem; margin-top: .15rem; }
+.info-row  { display: flex; align-items: center; gap: .4rem; }
+.info-row svg { flex-shrink: 0; color: var(--muted); }
+.info-row.lg span { font-size: .72rem; color: var(--dim); }
+.info-row.sm span { font-size: .63rem; color: var(--dim); }
+
+/* Botão "i" tooltip */
+.tip-btn {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid var(--muted); background: none; cursor: pointer;
+  font-size: .55rem; font-weight: 700; color: var(--muted);
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; font-family: var(--serif); font-style: italic; flex-shrink: 0;
+  transition: all .13s; line-height: 1;
+}
+.tip-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--light); }
+.tip-btn.active { border-color: var(--ink); color: #fff; background: var(--ink); }
+
+.tooltip-box {
+  position: fixed; background: var(--ink); color: #fff;
+  font-family: var(--sans); font-size: .68rem; line-height: 1.6;
+  padding: .65rem .9rem; border-radius: 8px; max-width: 260px;
+  z-index: 9999; pointer-events: none;
+  opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+.tooltip-box.visible { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════════
+   TOGGLE DE LAYOUT (desktop)
+══════════════════════════════════════════ */
+.layout-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.layout-toolbar-label { font-size: .72rem; color: var(--dim); }
+.layout-toggle {
+  display: flex; align-items: center;
+  background: #ede9e3; border-radius: 6px; padding: 3px; gap: 3px;
+}
+.layout-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 28px; border-radius: 4px; border: none;
+  background: transparent; cursor: pointer; transition: all .13s;
+  color: var(--muted);
+}
+.layout-btn.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.layout-btn:hover:not(.active) { color: var(--dim); }
+
+/* Grid de cards */
+.cards-grid { display: flex; flex-direction: column; gap: 1rem; }
+.cards-grid.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Card compacto (2 colunas) */
+.card-compact {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card-compact .cc-img {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.cc-badge { position: absolute; top: .65rem; left: .65rem; z-index: 1; }
+.card-compact .cc-body {
+  padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: .35rem;
+  flex: 1;
+}
+.card-compact .cc-chips {
+  padding: .75rem 1.1rem;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.card-compact .cc-footer {
+  padding: .75rem 1.1rem;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: .65rem;
+}
+.cc-price-val {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); line-height: 1;
+}
+.cc-price-unit { font-size: .62rem; color: var(--muted); }
+
+/* Ocultar/mostrar por modo */
+.cards-grid .card-desktop { display: grid; }
+.cards-grid .card-compact { display: none; }
+.cards-grid.two-col .card-desktop { display: none; }
+.cards-grid.two-col .card-compact { display: flex; }
+</style>
+</head>
+<body>
+
+
+<!-- ══════════════════════════════════════
+     1. DESKTOP
+══════════════════════════════════════ -->
+<div class="device-section">
+  <div class="device-label">
+    <h2>Desktop</h2>
+    <p>Acima de 1024px · 4 colunas</p>
+  </div>
+
+  <div class="frame-desktop">
+    <div class="layout-toolbar">
+      <span class="layout-toolbar-label">2 por linha</span>
+      <div class="layout-toggle">
+        <button class="layout-btn" id="btn-1col" title="1 por linha"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="4" rx="1"/><rect x="1" y="8" width="14" height="4" rx="1"/></svg></button>
+        <button class="layout-btn active" id="btn-2col" title="2 por linha"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="6" height="12" rx="1"/><rect x="9" y="2" width="6" height="12" rx="1"/></svg></button>
+      </div>
+    </div>
+    <div class="brand-row">
+      <div class="monogram lg">CO</div>
+      <div>
+        <div class="brand-name lg">Cohiba</div>
+        <div class="brand-desc">Cuba · Est. 1966 · Criada para Fidel Castro, símbolo máximo do charuto cubano.</div>
+      </div>
+    </div>
+
+    <div class="cards-grid two-col">
+    <div class="card-desktop">
+
+      <div class="col-img">
+        <div class="badge-wrap"><span class="badge badge-exclusivo">Exclusivo</span></div>
+<img src="cazadores-caixa.jpg" alt="Arturo Fuente Cazadores" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;">
+      </div>
+
+      <div class="col-info">
+        <span class="brand-label">Cohiba</span>
+        <span class="product-name lg">Siglo VI</span>
+        <div class="info-rows">
+          <div class="info-row lg">
+            <span class="ibar-row">
+              <span class="ibar lg ibar-1"></span>
+              <span class="ibar lg ibar-2 on"></span>
+              <span class="ibar lg ibar-3"></span>
+            </span>
+            <span class="ilabel medio" style="font-size:.72rem;">Médio</span>
+          </div>
+          <div class="info-row lg">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></svg>
+            <span>Corona Grande · 52×150mm</span>
+          </div>
+          <div class="info-row lg">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>90–120 min de degustação</span>
+          </div>
+          <div class="info-row lg">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+            <span>Long-filler</span>
+            <button class="tip-btn" data-tip="Folhas inteiras que percorrem todo o charuto. Queima lenta, uniforme e sabor mais complexo — padrão dos charutos premium.">i</button>
+          </div>
+          <div class="info-row lg">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 22h8"/><path d="M12 11v11"/><path d="M5 3l1 9a6 6 0 0 0 12 0l1-9H5z"/></svg>
+            <span>Whisky · Rum Envelhecido · Conhaque</span>
+          </div>
+        </div>
+        <div class="ship lg" style="margin-top:.2rem;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          Receba ainda hoje
+        </div>
+      </div>
+
+      <div class="col-variants">
+
+        <!-- Chips -->
+        <div class="var-section">
+          <div class="var-label">Quantidade</div>
+          <div class="chips-row">
+            <div class="chip">
+              <div class="chip-top"><span class="chip-name">Unitário</span></div>
+              <span class="chip-price">R$ 280</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip active">
+              <div class="chip-top"><span class="chip-name">Petaca (3)</span><span class="chip-disc">−5%</span></div>
+              <span class="chip-price">R$ 798</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip out">
+              <div class="chip-top"><span class="chip-name">Caixa (25)</span><span class="chip-disc chip-disc-out">−10%</span></div>
+              <span class="chip-price chip-price-out">R$ 6.300</span>
+              <span class="chip-stock out">Esgotado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preço selecionado + Receba hoje -->
+        <div style="border-top:1px solid var(--border); padding-top:.75rem;">
+          <div style="display:flex; align-items:baseline; gap:.5rem; margin-bottom:.5rem;">
+            <span style="font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--ink);line-height:1;">R$ 798</span>
+            <span style="font-size:.7rem;color:var(--muted);">petaca c/ 3</span>
+          </div>
+          <div class="ship lg">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            Receba ainda hoje
+          </div>
+        </div>
+
+        <!-- Botão -->
+        <button class="add-btn full">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Adicionar ao carrinho
+        </button>
+
+      </div>
+
+    </div>
+
+        <!-- Card compacto (visível em 2-colunas) -->
+        <div class="card-compact">
+          <div class="cc-top">
+          <div class="cc-img">
+            <div class="cc-badge"><span class="badge badge-exclusivo">Exclusivo</span></div>
+            <img src="cazadores-caixa.jpg" alt="Arturo Fuente Cazadores" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;">
+          </div>
+          <div class="cc-body">
+            <span class="brand-label">Cohiba</span>
+            <span class="product-name md">Siglo VI</span>
+            <div class="info-rows" style="margin-top:.1rem;">
+              <div class="info-row sm">
+                <span class="ibar-row"><span class="ibar sm ibar-1"></span><span class="ibar sm ibar-2 on"></span><span class="ibar sm ibar-3"></span></span>
+                <span class="ilabel sm medio">Médio</span>
+              </div>
+              <div class="info-row sm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></svg><span>Corona Grande · 52×150mm</span></div>
+              <div class="info-row sm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>90–120 min de degustação</span></div>
+              <div class="info-row sm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg><span>Long-filler</span><button class="tip-btn" data-tip="Folhas inteiras que percorrem todo o charuto. Queima lenta, uniforme e sabor mais complexo — padrão dos charutos premium.">i</button></div>
+              <div class="info-row sm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 11v11"/><path d="M5 3l1 9a6 6 0 0 0 12 0l1-9H5z"/></svg><span>Whisky · Rum Envelhecido · Conhaque</span></div>
+            </div>
+            <div class="ship sm" style="margin-top:.35rem;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Receba ainda hoje</div>
+          </div>
+          </div>
+          <div class="cc-chips">
+            <div class="var-label">Quantidade</div>
+            <div class="chips-row" style="flex-wrap:nowrap;">
+              <div class="chip">
+                <div class="chip-top"><span class="chip-name">Unitário</span></div>
+                <span class="chip-price">R$ 280</span>
+                <span class="chip-stock in">Em estoque</span>
+              </div>
+              <div class="chip active">
+                <div class="chip-top"><span class="chip-name">Petaca (3)</span><span class="chip-disc">−5%</span></div>
+                <span class="chip-price">R$ 798</span>
+                <span class="chip-stock in">Em estoque</span>
+              </div>
+              <div class="chip">
+                <div class="chip-top"><span class="chip-name">Caixa (25)</span><span class="chip-disc">−10%</span></div>
+                <span class="chip-price">R$ 6.300</span>
+                <span class="chip-stock in">Em estoque</span>
+              </div>
+            </div>
+          </div>
+          <div class="cc-footer">
+            <div style="flex:1;">
+              <div class="cc-price-val">R$ 798</div>
+              <div class="cc-price-unit">petaca c/ 3</div>
+            </div>
+            <button class="add-btn inline" style="font-size:.68rem;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar</button>
+          </div>
+        </div>
+    </div><!-- /cards-grid -->
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     2. IPAD
+══════════════════════════════════════ -->
+<div class="device-section">
+  <div class="device-label">
+    <h2>iPad / Tablet</h2>
+    <p>600px – 1024px · Topo em 3 colunas + variantes abaixo</p>
+  </div>
+
+  <div class="frame-ipad">
+    <div class="brand-row sm">
+      <div class="monogram md">CO</div>
+      <div>
+        <div class="brand-name md">Cohiba</div>
+        <div class="brand-desc sm">Cuba · Est. 1966 · Símbolo máximo do charuto cubano.</div>
+      </div>
+    </div>
+
+    <div class="card-ipad">
+
+      <div class="ipad-top">
+        <div class="col-img">
+          <div class="badge-wrap"><span class="badge badge-exclusivo">Exclusivo</span></div>
+<img src="cazadores-caixa.jpg" alt="Arturo Fuente Cazadores" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;">
+        </div>
+
+        <div class="col-info">
+          <span class="brand-label">Cohiba</span>
+          <span class="product-name md">Siglo VI</span>
+        <div class="info-rows">
+          <div class="info-row sm">
+            <span class="ibar-row">
+              <span class="ibar sm ibar-1"></span>
+              <span class="ibar sm ibar-2 on"></span>
+              <span class="ibar sm ibar-3"></span>
+            </span>
+            <span class="ilabel sm medio">Médio</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></svg>
+            <span>Corona Grande · 52×150mm</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>90–120 min de degustação</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+            <span>Long-filler</span>
+            <button class="tip-btn" data-tip="Folhas inteiras que percorrem todo o charuto. Queima lenta, uniforme e sabor mais complexo — padrão dos charutos premium.">i</button>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 22h8"/><path d="M12 11v11"/><path d="M5 3l1 9a6 6 0 0 0 12 0l1-9H5z"/></svg>
+            <span>Whisky · Rum Envelhecido · Conhaque</span>
+          </div>
+        </div>
+          <div class="ship sm" style="margin-top:.2rem;">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            Receba ainda hoje
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ipad-bottom">
+        <div class="var-section">
+          <div class="var-label">Quantidade</div>
+          <div class="chips-row">
+            <div class="chip">
+              <div class="chip-top"><span class="chip-name">Unitário</span></div>
+              <span class="chip-price">R$ 280</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip active">
+              <div class="chip-top"><span class="chip-name">Petaca (3)</span><span class="chip-disc">−5%</span></div>
+              <span class="chip-price">R$ 798</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip out">
+              <div class="chip-top"><span class="chip-name">Caixa (25)</span><span class="chip-disc chip-disc-out">−10%</span></div>
+              <span class="chip-price chip-price-out">R$ 6.300</span>
+              <span class="chip-stock out">Esgotado</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ipad-action">
+          <div style="text-align:right;">
+            <div class="ipad-price-val">R$ 798</div>
+            <div class="ipad-price-unit">petaca c/ 3</div>
+          </div>
+          <button class="add-btn inline" style="font-size:.68rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Adicionar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     3. MOBILE
+══════════════════════════════════════ -->
+<div class="device-section" style="border-bottom:none;">
+  <div class="device-label">
+    <h2>Celular</h2>
+    <p>Abaixo de 600px · Totalmente vertical</p>
+  </div>
+
+  <div class="frame-mobile">
+    <div class="brand-row sm">
+      <div class="monogram sm">CO</div>
+      <div>
+        <div class="brand-name sm">Cohiba</div>
+        <div class="brand-desc sm">Cuba · Est. 1966</div>
+      </div>
+    </div>
+
+    <div class="card-mobile">
+
+      <div class="mob-top">
+        <div class="mob-img">
+          <div class="mob-badge-wrap"><span class="badge badge-exclusivo" style="font-size:.46rem;">Exclusivo</span></div>
+          <img src="cazadores-caixa.jpg" alt="Arturo Fuente Cazadores" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;">
+        </div>
+
+        <div class="mob-info">
+        <span class="brand-label" style="font-size:.52rem;">Cohiba</span>
+        <span class="product-name sm">Siglo VI</span>
+        <div class="info-rows">
+          <div class="info-row sm">
+            <span class="ibar-row">
+              <span class="ibar sm ibar-1"></span>
+              <span class="ibar sm ibar-2 on"></span>
+              <span class="ibar sm ibar-3"></span>
+            </span>
+            <span class="ilabel sm medio">Médio</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2"/><path d="m10.5 7.5 2 2"/><path d="m13.5 4.5 2 2"/></svg>
+            <span>Corona Grande · 52×150mm</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>90–120 min</span>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+            <span>Long-filler</span>
+            <button class="tip-btn" data-tip="Folhas inteiras que percorrem todo o charuto. Queima lenta, uniforme e sabor mais complexo — padrão dos charutos premium.">i</button>
+          </div>
+          <div class="info-row sm">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 22h8"/><path d="M12 11v11"/><path d="M5 3l1 9a6 6 0 0 0 12 0l1-9H5z"/></svg>
+            <span>Whisky · Rum Envelhecido</span>
+          </div>
+        </div>
+        <div class="ship sm" style="margin-top:.2rem;">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          Receba hoje
+        </div>
+        </div><!-- mob-info -->
+      </div><!-- mob-top -->
+
+      <div class="mob-variants">
+        <div class="var-section">
+          <div class="var-label">Quantidade</div>
+          <div class="chips-row">
+            <div class="chip">
+              <div class="chip-top"><span class="chip-name">Unitário</span></div>
+              <span class="chip-price">R$ 280</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip active">
+              <div class="chip-top"><span class="chip-name">Petaca (3)</span><span class="chip-disc">−5%</span></div>
+              <span class="chip-price">R$ 798</span>
+              <span class="chip-stock in">Em estoque</span>
+            </div>
+            <div class="chip out">
+              <div class="chip-top"><span class="chip-name">Caixa (25)</span><span class="chip-disc chip-disc-out">−10%</span></div>
+              <span class="chip-price chip-price-out">R$ 6.300</span>
+              <span class="chip-stock out">Esgotado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mob-footer">
+        <div class="mob-price-block">
+          <span class="mob-price-val">R$ 798</span>
+          <div class="ship sm">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+            Receba hoje
+          </div>
+        </div>
+        <button class="add-btn" style="flex:1; padding:.85rem; font-size:.72rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Adicionar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var box = document.createElement('div');
+  box.className = 'tooltip-box';
+  document.body.appendChild(box);
+
+  var current = null;
+
+  document.querySelectorAll('.tip-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(current === btn && box.classList.contains('visible')){
+        box.classList.remove('visible');
+        btn.classList.remove('active');
+        current = null;
+        return;
+      }
+      if(current) current.classList.remove('active');
+      current = btn;
+      btn.classList.add('active');
+      box.textContent = btn.dataset.tip;
+      var r = btn.getBoundingClientRect();
+      var left = Math.max(8, Math.min(r.left, window.innerWidth - 275));
+      var top  = r.bottom + 8;
+      if(top + 100 > window.innerHeight) top = r.top - 110;
+      box.style.left = left + 'px';
+      box.style.top  = top  + 'px';
+      box.classList.add('visible');
+    });
+  });
+
+  document.addEventListener('click', function(){
+    box.classList.remove('visible');
+    if(current){ current.classList.remove('active'); current = null; }
+  });
+})();
+
+
+// Layout toggle
+(function(){
+  var btn1 = document.getElementById('btn-1col');
+  var btn2 = document.getElementById('btn-2col');
+  var grid = btn1 ? btn1.closest('.frame-desktop').querySelector('.cards-grid') : null;
+  if(!grid) return;
+  btn1.addEventListener('click', function(){
+    grid.classList.remove('two-col');
+    btn1.classList.add('active'); btn2.classList.remove('active');
+    btn1.closest('.layout-toolbar').querySelector('.layout-toolbar-label').textContent = '1 por linha';
+  });
+  btn2.addEventListener('click', function(){
+    grid.classList.add('two-col');
+    btn2.classList.add('active'); btn1.classList.remove('active');
+    btn1.closest('.layout-toolbar').querySelector('.layout-toolbar-label').textContent = '2 por linha';
+  });
+})();
+
+</script>
+</body>
+</html>

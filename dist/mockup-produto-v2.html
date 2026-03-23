@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohiba Siglo VI — Tabacco. (Mockup v2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #f4f2ef;
+  --white:     #ffffff;
+  --border:    #e5e1db;
+  --ink:       #1e1b18;
+  --dim:       #7a7268;
+  --muted:     #b0aba3;
+  --light:     #ede9e3;
+  --brand-red: #9b3a2a;
+  --green:     #2a9a4a;
+  --gold:      #C89820;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'DM Sans', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: #d8d4ce;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding: 3rem 1.5rem 8rem;
+}
+
+/* ── PAGE META ── */
+.page-meta { max-width: 1100px; margin: 0 auto 2rem; }
+.page-meta-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--ink); margin-bottom: .2rem; }
+.page-meta-sub { font-size: .7rem; color: var(--dim); }
+
+/* ── DESKTOP FRAME ── */
+.desktop-frame {
+  max-width: 1100px; margin: 0 auto 4rem;
+  background: var(--bg); border-radius: 14px;
+  overflow: hidden; box-shadow: 0 4px 40px rgba(0,0,0,.1);
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 2rem; height: 52px;
+  display: flex; align-items: center; gap: 2rem;
+}
+.nav-logo { font-family: var(--serif); font-size: 1.35rem; font-weight: 700; color: var(--ink); letter-spacing: -.02em; flex-shrink: 0; }
+.nav-links { display: flex; gap: 1.5rem; flex: 1; }
+.nav-link { font-size: .7rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.nav-link.active { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-orders { font-size: .68rem; color: var(--dim); display: flex; align-items: center; gap: .4rem; }
+.nav-cart {
+  display: flex; align-items: center; gap: .45rem;
+  background: var(--ink); color: #fff; border: none; border-radius: 6px;
+  padding: .4rem .85rem; font-family: var(--sans); font-size: .65rem;
+  font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  padding: .75rem 2rem; display: flex; align-items: center; gap: .45rem;
+  border-bottom: 1px solid var(--border); background: var(--white);
+}
+.bc-item { font-size: .68rem; color: var(--muted); text-decoration: none; }
+.bc-item.active { color: var(--ink); font-weight: 500; }
+.bc-sep { font-size: .6rem; color: var(--border); }
+
+/* ═══════════════════════════════════════════
+   SEÇÃO PRINCIPAL
+═══════════════════════════════════════════ */
+.product-section {
+  padding: 2.5rem 2rem 2rem;
+  display: grid; grid-template-columns: 44fr 56fr;
+  gap: 3rem; background: var(--white);
+}
+
+/* ── GALERIA ── */
+.gallery-col { display: flex; flex-direction: column; gap: .75rem; }
+.gallery-main {
+  background: var(--light); border-radius: 10px;
+  aspect-ratio: 4/5; display: flex; align-items: center;
+  justify-content: center; position: relative; overflow: hidden;
+}
+.gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: .75rem; opacity: .25; }
+.gallery-placeholder svg { width: 52px; height: 52px; }
+.gallery-placeholder span { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
+.gallery-badge {
+  position: absolute; top: .85rem; left: .85rem;
+  background: var(--brand-red); color: #fff;
+  font-size: .55rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .28rem .65rem; border-radius: 4px;
+}
+.gallery-thumbs { display: grid; grid-template-columns: repeat(4,1fr); gap: .5rem; }
+.thumb {
+  aspect-ratio: 1; background: var(--light); border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: 1.5px solid transparent; transition: border-color .12s;
+}
+.thumb.active { border-color: var(--ink); }
+.thumb svg { width: 20px; height: 20px; opacity: .25; }
+
+/* ── INFO COL ── */
+.info-col { display: flex; flex-direction: column; gap: 1.5rem; padding-top: .25rem; }
+
+.brand-label-sm { font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand-red); margin-bottom: .3rem; }
+.product-name-lg { font-family: var(--serif); font-size: 2.6rem; font-weight: 300; line-height: 1.05; color: var(--ink); }
+.product-sub { font-size: .72rem; color: var(--dim); margin-top: .25rem; }
+
+/* ── SCORE EDITORIAL ── */
+.score-block {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .75rem 1rem;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+}
+.score-main { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+.score-number { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--ink); line-height: 1; }
+.score-meta { display: flex; flex-direction: column; gap: .15rem; }
+.score-label { font-size: .52rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.score-stars { display: flex; gap: 2px; }
+.score-stars svg { width: 9px; height: 9px; fill: var(--gold); }
+.score-source { font-size: .55rem; color: var(--muted); letter-spacing: .02em; }
+.score-divider { width: 1px; align-self: stretch; background: var(--border); flex-shrink: 0; }
+.score-bars { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .75rem; flex: 1; }
+.score-bar-row { display: flex; align-items: center; gap: .45rem; }
+.score-bar-label { font-size: .6rem; color: var(--dim); width: 62px; flex-shrink: 0; }
+.score-bar-track { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.score-bar-fill { height: 100%; background: var(--ink); border-radius: 2px; }
+.score-bar-val { font-size: .6rem; font-weight: 600; color: var(--ink); width: 20px; text-align: right; flex-shrink: 0; }
+
+/* ── INTENSIDADE ── */
+.intensity-block { display: flex; flex-direction: column; gap: .5rem; }
+.intensity-label { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.intensity-track {
+  position: relative; height: 8px; border-radius: 4px;
+  background: linear-gradient(to right, #4ade80, #facc15, #f97316, #dc2626);
+}
+.intensity-marker {
+  position: absolute; top: 50%; transform: translate(-50%,-50%);
+  width: 18px; height: 18px; background: var(--white);
+  border: 2px solid var(--ink); border-radius: 50%;
+  box-shadow: 0 1px 6px rgba(0,0,0,.18);
+  left: 55%; /* Médio */
+}
+.intensity-scale {
+  display: flex; justify-content: space-between;
+  font-size: .58rem; color: var(--muted); margin-top: .2rem;
+}
+.intensity-current {
+  text-align: center; font-size: .68rem; font-weight: 600; color: var(--ink);
+  margin-top: .3rem;
+}
+
+/* ── AUDIENCE INDICATOR (compacto) ── */
+.audience-block { display: flex; flex-direction: column; gap: .5rem; }
+.audience-title { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.audience-indicator {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .75rem 1rem; background: #f0faf4;
+  border: 1px solid #86efac; border-radius: 9px;
+}
+.aud-badge-ideal {
+  display: flex; align-items: center; gap: .35rem; flex-shrink: 0;
+  font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #166534;
+}
+.aud-badge-ideal svg { width: 12px; height: 12px; }
+.aud-detail { font-size: .65rem; color: var(--dim); }
+
+/* ── META ROW ── */
+.meta-row { display: flex; gap: 1.5rem; padding: .85rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.meta-item { display: flex; align-items: center; gap: .4rem; }
+.meta-item svg { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
+.meta-item span { font-size: .7rem; color: var(--dim); }
+
+/* ── OCASIÕES ── */
+.ocasiao-block { display: flex; flex-direction: column; gap: .5rem; }
+.ocasiao-title { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.ocasiao-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+.ocasiao-pill {
+  padding: .3rem .75rem; border-radius: 100px; font-size: .67rem;
+  display: flex; align-items: center; gap: .35rem; font-weight: 500;
+  border: 1px solid var(--border); background: var(--white); color: var(--dim);
+}
+
+/* ── VARIANTES ── */
+.variants-block { display: flex; flex-direction: column; gap: .6rem; }
+.variants-label { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.variants-row { display: flex; gap: .5rem; }
+.variant-chip {
+  flex: 1; padding: .7rem .6rem; border-radius: 8px;
+  border: 1.5px solid var(--border); cursor: pointer;
+  background: var(--white); display: flex; flex-direction: column; gap: .15rem;
+}
+.variant-chip.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+.variant-chip.active .vc-name { color: #fff; }
+.variant-chip.active .vc-price { color: rgba(255,255,255,.9); }
+.variant-chip.active .vc-disc { background: rgba(255,255,255,.2); color: rgba(255,255,255,.9); }
+.variant-chip.disabled { opacity: .42; cursor: not-allowed; }
+.vc-name { font-size: .65rem; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: .35rem; }
+.vc-disc { font-size: .52rem; font-weight: 700; background: #dcfce7; color: #166534; padding: .12rem .4rem; border-radius: 3px; }
+.vc-price { font-size: .8rem; font-weight: 600; color: var(--ink); }
+.vc-stock { font-size: .58rem; color: var(--green); font-weight: 500; }
+.vc-stock.out { color: var(--muted); }
+
+/* ── PREÇO + CTA ── */
+.price-cta { display: flex; align-items: center; gap: .75rem; }
+.price-block { flex: 1; }
+.price-val { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--ink); line-height: 1; }
+.price-unit { font-size: .65rem; color: var(--muted); margin-top: .15rem; }
+.price-installment { font-size: .66rem; color: var(--dim); margin-top: .2rem; }
+.price-pix { font-size: .66rem; color: var(--green); font-weight: 600; margin-top: .1rem; }
+.cta-btn {
+  background: var(--ink); color: #fff; border: none; border-radius: 8px;
+  padding: .9rem 1.75rem; font-family: var(--sans); font-size: .75rem;
+  font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: .5rem;
+}
+.cta-btn svg { width: 14px; height: 14px; }
+
+/* ── WISHLIST / ICON BTN ── */
+.icon-btn {
+  width: 42px; height: 42px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--white); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+}
+.icon-btn svg { width: 16px; height: 16px; color: var(--dim); }
+.icon-btn:hover { border-color: var(--ink); }
+
+/* ── TRUST SIGNALS ── */
+.trust-row { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .75rem; margin-top: .85rem; }
+.trust-item { font-size: .62rem; color: var(--dim); display: flex; align-items: center; gap: .35rem; }
+.trust-item svg { width: 11px; height: 11px; color: var(--green); flex-shrink: 0; }
+.trust-item.star svg { color: var(--gold); }
+
+/* ── SHIPPING PROMISE ── */
+.shipping-promise {
+  font-size: .68rem; color: var(--green); display: flex; align-items: center; gap: .45rem;
+  padding: .55rem .85rem; background: #f0faf4; border-radius: 7px; font-weight: 500;
+}
+.shipping-promise svg { width: 13px; height: 13px; flex-shrink: 0; }
+.shipping-promise strong { font-weight: 700; }
+
+/* ── CEP ── */
+.cep-block {
+  padding: .85rem 1rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 9px; display: flex; flex-direction: column; gap: .5rem;
+}
+.cep-label { font-size: .62rem; font-weight: 600; color: var(--dim); display: flex; align-items: center; gap: .4rem; }
+.cep-label svg { width: 12px; height: 12px; }
+.cep-row { display: flex; gap: .5rem; }
+.cep-input {
+  flex: 1; padding: .5rem .75rem; border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--sans); font-size: .72rem; color: var(--ink); background: var(--white); outline: none;
+}
+.cep-btn {
+  padding: .5rem .9rem; background: var(--ink); color: #fff; border: none;
+  border-radius: 6px; font-family: var(--sans); font-size: .68rem; font-weight: 600; cursor: pointer;
+}
+
+/* ── BRAND BIO ── */
+.brand-bio {
+  padding: .9rem 1rem; border-left: 2px solid var(--brand-red);
+  background: var(--bg);
+}
+.brand-bio-text { font-family: var(--serif); font-size: .95rem; font-style: italic; color: var(--dim); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════
+   SEÇÕES INFERIORES
+═══════════════════════════════════════════ */
+.section-wrap { padding: 2.5rem 2rem; border-top: 1px solid var(--border); }
+.section-wrap:nth-child(even) { background: var(--white); }
+
+.section-title {
+  font-size: .6rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ═══════════════════════════════════════════
+   COMPARAÇÃO DE VITOLAS (antes das tabs)
+═══════════════════════════════════════════ */
+.vitola-rows { display: flex; flex-direction: column; gap: .75rem; }
+.vitola-row { display: flex; align-items: center; gap: 1rem; }
+.vitola-name { width: 80px; flex-shrink: 0; font-size: .68rem; color: var(--dim); font-weight: 500; }
+.vitola-bar-wrap { flex: 1; height: 14px; background: var(--light); border-radius: 3px; overflow: hidden; position: relative; }
+.vitola-bar {
+  height: 100%; background: var(--border); border-radius: 3px;
+  transition: width .3s;
+}
+.vitola-bar.highlight { background: var(--ink); }
+.vitola-row.active .vitola-name { color: var(--ink); font-weight: 700; }
+.vitola-meta { width: 100px; flex-shrink: 0; font-size: .62rem; color: var(--muted); text-align: right; }
+
+/* ═══════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════ */
+.tabs-container { }
+.tabs-nav {
+  display: flex; border-bottom: 1px solid var(--border);
+  padding: 0 2rem; background: var(--white);
+  position: sticky; top: 0; z-index: 10;
+  overflow-x: auto; gap: 0;
+}
+.tab-btn {
+  padding: .9rem 1.4rem; background: none; border: none; border-bottom: 2px solid transparent;
+  font-family: var(--sans); font-size: .65rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap;
+  margin-bottom: -1px; transition: color .15s, border-color .15s;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+.tab-panel { display: none; padding: 2.5rem 2rem; }
+.tab-panel.active { display: block; }
+.tab-panel:nth-child(even) { background: var(--white); }
+
+/* ═══════════════════════════════════════════
+   FICHA TÉCNICA
+═══════════════════════════════════════════ */
+.ft-wrap {
+  display: grid; grid-template-columns: 1fr 330px; gap: 0;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.ft-specs {
+  display: flex; flex-direction: column; gap: 1.25rem; padding: 1.5rem 1.75rem;
+  border-right: 1px solid var(--border);
+}
+.ft-spec {
+  display: grid; grid-template-columns: 32px 1fr; grid-template-rows: auto auto;
+  gap: 0 .6rem; padding: .9rem 0; border-bottom: 1px solid var(--border);
+}
+.ft-spec:nth-last-child(-n+2) { border-bottom: none; }
+.ft-spec-ico { grid-row: 1/3; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.ft-spec-label { font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: .1rem; }
+.ft-spec-val { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--ink); margin-top: .2rem; }
+.ft-right { padding: 1.5rem 1.5rem 1.25rem; display: flex; flex-direction: column; gap: 1rem; background: var(--bg); }
+.ft-cigar-heading { font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.ft-cigar-svg { width: 100%; display: block; }
+.ft-thirds { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; background: var(--white); }
+.ft-third { padding: .65rem .85rem; border-bottom: 1px solid var(--border); }
+.ft-third:last-child { border-bottom: none; }
+.ft-third-name { font-size: .56rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .18rem; }
+.ft-third-notes { font-size: .76rem; color: var(--ink); }
+.ft-extra { display: flex; flex-direction: column; gap: .3rem; }
+.ft-extra-row { font-size: .68rem; color: var(--dim); display: flex; gap: .4rem; }
+.ft-extra-row strong { color: var(--ink); font-weight: 600; }
+
+/* ═══════════════════════════════════════════
+   PERFIL DE AROMAS
+═══════════════════════════════════════════ */
+.aroma-groups { display: flex; flex-direction: column; gap: 1rem; }
+.aroma-group { display: flex; align-items: flex-start; gap: 1rem; }
+.aroma-group-label {
+  width: 100px; flex-shrink: 0;
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .62rem; font-weight: 700; color: var(--dim); padding-top: .3rem;
+}
+.aroma-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.aroma-tag {
+  padding: .28rem .7rem; border-radius: 100px; font-size: .68rem; font-weight: 500;
+}
+.aroma-madeira  { background: #f0e8dc; color: #7a5030; }
+.aroma-terroso  { background: #e8ede0; color: #4a6030; }
+.aroma-doce     { background: #f5e8d4; color: #8a5820; }
+.aroma-especiar { background: #f5e0e0; color: #8a2020; }
+.aroma-floral   { background: #ece8f4; color: #6040a0; }
+
+/* ═══════════════════════════════════════════
+   EVOLUÇÃO DO SABOR
+═══════════════════════════════════════════ */
+.flavor-chart-wrap { display: flex; flex-direction: column; gap: 1.5rem; }
+.flavor-svg { width: 100%; display: block; }
+.flavor-thirds { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.flavor-third {
+  padding: 1rem 1.1rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.flavor-third-num {
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 300;
+  color: var(--brand-red); line-height: 1; margin-bottom: .3rem;
+}
+.flavor-third-label { font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+.flavor-third-notes { font-size: .72rem; color: var(--ink); line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   RITUAL DE DEGUSTAÇÃO
+═══════════════════════════════════════════ */
+.ritual-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.ritual-step {
+  padding: 1.25rem 1.1rem; background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; display: flex; flex-direction: column; gap: .6rem;
+  position: relative; overflow: hidden;
+}
+.ritual-step::before {
+  content: attr(data-num); position: absolute; top: .6rem; right: .9rem;
+  font-family: var(--serif); font-size: 3rem; font-weight: 700;
+  color: var(--border); line-height: 1;
+}
+.ritual-ico {
+  width: 36px; height: 36px; background: var(--light); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ritual-ico svg { width: 18px; height: 18px; color: var(--ink); }
+.ritual-title { font-size: .78rem; font-weight: 700; color: var(--ink); }
+.ritual-desc { font-size: .68rem; color: var(--dim); line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   HARMONIZAÇÕES
+═══════════════════════════════════════════ */
+.harm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.harm-card {
+  padding: 1.25rem 1.25rem; background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; display: flex; gap: 1rem; align-items: flex-start;
+}
+.harm-ico {
+  width: 48px; height: 48px; flex-shrink: 0; background: var(--bg);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+}
+.harm-ico svg { width: 26px; height: 26px; color: var(--dim); }
+.harm-body { flex: 1; }
+.harm-name { font-size: .8rem; font-weight: 700; color: var(--ink); margin-bottom: .25rem; }
+.harm-stars { display: flex; gap: 2px; margin-bottom: .4rem; }
+.harm-stars svg { width: 10px; height: 10px; fill: var(--gold); }
+.harm-stars svg.half { fill: none; stroke: var(--gold); stroke-width: 2; }
+.harm-why { font-size: .68rem; color: var(--dim); line-height: 1.45; }
+
+/* ═══════════════════════════════════════════
+   CONDIÇÕES DE GUARDA
+═══════════════════════════════════════════ */
+.storage-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.storage-card {
+  padding: 1.5rem 1.25rem; background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: .6rem;
+}
+.storage-ico {
+  width: 48px; height: 48px; background: var(--light); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.storage-ico svg { width: 22px; height: 22px; color: var(--ink); }
+.storage-val { font-family: var(--serif); font-size: 1.7rem; font-weight: 600; color: var(--ink); line-height: 1; }
+.storage-label { font-size: .62rem; color: var(--dim); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════
+   TAMBÉM PODE INTERESSAR
+═══════════════════════════════════════════ */
+.also-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.also-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden;
+}
+.also-img {
+  height: 140px; background: var(--light); display: flex;
+  align-items: center; justify-content: center;
+}
+.also-img svg { width: 36px; height: 36px; opacity: .2; }
+.also-body { padding: .85rem 1rem; }
+.also-brand { font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-red); margin-bottom: .15rem; }
+.also-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-bottom: .3rem; }
+.also-price { font-size: .8rem; font-weight: 600; color: var(--ink); }
+.also-btn {
+  width: 100%; margin-top: .6rem; padding: .55rem;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 6px; font-family: var(--sans);
+  font-size: .65rem; font-weight: 600; color: var(--dim); cursor: pointer;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.also-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── STICKY CTA ── */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 50%;
+  width: 1100px; max-width: 100vw;
+  background: var(--ink); color: #fff;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: .75rem 2rem;
+  border-top: 3px solid var(--brand-red);
+  box-shadow: 0 -4px 24px rgba(0,0,0,.18);
+  z-index: 1000;
+  opacity: 0; transform: translateX(-50%) translateY(100%);
+  transition: all .3s ease;
+}
+.sticky-cta.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+.sc-thumb {
+  width: 42px; height: 42px; background: rgba(255,255,255,.1); border-radius: 6px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.sc-thumb svg { width: 20px; height: 20px; opacity: .6; }
+.sc-info { display: flex; flex-direction: column; gap: .1rem; }
+.sc-brand { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.sc-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; }
+.sc-price { font-size: 1.05rem; font-weight: 700; margin-left: auto; white-space: nowrap; }
+.sc-btn {
+  background: var(--brand-red); color: #fff; border: none; border-radius: 7px;
+  padding: .6rem 1.25rem; font-family: var(--sans); font-size: .7rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; cursor: pointer; white-space: nowrap;
+}
+.sc-close {
+  width: 28px; height: 28px; background: rgba(255,255,255,.12); border: none;
+  border-radius: 50%; cursor: pointer; color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── TAGLINE + EDITORIAL ── */
+.product-tagline {
+  font-family: var(--serif); font-size: 1rem; font-style: italic;
+  color: var(--dim); line-height: 1.55; margin-top: .5rem;
+}
+.product-editorial {
+  display: flex; align-items: flex-start; gap: .55rem;
+  margin-top: .85rem; padding: .75rem .9rem;
+  background: var(--light); border-radius: 8px;
+  font-size: .68rem; color: var(--dim); line-height: 1.6;
+}
+.product-editorial svg { flex-shrink: 0; color: var(--brand-red); margin-top: .1rem; }
+.product-editorial strong { color: var(--ink); font-weight: 600; }
+
+/* ── REVIEWS ── */
+.reviews-highlight {
+  padding: .85rem 1rem; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px;
+  display: flex; flex-direction: column; gap: .65rem;
+}
+.reviews-header { display: flex; align-items: center; }
+.reviews-stars-lg { display: flex; align-items: center; gap: 3px; }
+.reviews-stars-lg svg { width: 12px; height: 12px; color: var(--gold); }
+.reviews-stars-lg strong { font-size: .85rem; font-weight: 700; color: var(--ink); margin-left: .3rem; }
+.reviews-count { font-size: .62rem; color: var(--muted); margin-left: .4rem; }
+.reviews-quotes { display: flex; flex-direction: column; gap: .5rem; }
+.review-quote {
+  font-family: var(--serif); font-size: .82rem; font-style: italic;
+  color: var(--dim); line-height: 1.5; padding-left: .75rem;
+  border-left: 2px solid var(--border);
+}
+.review-author { font-style: normal; font-size: .62rem; color: var(--muted); display: block; margin-top: .15rem; }
+
+/* ── GIFT OPTION ── */
+.gift-option {
+  padding: .75rem .9rem; border: 1.5px dashed var(--border);
+  border-radius: 9px; background: var(--white);
+}
+.gift-label { display: flex; align-items: flex-start; gap: .75rem; cursor: pointer; }
+.gift-check { width: 15px; height: 15px; margin-top: .15rem; accent-color: var(--ink); flex-shrink: 0; }
+.gift-ico { width: 32px; height: 32px; background: var(--light); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.gift-ico svg { width: 15px; height: 15px; color: var(--brand-red); }
+.gift-text { display: flex; flex-direction: column; gap: .15rem; }
+.gift-title { font-size: .72rem; font-weight: 600; color: var(--ink); }
+.gift-sub { font-size: .62rem; color: var(--dim); }
+.gift-sub strong { color: var(--ink); }
+
+/* ── CURADORIA BADGE ── */
+.curation-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .6rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--gold);
+  padding: .3rem .65rem; border: 1px solid rgba(200,152,32,.3);
+  border-radius: 4px; background: rgba(200,152,32,.06);
+}
+.curation-badge svg { color: var(--gold); }
+
+/* ── DESIGN NOTES ── */
+.design-notes { max-width: 1100px; margin: 0 auto; padding: 2rem; background: var(--white); border-radius: 12px; }
+.dn-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 1.25rem; }
+.dn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.dn-card { padding: .85rem 1rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--brand-red); }
+.dn-card-title { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin-bottom: .4rem; }
+.dn-card-text { font-size: .72rem; color: var(--ink); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════
+   TAB 1: FICHA TÉCNICA — grupos semânticos
+═══════════════════════════════════════════ */
+.ft-group { display: flex; flex-direction: column; margin-bottom: .25rem; }
+.ft-group-label { font-size: .55rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand-red); padding-bottom: .5rem; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+.ft-group-items { display: grid; grid-template-columns: 1fr 1fr; }
+.ft-group-items .ft-spec:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+.ft-group-items .ft-spec:last-child { border-bottom: none; }
+.ft-group-items .ft-spec:nth-last-child(1):nth-child(odd) { grid-column: 1/-1; border-bottom: none; }
+
+/* ═══════════════════════════════════════════
+   TAB 2: SABOR & AROMAS — layout 2 colunas
+═══════════════════════════════════════════ */
+.sabor-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 2.5rem; align-items: start; }
+.sabor-aromas-title { font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+.sabor-aromas-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ═══════════════════════════════════════════
+   TAB 3: RITUAL — timeline e dica
+═══════════════════════════════════════════ */
+.ritual-timeline { display: flex; align-items: center; margin-bottom: 2rem; }
+.rt-node { display: flex; align-items: center; gap: .5rem; flex: 1; }
+.rt-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff; font-size: .56rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.rt-label { font-size: .62rem; font-weight: 600; color: var(--ink); }
+.rt-line { flex: 1; height: 1px; background: var(--border); margin: 0 .5rem; }
+.ritual-tip { margin-top: 1.5rem; padding: .85rem 1.1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; font-size: .7rem; color: var(--dim); display: flex; align-items: center; gap: .65rem; }
+.ritual-tip strong { color: var(--ink); font-weight: 600; }
+
+/* ═══════════════════════════════════════════
+   TAB 4: HARMONIZAÇÕES — 4 cards horizontais
+═══════════════════════════════════════════ */
+.harm-horiz { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.harm-card-v { padding: 1.5rem 1rem; background: var(--white); border: 1px solid var(--border); border-radius: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .6rem; }
+.harm-ico-lg { width: 54px; height: 54px; background: var(--bg); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.harm-ico-lg svg { width: 26px; height: 26px; color: var(--dim); }
+.harm-compat-label { font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.harm-name-v { font-size: .82rem; font-weight: 700; color: var(--ink); }
+.harm-stars-v { display: flex; gap: 2px; justify-content: center; }
+.harm-stars-v svg { width: 9px; height: 9px; fill: var(--gold); }
+.harm-why-v { font-size: .64rem; color: var(--dim); line-height: 1.45; }
+
+/* ═══════════════════════════════════════════
+   TAB 5: ARMAZENAMENTO — intro e dicas
+═══════════════════════════════════════════ */
+.storage-intro { font-size: .72rem; color: var(--dim); line-height: 1.65; margin-bottom: 1.5rem; max-width: 640px; }
+.storage-tips { margin-top: 1.75rem; padding: 1.25rem 1.5rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+.storage-tips-label { font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .85rem; }
+.storage-tip-item { display: flex; align-items: flex-start; gap: .65rem; font-size: .7rem; color: var(--dim); padding: .4rem 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+.storage-tip-item:last-child { border-bottom: none; }
+.storage-tip-ico { color: var(--brand-red); font-size: .8rem; flex-shrink: 0; margin-top: .05rem; }
+</style>
+</head>
+<body>
+
+<!-- ── PAGE META ── -->
+<div class="page-meta">
+  <div class="page-meta-title">Mockup v2.1 — Página de Produto</div>
+  <div class="page-meta-sub">Cohiba Siglo VI · Desktop · UX/UI v2: Sticky CTA, Tabs, Trust Signals, Wishlist, Shipping Promise</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     DESKTOP FRAME
+══════════════════════════════════════ -->
+<div class="desktop-frame">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <span class="nav-logo">Tabacco.</span>
+    <div class="nav-links">
+      <a class="nav-link active" href="#">Charutos</a>
+      <a class="nav-link" href="#">Acessórios</a>
+      <a class="nav-link" href="#">Kits &amp; Presentes</a>
+      <a class="nav-link" href="#">Guia do Charuto</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-orders" style="font-size:.68rem;color:var(--dim);display:flex;align-items:center;gap:.4rem;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Meus Pedidos
+      </span>
+      <button class="nav-cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Humidor (2)
+      </button>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a class="bc-item" href="#">Catálogo</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-item" href="#">Cubanos</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-item" href="#">Cohiba</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-item active">Siglo VI</span>
+  </div>
+
+  <!-- SEÇÃO PRINCIPAL -->
+  <div class="product-section">
+
+    <!-- GALERIA -->
+    <div class="gallery-col">
+      <div class="gallery-main">
+        <div class="gallery-badge">Produção Limitada · Cuba</div>
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Foto do produto</span>
+        </div>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="thumb active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-col">
+
+      <!-- Nome + Bio editorial -->
+      <div>
+        <div class="brand-label-sm">Cohiba · Cuba</div>
+        <div class="product-name-lg">Siglo VI</div>
+        <div class="product-tagline">90 minutos de Cuba no seu palato — o charuto que se tornou lenda antes mesmo de ser vendido ao público.</div>
+        <div class="product-editorial">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Desde 1966, a Cohiba foi o charuto de Estado de Cuba. O Siglo VI nasceu em 2002 no topo da hierarquia — mais comprido, mais complexo, mais demorado. Torcido à mão por mestres de <strong>El Laguito</strong>, a única fábrica cubana exclusivamente feminina.</span>
+        </div>
+      </div>
+
+      <!-- Score editorial -->
+      <div class="score-block">
+        <div class="score-main">
+          <div class="score-number">94</div>
+          <div class="score-meta">
+            <div class="score-label">Pontos</div>
+            <div class="score-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="score-source">Cigar Aficionado Style</div>
+          </div>
+        </div>
+        <div class="score-divider"></div>
+        <div class="score-bars">
+          <div class="score-bar-row">
+            <span class="score-bar-label">Construção</span>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:96%"></div></div>
+            <span class="score-bar-val">4.8</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Tiragem</span>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:94%"></div></div>
+            <span class="score-bar-val">4.7</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Combustão</span>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:92%"></div></div>
+            <span class="score-bar-val">4.6</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Sabor</span>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:98%"></div></div>
+            <span class="score-bar-val">4.9</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variantes -->
+      <div class="variants-block">
+        <div class="variants-label">Quantidade</div>
+        <div class="variants-row">
+          <div class="variant-chip active">
+            <div class="vc-name">Unitário</div>
+            <div class="vc-price">R$ 280,00</div>
+            <div class="vc-stock">✓ Em estoque · <span style="color:var(--brand-red);font-weight:600;">Apenas 7 restantes</span></div>
+          </div>
+          <div class="variant-chip">
+            <div class="vc-name">Petaca (3) <span class="vc-disc">-5%</span></div>
+            <div class="vc-price">R$ 798,00</div>
+            <div class="vc-stock">Em estoque</div>
+          </div>
+          <div class="variant-chip disabled" title="Produto esgotado no momento">
+            <div class="vc-name">Caixa (25) <span class="vc-disc">-10%</span></div>
+            <div class="vc-price">R$ 6.300,00</div>
+            <div class="vc-stock out">Esgotado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preço + CTA + Wishlist/Share -->
+      <div class="price-cta">
+        <div class="price-block">
+          <div class="price-val">R$ 280,00</div>
+          <div class="price-unit">por unidade · <span style="color:var(--dim);font-style:italic;">Uma experiência de quase 2 horas</span></div>
+          <div class="price-installment">ou 6× de R$ 46,67 sem juros</div>
+          <div class="price-pix">✓ R$ 252,00 no Pix ou Boleto (-10%)</div>
+        </div>
+        <button class="cta-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          Adicionar ao Humidor
+        </button>
+        <button class="icon-btn" title="Salvar na wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn" title="Compartilhar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </div>
+
+      <!-- Reviews em destaque -->
+      <div class="reviews-highlight">
+        <div class="reviews-header">
+          <div class="reviews-stars-lg">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <strong>4.9</strong><span class="reviews-count">312 avaliações</span>
+          </div>
+        </div>
+        <div class="reviews-quotes">
+          <div class="review-quote">"O melhor charuto que já fumei. Valeu cada centavo — a evolução pelo segundo terço é simplesmente extraordinária." <span class="review-author">— Rafael M., São Paulo</span></div>
+          <div class="review-quote">"Presente de aniversário para meu pai. Ele nunca tinha experimentado um Cohiba. Agora não quer mais nada diferente." <span class="review-author">— Fernanda K., Curitiba</span></div>
+        </div>
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Garantia de autenticidade
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Satisfação garantida — 30 dias sem perguntas
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Pagamento seguro
+        </div>
+        <div class="trust-item star">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke-width="0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          4.9/5 · 312 avaliações
+        </div>
+      </div>
+
+      <!-- Shipping Promise -->
+      <div class="shipping-promise">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Frete grátis acima de <strong>R$ 500</strong> · Envio em 1–2 dias úteis
+      </div>
+
+      <!-- Gift Wrapping -->
+      <div class="gift-option">
+        <label class="gift-label">
+          <input type="checkbox" class="gift-check" />
+          <div class="gift-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          </div>
+          <div class="gift-text">
+            <span class="gift-title">Embalagem Premium para Presente</span>
+            <span class="gift-sub">Caixa rígida com laço dourado + cartão personalizado · <strong>+ R$ 25,00</strong></span>
+          </div>
+        </label>
+      </div>
+
+      <!-- CEP -->
+      <div class="cep-block">
+        <div class="cep-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Calcular prazo e frete
+        </div>
+        <div class="cep-row">
+          <input class="cep-input" placeholder="00000-000" value="" />
+          <button class="cep-btn">Calcular</button>
+        </div>
+      </div>
+
+      <!-- Curadoria Tabacco. -->
+      <div class="curation-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Escolha da Curadoria Tabacco. · Março 2026</span>
+      </div>
+
+    </div><!-- /info-col -->
+  </div><!-- /product-section -->
+
+  <!-- ══════════════════════════════════════
+       COMPARAÇÃO DE VITOLAS (fora das tabs)
+  ══════════════════════════════════════ -->
+  <div class="section-wrap">
+    <div class="section-title">Compare as Vitolas · Linha Siglo</div>
+    <div class="vitola-rows">
+      <div class="vitola-row">
+        <div class="vitola-name">Siglo I</div>
+        <div class="vitola-bar-wrap"><div class="vitola-bar" style="width:66%"></div></div>
+        <div class="vitola-meta">26 × 102 mm</div>
+      </div>
+      <div class="vitola-row">
+        <div class="vitola-name">Siglo III</div>
+        <div class="vitola-bar-wrap"><div class="vitola-bar" style="width:87%"></div></div>
+        <div class="vitola-meta">26 × 135 mm</div>
+      </div>
+      <div class="vitola-row active">
+        <div class="vitola-name">Siglo VI ★</div>
+        <div class="vitola-bar-wrap"><div class="vitola-bar highlight" style="width:97%"></div></div>
+        <div class="vitola-meta">52 × 150 mm</div>
+      </div>
+      <div class="vitola-row">
+        <div class="vitola-name">Siglo VI A</div>
+        <div class="vitola-bar-wrap"><div class="vitola-bar" style="width:100%"></div></div>
+        <div class="vitola-meta">58 × 155 mm</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TABS — SEÇÕES EDUCACIONAIS
+  ══════════════════════════════════════ -->
+  <div class="tabs-container">
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="ficha">Ficha Técnica</button>
+      <button class="tab-btn" data-tab="sabor">Sabor &amp; Aromas</button>
+      <button class="tab-btn" data-tab="ritual">Ritual</button>
+      <button class="tab-btn" data-tab="harmonizacoes">Harmonizações</button>
+      <button class="tab-btn" data-tab="armazenamento">Armazenamento</button>
+    </nav>
+
+    <!-- TAB: FICHA TÉCNICA -->
+    <div class="tab-panel active" id="tab-ficha" id="secao-ficha">
+
+      <!-- Complemento rápido: intensidade + audiência + meta + ocasião -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2.5rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border);">
+
+        <!-- Intensidade -->
+        <div class="intensity-block">
+          <div class="intensity-label">Intensidade</div>
+          <div class="intensity-track">
+            <div class="intensity-marker"></div>
+          </div>
+          <div class="intensity-scale">
+            <span>Suave</span>
+            <span>Médio-Suave</span>
+            <span>Médio</span>
+            <span>Médio-Forte</span>
+            <span>Forte</span>
+          </div>
+          <div class="intensity-current">▲ Médio</div>
+        </div>
+
+        <!-- Para quem é -->
+        <div class="audience-block">
+          <div class="audience-title">Para quem é este charuto?</div>
+          <div class="audience-indicator">
+            <div class="aud-badge-ideal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Ideal para Apreciadores
+            </div>
+            <div class="aud-detail">Não indicado para iniciantes · Referência absoluta para aficionados</div>
+          </div>
+          <!-- Meta row inline -->
+          <div class="meta-row" style="margin-top:.85rem;flex-wrap:wrap;gap:.75rem 1.25rem;">
+            <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/></svg><span>Corona Grande</span></div>
+            <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg><span>52 × 150 mm</span></div>
+            <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>90–120 min</span></div>
+            <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/></svg><span>Long-filler</span></div>
+          </div>
+          <!-- Ocasiões -->
+          <div class="ocasiao-block" style="margin-top:.85rem;">
+            <div class="ocasiao-title">Melhor ocasião</div>
+            <div class="ocasiao-pills">
+              <span class="ocasiao-pill">🍽 Após o jantar</span>
+              <span class="ocasiao-pill">🥃 Com whisky</span>
+              <span class="ocasiao-pill">🌅 Final de tarde</span>
+              <span class="ocasiao-pill">🎉 Celebração</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ft-wrap">
+        <!-- Specs -->
+        <div class="ft-specs">
+          <!-- Grupo: Identificação -->
+          <div class="ft-group">
+            <div class="ft-group-label">Identificação</div>
+            <div class="ft-group-items">
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M9 13.5 8 22l4-2 4 2-1-8.5"/></svg></div>
+                <div class="ft-spec-label">Marca</div><div class="ft-spec-val">Cohiba</div>
+              </div>
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+                <div class="ft-spec-label">Linha</div><div class="ft-spec-val">Siglo</div>
+              </div>
+              <div class="ft-spec" style="border-bottom:none">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="ft-spec-label">Origem</div><div class="ft-spec-val">Cuba · El Laguito</div>
+              </div>
+            </div>
+          </div>
+          <!-- Grupo: Construção -->
+          <div class="ft-group">
+            <div class="ft-group-label">Construção</div>
+            <div class="ft-group-items">
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21.3 8.7 8.7 21.3c-1 1-2.5 1-3.4 0l-2.6-2.6c-1-1-1-2.5 0-3.4L15.3 2.7c1-1 2.5-1 3.4 0l2.6 2.6c1 1 1 2.5 0 3.4z"/><path d="m7.5 10.5 2 2m1-5 2 2m1-5 2 2"/></svg></div>
+                <div class="ft-spec-label">Vitola</div><div class="ft-spec-val">Corona Grande</div>
+              </div>
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></div>
+                <div class="ft-spec-label">Medida</div><div class="ft-spec-val">52 × 150 mm</div>
+              </div>
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <div class="ft-spec-label">Anel</div><div class="ft-spec-val">52 ring gauge</div>
+              </div>
+              <div class="ft-spec">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+                <div class="ft-spec-label">Miolo</div><div class="ft-spec-val">Long-filler · Cuba</div>
+              </div>
+              <div class="ft-spec" style="border-bottom:none;grid-column:1/-1;">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+                <div class="ft-spec-label">Capa</div><div class="ft-spec-val">Colorado Claro · Cuba</div>
+              </div>
+            </div>
+          </div>
+          <!-- Grupo: Degustação -->
+          <div class="ft-group">
+            <div class="ft-group-label">Degustação</div>
+            <div class="ft-group-items">
+              <div class="ft-spec" style="border-bottom:none">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2c0 6-6 8-6 14a6 6 0 0 0 12 0c0-6-6-8-6-14z"/></svg></div>
+                <div class="ft-spec-label">Intensidade</div><div class="ft-spec-val">Médio</div>
+              </div>
+              <div class="ft-spec" style="border-bottom:none">
+                <div class="ft-spec-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="ft-spec-label">Duração</div><div class="ft-spec-val">90–120 min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Charuto anotado -->
+        <div class="ft-right">
+          <div class="ft-cigar-heading">Notas de Sabor por Terço</div>
+          <svg class="ft-cigar-svg" viewBox="0 0 280 128" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="cc">
+                <path d="M 52,46 L 232,46 C 248,46 258,55 260,68 C 258,81 248,90 232,90 L 52,90 C 28,90 12,81 12,68 C 12,55 28,46 52,46 Z"/>
+              </clipPath>
+              <linearGradient id="tob" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#2E1106"/>
+                <stop offset="30%" stop-color="#3D1A0A"/>
+                <stop offset="100%" stop-color="#4A2010"/>
+              </linearGradient>
+              <linearGradient id="cyl" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="rgba(0,0,0,0.65)"/>
+                <stop offset="22%"  stop-color="rgba(0,0,0,0.08)"/>
+                <stop offset="50%"  stop-color="rgba(0,0,0,0)"/>
+                <stop offset="80%"  stop-color="rgba(0,0,0,0.12)"/>
+                <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+              </linearGradient>
+              <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="rgba(255,255,255,0.38)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+              <linearGradient id="band-v" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#C89010"/>
+                <stop offset="40%"  stop-color="#E8C030"/>
+                <stop offset="100%" stop-color="#C89010"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="140" cy="97" rx="128" ry="5" fill="rgba(0,0,0,0.13)"/>
+            <g clip-path="url(#cc)">
+              <rect x="0" y="46" width="280" height="44" fill="url(#tob)"/>
+              <rect x="0" y="46" width="280" height="44" fill="url(#cyl)"/>
+              <rect x="0" y="46" width="280" height="13" fill="url(#hl)"/>
+            </g>
+            <g clip-path="url(#cc)">
+              <rect x="58" y="46" width="38" height="44" fill="url(#band-v)"/>
+              <rect x="58" y="46" width="38" height="3.5" fill="rgba(0,0,0,0.25)"/>
+              <rect x="58" y="86.5" width="38" height="3.5" fill="rgba(0,0,0,0.25)"/>
+              <ellipse cx="77" cy="68" rx="11" ry="9" fill="rgba(255,240,160,0.55)" stroke="rgba(180,130,0,0.4)" stroke-width="0.8"/>
+            </g>
+            <path d="M 52,46 L 232,46 C 248,46 258,55 260,68 C 258,81 248,90 232,90 L 52,90 C 28,90 12,81 12,68 C 12,55 28,46 52,46 Z" fill="none" stroke="rgba(20,6,2,0.6)" stroke-width="1"/>
+            <!-- Anotações -->
+            <line x1="82" y1="46" x2="82" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <circle cx="82" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+            <circle cx="82" cy="30" r="2.5" fill="#2a2620"/>
+            <line x1="152" y1="46" x2="152" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <circle cx="152" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+            <circle cx="152" cy="30" r="2.5" fill="#2a2620"/>
+            <line x1="222" y1="46" x2="222" y2="30" stroke="#C8C0B8" stroke-width="0.8" stroke-dasharray="3,2"/>
+            <circle cx="222" cy="46" r="3" fill="white" stroke="#5A2810" stroke-width="1.5"/>
+            <circle cx="222" cy="30" r="2.5" fill="#2a2620"/>
+            <line x1="82" y1="30" x2="222" y2="30" stroke="#D8D0C8" stroke-width="0.8"/>
+            <text x="82"  y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">1º TERÇO</text>
+            <text x="152" y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">2º TERÇO</text>
+            <text x="222" y="23" font-family="'DM Sans', sans-serif" font-size="6.5" fill="#7a7268" text-anchor="middle" font-weight="700" letter-spacing="1">3º TERÇO</text>
+            <text x="14"  y="110" font-family="'DM Sans', sans-serif" font-size="6" fill="#B0A898" text-anchor="middle">Cabeça</text>
+            <text x="256" y="110" font-family="'DM Sans', sans-serif" font-size="6" fill="#B0A898" text-anchor="middle">Pé</text>
+          </svg>
+          <div class="ft-thirds">
+            <div class="ft-third"><div class="ft-third-name">1º Terço · Ignição</div><div class="ft-third-notes">Cedro · Creme · Nozes</div></div>
+            <div class="ft-third"><div class="ft-third-name">2º Terço · Desenvolvimento</div><div class="ft-third-notes">Couro · Pimenta branca · Cacau</div></div>
+            <div class="ft-third"><div class="ft-third-name">3º Terço · Finalização</div><div class="ft-third-notes">Especiarias · Terra · Mel</div></div>
+          </div>
+          <div class="ft-extra">
+            <div class="ft-extra-row"><strong>Fumaça:</strong> Densa · Suave ao palato</div>
+            <div class="ft-extra-row"><strong>Retronasal:</strong> Longa persistência</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: SABOR & AROMAS -->
+    <div class="tab-panel" id="tab-sabor" id="secao-sabor" style="background:var(--white)">
+      <div class="sabor-layout">
+        <!-- Coluna esquerda: Aromas -->
+        <div>
+          <div class="sabor-aromas-title">Perfil de Aromas</div>
+          <div class="aroma-groups">
+            <div class="aroma-group">
+              <div class="aroma-group-label">🪵 Madeiras</div>
+              <div class="aroma-tags">
+                <span class="aroma-tag aroma-madeira">Cedro</span>
+                <span class="aroma-tag aroma-madeira">Carvalho</span>
+                <span class="aroma-tag aroma-madeira">Sândalo</span>
+              </div>
+            </div>
+            <div class="aroma-group">
+              <div class="aroma-group-label">🌿 Terrosos</div>
+              <div class="aroma-tags">
+                <span class="aroma-tag aroma-terroso">Terra úmida</span>
+                <span class="aroma-tag aroma-terroso">Couro</span>
+                <span class="aroma-tag aroma-terroso">Tabaco cru</span>
+              </div>
+            </div>
+            <div class="aroma-group">
+              <div class="aroma-group-label">🍫 Doces</div>
+              <div class="aroma-tags">
+                <span class="aroma-tag aroma-doce">Cacau</span>
+                <span class="aroma-tag aroma-doce">Mel</span>
+                <span class="aroma-tag aroma-doce">Creme</span>
+              </div>
+            </div>
+            <div class="aroma-group">
+              <div class="aroma-group-label">🌶 Especiarias</div>
+              <div class="aroma-tags">
+                <span class="aroma-tag aroma-especiar">Pimenta branca</span>
+                <span class="aroma-tag aroma-especiar">Noz-moscada</span>
+              </div>
+            </div>
+            <div class="aroma-group">
+              <div class="aroma-group-label">🌸 Florais</div>
+              <div class="aroma-tags">
+                <span class="aroma-tag aroma-floral">Toque floral delicado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Coluna direita: Evolução do Sabor -->
+        <div>
+          <div class="sabor-aromas-title">Como o Sabor Evolui</div>
+          <div class="flavor-chart-wrap">
+            <svg class="flavor-svg" viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stop-color="#9b3a2a" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#9b3a2a" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line x1="80" y1="20"  x2="660" y2="20"  stroke="#e5e1db" stroke-width="1"/>
+              <line x1="80" y1="55"  x2="660" y2="55"  stroke="#e5e1db" stroke-width="1"/>
+              <line x1="80" y1="90"  x2="660" y2="90"  stroke="#e5e1db" stroke-width="1"/>
+              <line x1="80" y1="125" x2="660" y2="125" stroke="#e5e1db" stroke-width="1"/>
+              <line x1="80" y1="160" x2="660" y2="160" stroke="#e5e1db" stroke-width="1"/>
+              <text x="70" y="23"  font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="end">5</text>
+              <text x="70" y="58"  font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="end">4</text>
+              <text x="70" y="93"  font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="end">3</text>
+              <text x="70" y="128" font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="end">2</text>
+              <text x="70" y="163" font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="end">1</text>
+              <text x="180" y="176" font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="middle">Ignição</text>
+              <text x="370" y="176" font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="middle">Desenvolvimento</text>
+              <text x="560" y="176" font-family="'DM Sans', sans-serif" font-size="10" fill="#b0aba3" text-anchor="middle">Finalização</text>
+              <path d="M 180,90 C 260,90 290,55 370,55 C 450,55 480,55 560,55 L 560,160 C 480,160 450,160 370,160 C 290,160 260,160 180,160 Z" fill="url(#area-grad)"/>
+              <path d="M 180,90 C 260,90 290,55 370,55 C 450,55 480,55 560,55" fill="none" stroke="#9b3a2a" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="180" cy="90" r="5" fill="#9b3a2a"/>
+              <circle cx="370" cy="55" r="5" fill="#9b3a2a"/>
+              <circle cx="560" cy="55" r="5" fill="#9b3a2a"/>
+              <text x="180" y="80" font-family="'DM Sans', sans-serif" font-size="11" fill="#9b3a2a" text-anchor="middle" font-weight="700">3.0</text>
+              <text x="370" y="45" font-family="'DM Sans', sans-serif" font-size="11" fill="#9b3a2a" text-anchor="middle" font-weight="700">4.0</text>
+              <text x="560" y="45" font-family="'DM Sans', sans-serif" font-size="11" fill="#9b3a2a" text-anchor="middle" font-weight="700">4.0</text>
+              <line x1="275" y1="20" x2="275" y2="160" stroke="#e5e1db" stroke-width="1" stroke-dasharray="4,3"/>
+              <line x1="465" y1="20" x2="465" y2="160" stroke="#e5e1db" stroke-width="1" stroke-dasharray="4,3"/>
+              <text x="30" y="92" font-family="'DM Sans', sans-serif" font-size="9" fill="#b0aba3" text-anchor="middle" transform="rotate(-90,30,92)">Intensidade</text>
+            </svg>
+            <div class="flavor-thirds">
+              <div class="flavor-third">
+                <div class="flavor-third-num">01</div>
+                <div class="flavor-third-label">Ignição · 1º Terço</div>
+                <div class="flavor-third-notes">Cedro · Creme · Nozes<br>Início suave e cremoso</div>
+              </div>
+              <div class="flavor-third">
+                <div class="flavor-third-num">02</div>
+                <div class="flavor-third-label">Desenvolvimento · 2º Terço</div>
+                <div class="flavor-third-notes">Couro · Pimenta branca · Cacau<br>Intensidade plena — melhor momento</div>
+              </div>
+              <div class="flavor-third">
+                <div class="flavor-third-num">03</div>
+                <div class="flavor-third-label">Finalização · 3º Terço</div>
+                <div class="flavor-third-notes">Especiarias · Terra · Mel<br>Final longo com retronasal persistente</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: RITUAL -->
+    <div class="tab-panel" id="tab-ritual" id="secao-ritual">
+      <!-- Timeline de progresso -->
+      <div class="ritual-timeline">
+        <div class="rt-node"><div class="rt-dot">01</div><div class="rt-label">Corte</div></div>
+        <div class="rt-line"></div>
+        <div class="rt-node"><div class="rt-dot">02</div><div class="rt-label">Tostagem</div></div>
+        <div class="rt-line"></div>
+        <div class="rt-node"><div class="rt-dot">03</div><div class="rt-label">Ignição</div></div>
+        <div class="rt-line"></div>
+        <div class="rt-node"><div class="rt-dot">04</div><div class="rt-label">Degustação</div></div>
+      </div>
+      <div class="ritual-steps">
+        <div class="ritual-step" data-num="01">
+          <div class="ritual-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><path d="M6 9v12"/><path d="m3 16 3 3 3-3"/></svg></div>
+          <div class="ritual-title">Corte</div>
+          <div class="ritual-desc">Use guilhotina reta. Corte 2–3 mm acima do ombro do cap. Nunca além da linha de fechamento.</div>
+        </div>
+        <div class="ritual-step" data-num="02">
+          <div class="ritual-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2c0 6-6 8-6 14a6 6 0 0 0 12 0c0-6-6-8-6-14z"/><path d="M9 14c0 2 1.5 3 3 3s3-1 3-3"/></svg></div>
+          <div class="ritual-title">Tostagem</div>
+          <div class="ritual-desc">Aproxime a chama sem tocar o pé. Aquecimento uniforme por 15–20 seg. Use fósforo ou isqueiro de gás.</div>
+        </div>
+        <div class="ritual-step" data-num="03">
+          <div class="ritual-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <div class="ritual-title">Ignição</div>
+          <div class="ritual-desc">Baforadas suaves e lentas para acender uniformemente. Gire o charuto. O pé deve estar totalmente aceso.</div>
+        </div>
+        <div class="ritual-step" data-num="04">
+          <div class="ritual-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
+          <div class="ritual-title">Degustação</div>
+          <div class="ritual-desc">Baforada a cada 60–90 seg. Não inale. Deixe a fumaça envolver o palato. Aprecie cada terço.</div>
+        </div>
+      </div>
+      <div class="ritual-tip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span><strong>Dica:</strong> A cinza branca e firme é sinal de combustão perfeita. Cinza escura pode indicar tiragem fechada — nesse caso, gire levemente o charuto ao fumar.</span>
+      </div>
+    </div>
+
+    <!-- TAB: HARMONIZAÇÕES -->
+    <div class="tab-panel" id="tab-harmonizacoes" id="secao-harmonizacoes" style="background:var(--white)">
+      <p style="font-size:.72rem;color:var(--dim);margin-bottom:1.25rem;line-height:1.6;">Charutos de intensidade média combinam com bebidas que tenham complexidade amadeirada e doçura sutil. Evite bebidas muito leves — elas somem diante do tabaco.</p>
+      <div class="harm-horiz">
+        <div class="harm-card-v">
+          <div class="harm-ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 22h8M12 11v11M5 3l1 9a6 6 0 0 0 12 0l1-9H5z"/></svg></div>
+          <div class="harm-compat-label">★★★★★ Perfeito</div>
+          <div class="harm-name-v">Whisky Turvo</div>
+          <div class="harm-stars-v"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="harm-why-v">Carvalho e baunilha do barril realçam o cedro e as especiarias do Siglo VI.</div>
+        </div>
+        <div class="harm-card-v">
+          <div class="harm-ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 22h8M5 2h14l-1.68 7.39A2 2 0 0 1 15.36 11H8.64a2 2 0 0 1-1.96-1.61L5 2z"/><path d="M3 2h18"/></svg></div>
+          <div class="harm-compat-label">★★★★ Ótimo</div>
+          <div class="harm-name-v">Rum Envelhecido</div>
+          <div class="harm-stars-v"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" style="opacity:.3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="harm-why-v">Melaço e caramelo criam contraste doce com o tabaco cubano.</div>
+        </div>
+        <div class="harm-card-v">
+          <div class="harm-ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <div class="harm-compat-label">★★★★★ Clássico</div>
+          <div class="harm-name-v">Conhaque</div>
+          <div class="harm-stars-v"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="harm-why-v">Complexidade floral e amadeirada espelha o perfil do charuto cubano.</div>
+        </div>
+        <div class="harm-card-v">
+          <div class="harm-ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></div>
+          <div class="harm-compat-label">★★★ Bom</div>
+          <div class="harm-name-v">Café Espresso</div>
+          <div class="harm-stars-v"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" style="opacity:.3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" style="opacity:.3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          <div class="harm-why-v">Amargura do café ressalta o cacau e o terroso. Ideal para degustação matinal.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: ARMAZENAMENTO -->
+    <div class="tab-panel" id="tab-armazenamento" id="secao-armazenamento">
+      <p class="storage-intro">Charutos premium são produtos vivos — as folhas continuam maturando após a fabricação. Um armazenamento correto preserva os óleos essenciais, a umidade natural e as notas de sabor que fazem do Siglo VI uma experiência única.</p>
+      <div class="storage-cards">
+        <div class="storage-card">
+          <div class="storage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+          <div class="storage-val">16–18°C</div>
+          <div class="storage-label">Temperatura ideal<br>Evite variações bruscas</div>
+        </div>
+        <div class="storage-card">
+          <div class="storage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+          <div class="storage-val">65–70%</div>
+          <div class="storage-label">Umidade relativa<br>Use um humidificador</div>
+        </div>
+        <div class="storage-card">
+          <div class="storage-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="storage-val">6–12 meses</div>
+          <div class="storage-label">Tempo de cura recomendado<br>Melhora com o envelhecimento</div>
+        </div>
+      </div>
+      <div class="storage-tips">
+        <div class="storage-tips-label">Dicas Práticas</div>
+        <div class="storage-tip-item"><span class="storage-tip-ico">—</span><span>Nunca guarde na geladeira — o frio resseca a capa e altera irreversivelmente o sabor.</span></div>
+        <div class="storage-tip-item"><span class="storage-tip-ico">—</span><span>Evite luz solar direta — a radiação UV oxida os óleos das folhas e esmaece a cor da capa.</span></div>
+        <div class="storage-tip-item"><span class="storage-tip-ico">—</span><span>Sem humidor? Use um ziplock com esponja levemente úmida por até 2 semanas.</span></div>
+        <div class="storage-tip-item"><span class="storage-tip-ico">—</span><span>Charutos cubanos melhoram significativamente após 6 meses de cura em humidor calibrado.</span></div>
+      </div>
+    </div>
+
+  </div><!-- /tabs-container -->
+
+  <!-- ══════════════════════════════════════
+       TAMBÉM PODE INTERESSAR
+  ══════════════════════════════════════ -->
+  <div class="section-wrap" style="background:var(--white)">
+    <div class="section-title">Também Pode Interessar</div>
+    <div class="also-grid">
+      <div class="also-card">
+        <div class="also-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="also-body">
+          <div class="also-brand">Cohiba</div>
+          <div class="also-name">Behike 52</div>
+          <div class="also-price">R$ 420,00</div>
+          <button class="also-btn">Ver produto</button>
+        </div>
+      </div>
+      <div class="also-card">
+        <div class="also-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="also-body">
+          <div class="also-brand">Montecristo</div>
+          <div class="also-name">No. 2</div>
+          <div class="also-price">R$ 195,00</div>
+          <button class="also-btn">Ver produto</button>
+        </div>
+      </div>
+      <div class="also-card">
+        <div class="also-img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="also-body">
+          <div class="also-brand">Partagás</div>
+          <div class="also-name">Serie D No. 4</div>
+          <div class="also-price">R$ 165,00</div>
+          <button class="also-btn">Ver produto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /desktop-frame -->
+
+<!-- ══════════════════════════════════════
+     STICKY CTA
+══════════════════════════════════════ -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sc-thumb">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+  </div>
+  <div class="sc-info">
+    <div class="sc-brand">Cohiba · Cuba</div>
+    <div class="sc-name">Siglo VI</div>
+  </div>
+  <div class="sc-price">R$ 280,00</div>
+  <button class="sc-btn">+ Adicionar ao Humidor</button>
+  <button class="sc-close" id="scClose" aria-label="Fechar">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════
+     ANOTAÇÕES DE DESIGN
+══════════════════════════════════════ -->
+<div class="design-notes">
+  <div class="dn-title">Anotações de Design — Mockup v2.1</div>
+  <div class="dn-grid">
+    <div class="dn-card">
+      <div class="dn-card-title">Sticky CTA Bar</div>
+      <div class="dn-card-text">Barra fixa na base da viewport que aparece ao scrollar além da seção principal. Contém miniatura, nome, preço e botão de compra — mantém o CTA acessível em qualquer ponto da página sem poluir o layout. Botão fechar permite dispensar.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Sistema de Tabs</div>
+      <div class="dn-card-text">Ficha Técnica, Sabor & Aromas, Ritual, Harmonizações e Armazenamento agrupados em tabs com nav sticky. Reduz scroll excessivo, permite navegação direta às seções de interesse. Tabs com scroll horizontal para telas menores.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Trust Signals</div>
+      <div class="dn-card-text">Grid 2×2 logo abaixo do CTA com 4 sinais de confiança: autenticidade, devolução, pagamento seguro e avaliação. Reduz ansiedade de compra no momento decisivo — exibição compacta não compete com o botão principal.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Wishlist + Share</div>
+      <div class="dn-card-text">Dois botões icon-only ao lado do CTA principal. O coração permite salvar sem comprar — captura intenção de usuários em fase de consideração. Compartilhar ativa boca a boca digital. Tamanho 42px mantém área de toque confortável.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Shipping Promise</div>
+      <div class="dn-card-text">Faixa verde compacta acima do campo CEP reforça frete grátis e prazo de envio. Posicionamento estratégico: surge imediatamente após a decisão de compra, antes do usuário verificar o frete — previne abandono.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Para Quem É — Compacto</div>
+      <div class="dn-card-text">Substituição dos 3 cards por indicador horizontal único. Mantém a informação essencial (ideal para apreciadores, não indicado para iniciantes) em menos espaço, liberando área vertical para os elementos de conversão.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Variante Esgotada — Disabled</div>
+      <div class="dn-card-text">Caixa (25) recebe opacity .42, cursor not-allowed e title="Produto esgotado no momento". Comunicação visual imediata sem necessidade de leitura — o chip desbotado sinaliza indisponibilidade antes do usuário interagir.</div>
+    </div>
+    <div class="dn-card">
+      <div class="dn-card-title">Vitolas fora das Tabs + CTA Ghost</div>
+      <div class="dn-card-text">Comparação de vitolas posicionada entre a seção principal e as tabs — conteúdo de apoio à decisão de vitola está no fluxo natural, antes do conteúdo educacional. Botões "Ver produto" nos relacionados usam estilo ghost para não competir com o CTA principal.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STICKY CTA ──
+const productSection = document.querySelector('.product-section');
+const stickyCta = document.getElementById('stickyCta');
+const scClose = document.getElementById('scClose');
+
+if (productSection && stickyCta) {
+  window.addEventListener('scroll', () => {
+    const bottom = productSection.getBoundingClientRect().bottom;
+    stickyCta.classList.toggle('visible', bottom < 0);
+  });
+
+  scClose.addEventListener('click', () => {
+    stickyCta.style.display = 'none';
+  });
+}
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tabId = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tabId)?.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

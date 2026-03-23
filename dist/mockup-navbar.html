@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup — Navbar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:  #ffffff;
+  --off:    #fafaf9;
+  --light:  #f4f3f1;
+  --muted:  #b0aba3;
+  --dim:    #787268;
+  --ink:    #2a2620;
+  --black:  #111110;
+  --border: #e0ddd8;
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --nav-h:  64px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--light); color: var(--ink); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+/* ── topbar ── */
+.topbar {
+  background: var(--black); color: rgba(255,255,255,.38);
+  font-size: .62rem; letter-spacing: .15em; text-transform: uppercase;
+  text-align: center; padding: .42rem 1rem;
+}
+.topbar strong { color: rgba(255,255,255,.65); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAVBAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  height: var(--nav-h);
+  display: flex; align-items: stretch;
+  padding: 0 2rem;
+  gap: 0;
+}
+
+/* logo — left */
+.nav-logo {
+  display: flex; align-items: center;
+  padding-right: 1.5rem; flex-shrink: 0;
+  margin-right: .5rem;
+}
+.nav-logo-name {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); letter-spacing: .02em; line-height: 1;
+}
+
+/* left nav items */
+.nav-left {
+  display: flex; align-items: stretch; height: 100%;
+  list-style: none; gap: 0; flex: 1;
+}
+.nav-item {
+  position: relative;
+  display: flex; align-items: stretch;
+}
+.nav-link {
+  display: flex; align-items: center; gap: .25rem;
+  padding: 0 .9rem; font-size: .85rem; font-weight: 400;
+  letter-spacing: .03em; color: var(--dim); white-space: nowrap;
+  cursor: pointer; transition: color .13s;
+  border-bottom: 2px solid transparent;
+  user-select: none;
+}
+.nav-link:hover { color: var(--ink); }
+.nav-item.open > .nav-link { color: var(--ink); border-bottom-color: var(--ink); }
+.caret {
+  width: 9px; height: 9px; opacity: .4;
+  transition: transform .2s, opacity .15s;
+  flex-shrink: 0;
+}
+.nav-item.open .caret { transform: rotate(180deg); opacity: .65; }
+
+/* right actions */
+.nav-right {
+  display: flex; align-items: center; justify-content: flex-end; gap: .2rem;
+}
+.nav-icon-btn {
+  width: 34px; height: 34px; border-radius: 50%; border: none;
+  background: none; cursor: pointer; color: var(--dim);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s, color .12s;
+}
+.nav-icon-btn:hover { background: var(--light); color: var(--ink); }
+.nav-icon-btn svg { width: 16px; height: 16px; stroke-width: 1.6; }
+
+/* meus pedidos btn — ghost, icon + text */
+.orders-btn {
+  display: flex; align-items: center; gap: .45rem;
+  padding: 0 .6rem; height: 38px;
+  border: none; background: none; cursor: pointer;
+  font-family: var(--sans); font-size: .85rem; font-weight: 400;
+  color: var(--dim); letter-spacing: .01em;
+  transition: color .12s; border-radius: 6px;
+}
+.orders-btn:hover { color: var(--ink); }
+.orders-btn svg { width: 19px; height: 19px; stroke-width: 1.5; flex-shrink: 0; }
+
+/* cart — icon + badge circle */
+.cart-btn {
+  display: flex; align-items: center; gap: .5rem;
+  padding: 0 .6rem; height: 34px;
+  border: none; background: none; cursor: pointer;
+  transition: color .12s; border-radius: 6px; color: var(--dim);
+}
+.cart-btn:hover { color: var(--ink); }
+.cart-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+.cart-count {
+  display: flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ink); color: #fff;
+  font-size: .68rem; font-weight: 700; line-height: 1;
+}
+
+/* ── location button ── */
+.loc-btn {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .42rem .85rem; border-radius: 100px;
+  border: none; background: var(--light); cursor: pointer;
+  font-family: var(--sans); font-size: .82rem; font-weight: 500;
+  color: var(--dim); transition: all .13s; white-space: nowrap;
+  position: relative;
+}
+.loc-btn:hover { background: var(--border); color: var(--ink); }
+.loc-btn.set { background: var(--light); color: var(--ink); }
+.loc-btn svg { width: 13px; height: 13px; stroke-width: 2; flex-shrink: 0; color: var(--ink); }
+.loc-btn-plus { font-size: .85rem; line-height: 1; color: var(--dim); margin-left: .05rem; }
+
+/* ── location dropdown ── */
+.loc-dropdown {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  width: 300px; z-index: 200;
+  background: var(--white);
+  border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,.13);
+  padding: 1.25rem;
+  opacity: 0; transform: translateY(-6px); pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease;
+}
+.loc-dropdown.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+.loc-dropdown-title {
+  font-size: 1rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .3rem; line-height: 1.3;
+}
+.loc-dropdown-sub {
+  font-size: .82rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5;
+}
+
+/* CEP input */
+.loc-cep-row {
+  display: flex; gap: .4rem; margin-bottom: .65rem;
+}
+.loc-cep-input {
+  flex: 1; border: none; border-radius: 8px;
+  padding: .65rem .9rem; font-family: var(--sans); font-size: .9rem;
+  color: var(--ink); outline: none;
+  background: var(--light);
+}
+.loc-cep-input::placeholder { color: var(--muted); }
+.loc-cep-btn {
+  padding: 0 1.1rem; border-radius: 8px;
+  background: var(--ink); border: none; cursor: pointer;
+  font-family: var(--sans); font-size: .85rem; font-weight: 600;
+  color: #fff; white-space: nowrap; transition: background .12s;
+}
+.loc-cep-btn:hover { background: #1a1612; }
+
+/* divider */
+.loc-divider {
+  display: flex; align-items: center; gap: .65rem;
+  margin-bottom: .65rem;
+}
+.loc-divider-line { flex: 1; height: 1px; background: var(--light); }
+.loc-divider-text { font-size: .62rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+/* GPS button */
+.loc-gps-btn {
+  width: 100%; padding: .65rem; border-radius: 8px;
+  border: none; background: var(--light); cursor: pointer;
+  font-family: var(--sans); font-size: .85rem; font-weight: 500;
+  color: var(--dim); display: flex; align-items: center; justify-content: center;
+  gap: .5rem; transition: all .13s;
+}
+.loc-gps-btn:hover { background: var(--border); color: var(--ink); }
+.loc-gps-btn svg { width: 14px; height: 14px; stroke-width: 1.8; }
+
+/* location set state */
+.loc-set-info {
+  display: none; flex-direction: column; gap: .15rem;
+  margin-bottom: .75rem; padding: .7rem .85rem;
+  background: var(--light); border-radius: 8px;
+}
+.loc-set-info.show { display: flex; }
+.loc-set-city { font-size: .78rem; font-weight: 600; color: var(--ink); }
+.loc-set-ship { font-size: .68rem; color: #2a9a4a; font-weight: 500; }
+.loc-change-link {
+  font-size: .65rem; color: var(--muted); cursor: pointer;
+  border: none; background: none; font-family: var(--sans);
+  text-align: left; padding: 0; margin-top: .35rem; transition: color .12s;
+}
+.loc-change-link:hover { color: var(--ink); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MEGA MENU — tabs horizontais
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.backdrop {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(17,17,16,.25);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+.backdrop.show { opacity: 1; pointer-events: all; }
+
+.mega-wrap {
+  position: fixed; left: 0; right: 0;
+  top: var(--nav-h);
+  z-index: 95;
+  display: flex; justify-content: flex-start;
+  padding: 0 2rem;
+  pointer-events: none;
+}
+.mega-wrap.show { pointer-events: all; }
+
+.mega {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.13);
+  padding: 0 1.5rem 1.5rem;
+  min-width: 560px; max-width: 720px;
+  opacity: 0; transform: translateY(-6px); pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.mega.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+
+/* tabs row */
+.mega-tabs {
+  display: flex; align-items: center; gap: .25rem;
+  padding: .75rem 0 .75rem;
+  margin-bottom: .75rem;
+}
+.cat-tab {
+  display: flex; align-items: center; gap: .45rem;
+  padding: .5rem .95rem; border-radius: 100px;
+  border: none; background: none; cursor: pointer;
+  font-family: var(--sans); font-size: .88rem; font-weight: 400;
+  color: var(--muted); transition: all .13s; white-space: nowrap;
+}
+.cat-tab:hover { background: var(--light); color: var(--dim); }
+.cat-tab.active { background: var(--ink); color: #fff; font-weight: 500; }
+.cat-tab-flag { font-size: .88rem; line-height: 1; }
+
+.mega-tabs-sep { flex: 1; }
+.mega-see-all-tab {
+  display: flex; align-items: center; gap: .3rem;
+  font-family: var(--sans); font-size: .7rem; font-weight: 500;
+  color: var(--dim); border: none; background: none; cursor: pointer;
+  padding: .45rem .6rem; border-radius: 100px; transition: all .12s;
+}
+.mega-see-all-tab:hover { background: var(--light); color: var(--ink); }
+.mega-see-all-tab svg { width: 11px; height: 11px; }
+
+/* brands grid */
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .35rem;
+}
+.brand-item {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .6rem .75rem; border-radius: 8px;
+  cursor: pointer; transition: background .1s;
+}
+.brand-item:hover { background: var(--light); }
+.brand-item:hover .brand-name { color: var(--ink); }
+.brand-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--light); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: .82rem; font-weight: 600;
+  color: var(--dim); flex-shrink: 0; line-height: 1;
+}
+.brand-info { min-width: 0; }
+.brand-name { font-size: .85rem; font-weight: 500; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .1s; }
+.brand-style { font-size: .72rem; color: var(--muted); margin-top: .06rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* filters area */
+.filters-area {
+  margin-top: 1rem; padding-top: .75rem;
+  background: var(--light); border-radius: 10px;
+  padding: .85rem 1rem; display: flex; flex-direction: column; gap: .55rem;
+}
+.intensity-row {
+  display: flex; align-items: center; gap: .5rem;
+}
+.intensity-label {
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); flex-shrink: 0;
+}
+.intensity-chip {
+  padding: .35rem .9rem; border-radius: 100px;
+  border: none; background: var(--white);
+  font-family: var(--sans); font-size: .78rem; font-weight: 500;
+  color: var(--dim); cursor: pointer; transition: all .12s;
+}
+.intensity-chip:hover { background: var(--border); color: var(--ink); }
+.intensity-chip.active { background: var(--ink); color: #fff; }
+
+/* ── simple dropdown ── */
+.simple-dd {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  min-width: 200px; z-index: 95;
+  background: var(--white);
+  border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,.13);
+  padding: .5rem;
+  opacity: 0; transform: translateY(-6px); pointer-events: none;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.nav-item.open .simple-dd { opacity: 1; transform: translateY(0); pointer-events: all; }
+.dd-item {
+  display: flex; align-items: center;
+  padding: .7rem .9rem; font-size: .88rem; color: var(--dim);
+  cursor: pointer; transition: background .1s, color .1s;
+  border-radius: 8px; font-weight: 400;
+}
+.dd-item:hover { background: var(--light); color: var(--ink); }
+.dd-sep { height: 4px; }
+.dd-item.emphasis { font-weight: 600; color: var(--ink); font-size: .75rem; }
+
+/* ── page scaffold ── */
+.page-body {
+  max-width: 900px; margin: 3rem auto; padding: 0 2rem;
+}
+.demo-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+  padding: 2rem; color: var(--muted); font-size: .8rem; text-align: center;
+  height: 200px; display: flex; align-items: center; justify-content: center;
+}
+
+/* ── annotation strip ── */
+.notes {
+  max-width: 900px; margin: 2.5rem auto 4rem; padding: 0 2rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.note-title {
+  font-size: .6rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: .5rem; border-bottom: 1px solid var(--border);
+  margin-bottom: .4rem;
+}
+.note {
+  background: #fffdf0; border: 1px solid #e8d878; border-radius: 4px;
+  padding: .5rem .9rem; font-size: .71rem; color: #5a4d00;
+  display: flex; gap: .5rem;
+}
+</style>
+</head>
+<body>
+
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+
+  <!-- logo + localização -->
+  <div style="display:flex;align-items:center;gap:.1rem;margin-right:.5rem;">
+    <a class="nav-logo" href="#">
+      <span class="nav-logo-name">Tabacco</span>
+    </a>
+    <div style="position:relative;">
+      <button class="loc-btn" id="loc-btn" onclick="toggleLoc()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span id="loc-label">Informe seu CEP</span>
+        <span class="loc-btn-plus" id="loc-plus">+</span>
+      </button>
+      <div class="loc-dropdown" id="loc-dropdown">
+        <div class="loc-set-info" id="loc-set-info">
+          <div>
+            <div class="loc-set-city" id="loc-set-city">São Paulo, SP</div>
+            <div class="loc-set-ship">🚚 Receba ainda hoje</div>
+          </div>
+          <button class="loc-change-link" onclick="resetLoc()">Alterar localização</button>
+        </div>
+        <div id="loc-form">
+          <div class="loc-dropdown-title">Onde você está?</div>
+          <div class="loc-dropdown-sub">Informe seu CEP ou ative a localização para ver o prazo de entrega exato.</div>
+          <div class="loc-cep-row">
+            <input class="loc-cep-input" id="loc-cep-input" placeholder="00000-000" maxlength="9" oninput="maskCep(this)">
+            <button class="loc-cep-btn" onclick="setCepLocation()">OK</button>
+          </div>
+          <div class="loc-divider">
+            <div class="loc-divider-line"></div>
+            <span class="loc-divider-text">ou</span>
+            <div class="loc-divider-line"></div>
+          </div>
+          <button class="loc-gps-btn" onclick="setGpsLocation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
+            Usar minha localização
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- nav items -->
+  <ul class="nav-left">
+    <li class="nav-item" id="item-charutos">
+      <span class="nav-link" onclick="toggleMega('charutos')">
+        Charutos
+        <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+    </li>
+    <li class="nav-item" id="item-acessorios">
+      <span class="nav-link" onclick="toggleSimple('acessorios')">
+        Acessórios
+        <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+      <div class="simple-dd" id="dd-acessorios">
+        <div class="dd-item">Cortadores</div>
+        <div class="dd-item">Isqueiros</div>
+        <div class="dd-item">Umidores</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item emphasis">Ver todos →</div>
+      </div>
+    </li>
+    <li class="nav-item" id="item-kits">
+      <span class="nav-link" onclick="toggleSimple('kits')">
+        Kits & Presentes
+        <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+      <div class="simple-dd" id="dd-kits">
+        <div class="dd-item">Kits para Presente</div>
+        <div class="dd-item">Vale-Presentes</div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- direita: ações -->
+  <div class="nav-right">
+    <button class="orders-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Meus Pedidos
+    </button>
+    <button class="cart-btn" title="Carrinho">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-count">3</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BACKDROP -->
+<div class="backdrop" id="backdrop" onclick="closeAll()"></div>
+
+<!-- MEGA MENU -->
+<div class="mega-wrap" id="mega-wrap">
+<div class="mega" id="mega-charutos">
+
+  <!-- tabs de categoria -->
+  <div class="mega-tabs">
+    <button class="cat-tab active" id="cat-cubanos" onclick="setActiveCat('cubanos')">
+      <span class="cat-tab-flag">🇨🇺</span> Cubanos
+    </button>
+    <button class="cat-tab" id="cat-outros" onclick="setActiveCat('outros')">
+      <span class="cat-tab-flag">🌎</span> Outros Países
+    </button>
+    <button class="cat-tab" id="cat-nacionais" onclick="setActiveCat('nacionais')">
+      <span class="cat-tab-flag">🇧🇷</span> Nacionais
+    </button>
+    <div class="mega-tabs-sep"></div>
+    <button class="mega-see-all-tab">
+      Ver catálogo completo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- grid de marcas -->
+  <div class="brands-grid" id="brands-grid"></div>
+
+  <!-- filtros -->
+  <div class="filters-area">
+    <div class="intensity-row">
+      <span class="intensity-label">Intensidade</span>
+      <button class="intensity-chip">Suave</button>
+      <button class="intensity-chip">Médio</button>
+      <button class="intensity-chip">Forte</button>
+    </div>
+    <div class="intensity-row">
+      <span class="intensity-label">Experiência</span>
+      <button class="intensity-chip">Iniciante</button>
+      <button class="intensity-chip">Apreciador</button>
+      <button class="intensity-chip">Aficionado</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="page-body">
+  <div class="demo-card">Conteúdo da página</div>
+</div>
+
+<div class="notes">
+  <div class="note-title">Notas de design</div>
+  <div class="note"><span>⬛</span> <span>Logo centralizado — nav items à esquerda, ações à direita. Eixo simétrico e limpo.</span></div>
+  <div class="note"><span>↔️</span> <span>Mega menu em 2 colunas: Origem (nível 2) à esquerda, Marcas (nível 3) à direita. Mais respiro, mais fácil de ler.</span></div>
+  <div class="note"><span>🏷️</span> <span>Filtro por intensidade no rodapé do mega menu — atalho sem precisar ir ao catálogo.</span></div>
+</div>
+
+<script>
+const DATA = {
+  cubanos: {
+    title: 'Marcas Cubanas', seeAll: 'Ver todos os cubanos',
+    brands: [
+      { initials:'CO', name:'Cohiba',          style:'Médio' },
+      { initials:'MC', name:'Montecristo',      style:'Médio' },
+      { initials:'PA', name:'Partagás',         style:'Forte' },
+      { initials:'BO', name:'Bolívar',          style:'Forte' },
+      { initials:'HU', name:'H. Upmann',        style:'Médio' },
+      { initials:'RY', name:'Romeo y Julieta',  style:'Suave a Médio' },
+    ]
+  },
+  outros: {
+    title: 'Outros Países', seeAll: 'Ver todos',
+    brands: [
+      { initials:'AF', name:'Arturo Fuente', style:'Médio a Forte' },
+      { initials:'DV', name:'Davidoff',      style:'Suave a Médio' },
+      { initials:'MF', name:'My Father',     style:'Médio a Forte' },
+      { initials:'RP', name:'Rocky Patel',   style:'Médio' },
+      { initials:'OL', name:'Oliva',         style:'Médio a Forte' },
+    ]
+  },
+  nacionais: {
+    title: 'Marcas Nacionais', seeAll: 'Ver todos os nacionais',
+    brands: [
+      { initials:'DN', name:'Dannemann',       style:'Suave' },
+      { initials:'DF', name:'Dona Flor',       style:'Suave a Médio' },
+      { initials:'DM', name:'Damatta',         style:'Médio' },
+      { initials:'AM', name:'Alonso Menendez', style:'Forte' },
+    ]
+  },
+  todos: { title: 'Todos os Charutos', seeAll: 'Ver catálogo completo', brands: [] }
+};
+
+let openMenu = null;
+let activeCat = 'cubanos';
+
+function toggleMega(id) {
+  if (openMenu === id) { closeAll(); return; }
+  closeAll();
+  openMenu = id;
+  document.getElementById('item-' + id).classList.add('open');
+  document.getElementById('mega-' + id).classList.add('show');
+  document.getElementById('mega-wrap').classList.add('show');
+  document.getElementById('backdrop').classList.add('show');
+  renderBrands(activeCat);
+}
+
+function toggleSimple(id) {
+  const item = document.getElementById('item-' + id);
+  const wasOpen = item.classList.contains('open');
+  closeAll();
+  if (!wasOpen) { item.classList.add('open'); openMenu = id; }
+}
+
+function closeAll() {
+  document.querySelectorAll('.nav-item.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.mega.show').forEach(el => el.classList.remove('show'));
+  document.getElementById('mega-wrap').classList.remove('show');
+  document.getElementById('backdrop').classList.remove('show');
+  openMenu = null;
+}
+
+function setActiveCat(cat) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-tab').forEach(el => el.classList.remove('active'));
+  const btn = document.getElementById('cat-' + cat);
+  if (btn) btn.classList.add('active');
+  renderBrands(cat);
+}
+
+function renderBrands(cat) {
+  const d = DATA[cat];
+  if (!d) return;
+  const grid = document.getElementById('brands-grid');
+  if (!d.brands.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;color:var(--muted);font-size:.73rem;padding:.25rem 0;">Use os filtros de intensidade abaixo para explorar o catálogo.</div>';
+    return;
+  }
+  grid.innerHTML = d.brands.map(b => `
+    <div class="brand-item">
+      <div class="brand-avatar">${b.initials}</div>
+      <div class="brand-info">
+        <div class="brand-name">${b.name}</div>
+        <div class="brand-style">${b.style}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── localização ──
+let locOpen = false;
+
+function toggleLoc() {
+  locOpen = !locOpen;
+  closeAll();
+  document.getElementById('loc-dropdown').classList.toggle('show', locOpen);
+  if (locOpen) setTimeout(() => document.getElementById('loc-cep-input')?.focus(), 150);
+}
+
+function closeLoc() {
+  locOpen = false;
+  document.getElementById('loc-dropdown').classList.remove('show');
+}
+
+function maskCep(el) {
+  let v = el.value.replace(/\D/g, '').slice(0, 8);
+  if (v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+  el.value = v;
+}
+
+function applyLocation(city, ship) {
+  document.getElementById('loc-label').textContent = city;
+  document.getElementById('loc-plus').style.display = 'none';
+  document.getElementById('loc-btn').classList.add('set');
+  document.getElementById('loc-set-city').textContent = city;
+  document.querySelector('.loc-set-ship').textContent = ship;
+  document.getElementById('loc-set-info').classList.add('show');
+  document.getElementById('loc-form').style.display = 'none';
+  closeLoc();
+}
+
+function setCepLocation() {
+  const cep = document.getElementById('loc-cep-input').value.replace(/\D/g,'');
+  if (cep.length < 8) { document.getElementById('loc-cep-input').focus(); return; }
+  // mock: CEP 01xxx = SP capital
+  const city = cep.startsWith('0') ? 'São Paulo, SP' : cep.startsWith('2') ? 'Rio de Janeiro, RJ' : 'Outra cidade';
+  const ship = cep.startsWith('0') ? '🚚 Receba ainda hoje' : '📦 2–3 dias úteis';
+  applyLocation(city, ship);
+}
+
+function setGpsLocation() {
+  document.querySelector('.loc-gps-btn').textContent = 'Detectando…';
+  setTimeout(() => applyLocation('São Paulo, SP', '🚚 Receba ainda hoje'), 1200);
+}
+
+function resetLoc() {
+  document.getElementById('loc-label').textContent = 'Informe seu CEP';
+  document.getElementById('loc-plus').style.display = '';
+  document.getElementById('loc-btn').classList.remove('set');
+  document.getElementById('loc-set-info').classList.remove('show');
+  document.getElementById('loc-form').style.display = '';
+  document.querySelector('.loc-gps-btn').textContent = '';
+  document.querySelector('.loc-gps-btn').innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;stroke-width:1.8;"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg> Usar minha localização`;
+  document.getElementById('loc-cep-input').value = '';
+  toggleLoc();
+}
+
+// fechar loc ao clicar fora
+document.addEventListener('click', e => {
+  if (!e.target.closest('#loc-btn') && !e.target.closest('#loc-dropdown')) closeLoc();
+});
+
+// chip toggle
+document.querySelectorAll('.intensity-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const row = chip.closest('.intensity-row');
+    row.querySelectorAll('.intensity-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.toggle('active');
+  });
+});
+
+renderBrands('cubanos');
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeAll(); closeLoc(); }
+});
+</script>
+</body>
+</html>
