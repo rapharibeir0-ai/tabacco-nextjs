@@ -86,7 +86,7 @@ export default function Header({ cartCount, catFilter, onCatChange, onCartToggle
     Promise.all([fetchCategoryTree(), fetchNavPages()]).then(([cats, pages]) => {
       const tree = cats?.length > 0 ? cats : FALLBACK_CATS;
       setCategories(tree);
-      setMegaCat(tree[0]?.value || null);
+      setMegaCat(tree[0]?.children?.[0]?.value || tree[0]?.value || null);
       setNavPages(pages || []);
     });
   }, []);
@@ -143,10 +143,6 @@ export default function Header({ cartCount, catFilter, onCatChange, onCartToggle
     setGpsLoading(true);
     setTimeout(() => { setLocation({ city: 'São Paulo, SP', ship: '🚚 Receba ainda hoje' }); setGpsLoading(false); setLocOpen(false); }, 1200);
   }
-
-  // Categoria mega menu ativa
-  const megaCatData = categories.find(c => c.value === megaCat);
-  const megaChildren = megaCatData?.children || [];
 
   // Categorias que abrem mega menu vs dropdown
   const megaCats = categories.filter(c => c.megaMenu || c.children?.length > 0);
@@ -304,7 +300,7 @@ export default function Header({ cartCount, catFilter, onCatChange, onCartToggle
                   </div>
 
                   {/* Nível 3: filhos da subcategoria ativa */}
-                  {megaChildren.length > 0 && (() => {
+                  {(() => {
                     const activeSub = (cat.children || []).find(c => c.value === megaCat);
                     const level3 = activeSub?.children || [];
                     if (level3.length === 0) return null;
