@@ -2,7 +2,8 @@
 
 import { useState, useMemo, useCallback, useEffect, use } from 'react';
 import Link from 'next/link';
-import { defaultProducts, BRANDS, catLabels, brandInitials, fmt } from '@/lib/data';
+import { catLabels, brandInitials, fmt } from '@/lib/data';
+import { supabase } from '@/lib/supabase';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
 import Cart from '@/components/Cart';
@@ -20,12 +21,11 @@ const IcoX = () => (
 
 export default function CategoriaPage({ params }) {
   const { categoria } = use(params);
-  const allProducts = useMemo(
-    () => defaultProducts.filter(p => p.category === categoria),
-    [categoria]
-  );
 
   // ── Estado ──
+  const [allProducts,  setAllProducts]  = useState([]);
+  const [brandsInfo,   setBrandsInfo]   = useState({});
+  const [loading,      setLoading]      = useState(true);
   const [activeBrand,  setActiveBrand]  = useState(null);
   const [flavorFilter, setFlavorFilter] = useState('todos');
   const [stockOnly,    setStockOnly]    = useState(false);
@@ -35,17 +35,53 @@ export default function CategoriaPage({ params }) {
   const [page,         setPage]         = useState(1);
   const [cart,         setCart]         = useState([]);
   const [cartOpen,     setCartOpen]     = useState(false);
+  const [cartId,       setCartId]       = useState(null);
 
-  // Carrinho persistido
+  // Busca produtos desta categoria do Supabase
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('tabacco-cart'));
-      if (Array.isArray(saved) && saved.length > 0) setCart(saved);
-    } catch {}
+    async function fetchData() {
+      setLoading(true);
+      const [{ data: prods }, { data: brandsData }] = await Promise.all([
+        supabase.from('products').select('*, variants(*)').eq('category', categoria).order('id'),
+        supabase.from('brands').select('*'),
+      ]);
+      setAllProducts((prods || []).map(p => ({ ...p, smokeTime: p.smoke_time })));
+      const map = {};
+      (brandsData || []).forEach(b => { map[b.name] = b; });
+      setBrandsInfo(map);
+      setLoading(false);
+    }
+    fetchData();
+  }, [categoria]);
+
+  // Carrinho persistido no Supabase
+  useEffect(() => {
+    async function loadCart() {
+      let id = sessionStorage.getItem('tabacco-cart-id');
+      if (!id) {
+        id = crypto.randomUUID();
+        sessionStorage.setItem('tabacco-cart-id', id);
+      }
+      setCartId(id);
+      const { data } = await supabase
+        .from('orders')
+        .select('items')
+        .eq('cart_id', id)
+        .eq('status', 'draft')
+        .maybeSingle();
+      if (data?.items?.length > 0) setCart(data.items);
+    }
+    loadCart();
   }, []);
+
+  // Sincroniza carrinho com o Supabase ao alterar
   useEffect(() => {
-    localStorage.setItem('tabacco-cart', JSON.stringify(cart));
-  }, [cart]);
+    if (!cartId) return;
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    supabase.from('orders')
+      .upsert({ cart_id: cartId, items: cart, status: 'draft', total }, { onConflict: 'cart_id' })
+      .then(({ error }) => { if (error) console.error('Erro ao salvar carrinho:', error); });
+  }, [cart, cartId]);
 
   // Reset página ao mudar filtros
   useEffect(() => { setPage(1); }, [activeBrand, flavorFilter, stockOnly, priceMax, sortMode]);
@@ -190,7 +226,13 @@ export default function CategoriaPage({ params }) {
           )}
 
           {/* Produtos agrupados por marca */}
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div style={{ display:'flex', justifyContent:'center', padding:'4rem 0' }}>
+              <svg style={{ animation:'spin 0.8s linear infinite', opacity:0.3 }} width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2a10 10 0 1 0 0 20" strokeLinecap="round"/>
+              </svg>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="empty-state"><p>Nenhum produto encontrado com estes filtros.</p></div>
           ) : (
             brandGroups.map(([brand, items]) => (
@@ -199,8 +241,8 @@ export default function CategoriaPage({ params }) {
                   <div className="cat-brand-monogram">{brandInitials(brand)}</div>
                   <div>
                     <div className="cat-brand-name">{brand}</div>
-                    {BRANDS[brand]?.bio && (
-                      <div className="cat-brand-bio">{BRANDS[brand].bio.split('.')[0]}.</div>
+                    {brandsInfo[brand]?.bio && (
+                      <div className="cat-brand-bio">{brandsInfo[brand].bio.split('.')[0]}.</div>
                     )}
                   </div>
                   <span className="cat-brand-count">{items.length} produto{items.length !== 1 ? 's' : ''}</span>

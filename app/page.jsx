@@ -2,7 +2,8 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { defaultProducts, BRANDS, catLabels, catOrigins, brandInitials, fmt } from '@/lib/data';
+import { catLabels, catOrigins, brandInitials, fmt } from '@/lib/data';
+import { supabase } from '@/lib/supabase';
 import Header from '@/components/Header';
 import Filters from '@/components/Filters';
 import BrandHeader from '@/components/BrandHeader';
@@ -12,7 +13,7 @@ import Cart from '@/components/Cart';
 // ── PRODUCT MODAL ─────────────────────────────────────────────
 import { intensityLevel, stockText } from '@/lib/data';
 
-function ProductModal({ product, onClose, onAddToCart }) {
+function ProductModal({ product, brandsInfo, onClose, onAddToCart }) {
   useEffect(() => {
     if (!product) return;
     function onKey(e) { if (e.key === 'Escape') onClose(); }
@@ -22,7 +23,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
 
   if (!product) return null;
   const level = intensityLevel[product.flavor] ?? 1;
-  const brandInfo = BRANDS[product.brand] || {};
+  const brandInfo = brandsInfo[product.brand] || {};
   const isOut = product.stock === 'out';
 
   return (
@@ -185,7 +186,7 @@ function Hero({ products, searchQ, onSearch }) {
 }
 
 // ── CATALOG ───────────────────────────────────────────────────
-function Catalog({ products, catFilter, onAddToCart, onOpenModal }) {
+function Catalog({ products, catFilter, brandsInfo, onAddToCart, onOpenModal }) {
   if (products.length === 0) {
     return (
       <div className="catalog-wrap">
@@ -245,7 +246,7 @@ function Catalog({ products, catFilter, onAddToCart, onOpenModal }) {
             </div>
 
             {brandNames.map(brand => {
-              const info = BRANDS[brand] || {};
+              const info = brandsInfo[brand] || {};
               const items = brandMap[brand];
               return (
                 <div key={brand} className="cat-brand-group">
@@ -317,7 +318,9 @@ const PRICE_ABS_MIN = 0;
 const PRICE_ABS_MAX = 1000;
 
 export default function CatalogPage() {
-  const products = defaultProducts;
+  const [products,     setProducts]     = useState([]);
+  const [brandsInfo,   setBrandsInfo]   = useState({});
+  const [loading,      setLoading]      = useState(true);
   const [catFilter,    setCatFilter]    = useState('todos');
   const [flavorFilter, setFlavorFilter] = useState('todos');
   const [stockFilter,  setStockFilter]  = useState('todos');
@@ -328,6 +331,23 @@ export default function CatalogPage() {
   const [cart,         setCart]         = useState([]);
   const [cartOpen,     setCartOpen]     = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
+
+  // Busca produtos e marcas do Supabase
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const [{ data: prods }, { data: brandsData }] = await Promise.all([
+        supabase.from('products').select('*, variants(*)').order('id'),
+        supabase.from('brands').select('*'),
+      ]);
+      setProducts((prods || []).map(p => ({ ...p, smokeTime: p.smoke_time })));
+      const map = {};
+      (brandsData || []).forEach(b => { map[b.name] = b; });
+      setBrandsInfo(map);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
 
   const filtered = useMemo(() => {
     let list = products.filter(p => {
@@ -434,12 +454,21 @@ export default function CatalogPage() {
         />
       )}
 
-      <Catalog
-        products={filtered}
-        catFilter={catFilter}
-        onAddToCart={addToCart}
-        onOpenModal={setModalProduct}
-      />
+      {loading ? (
+        <div style={{ display:'flex', justifyContent:'center', padding:'5rem 0' }}>
+          <svg style={{ animation:'spin 0.8s linear infinite', opacity:0.3 }} width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 2a10 10 0 1 0 0 20" strokeLinecap="round"/>
+          </svg>
+        </div>
+      ) : (
+        <Catalog
+          products={filtered}
+          catFilter={catFilter}
+          brandsInfo={brandsInfo}
+          onAddToCart={addToCart}
+          onOpenModal={setModalProduct}
+        />
+      )}
 
       <Footer />
 
@@ -467,6 +496,7 @@ export default function CatalogPage() {
       {modalProduct && (
         <ProductModal
           product={modalProduct}
+          brandsInfo={brandsInfo}
           onClose={() => setModalProduct(null)}
           onAddToCart={product => { addToCart(product); setModalProduct(null); }}
         />

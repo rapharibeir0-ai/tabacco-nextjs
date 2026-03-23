@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
+/* ── Animação de loading ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* ── SVG icon helper ── */
 .ico { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
 .ico svg { display:block; }
